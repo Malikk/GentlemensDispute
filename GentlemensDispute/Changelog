@@ -1,2 +1,7 @@
+Version 0.2
+	* Added empty command classes for duel and challenge accept/decline
+	* Updated plugin.yml with new commands and aliases
+	* Began formatting config file
+
 Version 0.1
 	* Initial commit
