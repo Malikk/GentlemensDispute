@@ -21,7 +21,7 @@ public class GentlemensDispute extends JavaPlugin{
 	
 	public void onEnable(){
 		config.loadConfiguration();
-		commandExecutors();
+		loadCommandExecutors();
 		Log("Enabled");
 	}
 	  
@@ -34,7 +34,7 @@ public class GentlemensDispute extends JavaPlugin{
 		this.log.info("[" + pdfile.getName() + "] " + msg);
 	}
 	
-	public void commandExecutors(){
+	public void loadCommandExecutors(){
 		
 		duel = new CmdDuel(this);
 		this.getCommand("duel").setExecutor(duel);
