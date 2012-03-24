@@ -9,7 +9,8 @@ public class GentlemensDispute extends JavaPlugin{
 	
 	private Logger log = Logger.getLogger("Minecraft");
 	
-	public void onEnable(){  
+	public void onEnable(){
+		loadConfiguration();
 		Log("Enabled");
 	}
 	  
