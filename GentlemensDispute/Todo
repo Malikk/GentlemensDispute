@@ -1,0 +1,14 @@
+Immeadiate Priority
+	* Commands for challenging (duels only)
+	* Commands for accepting/declining
+	* Removing combatant inventories
+	* Giving weapons/armor (config)
+	* Scheduler for countdown
+	* Scheduler to make sure only one combatant died
+	* Arena selection
+	* Arena config/commands for setup
+
+Long-term Priority
+	* Shootout mode
+	* Wager matches
+	* Statistics
