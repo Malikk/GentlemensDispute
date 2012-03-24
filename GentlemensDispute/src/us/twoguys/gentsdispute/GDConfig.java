@@ -37,8 +37,7 @@ public class GDConfig {
 		
 		
 		plugin.getConfig().options().copyDefaults(true);
-	    plugin.saveConfig();
+		plugin.saveConfig();
 	    
-	    //poop
 	}
 }
