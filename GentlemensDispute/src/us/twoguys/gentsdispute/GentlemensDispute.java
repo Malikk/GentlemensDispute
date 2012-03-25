@@ -38,11 +38,9 @@ public class GentlemensDispute extends JavaPlugin{
 		
 		duel = new CmdDuel(this);
 		this.getCommand("duel").setExecutor(duel);
-		this.getCommand("d").setExecutor(duel);
 		
 		response = new CmdChallenged(this);
 		this.getCommand("challenge").setExecutor(response);
-		this.getCommand("ch").setExecutor(response);
 	}
 	
 }

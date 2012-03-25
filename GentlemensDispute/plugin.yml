@@ -6,7 +6,7 @@ commands:
     duel:
         description: Challenges another player to a duel
         aliases: d
-        usage: /duel <player> [arena]
+        usage: /duel <player>
     challenge:
         description: Used to accept or decline a challenge
         aliases: ch
