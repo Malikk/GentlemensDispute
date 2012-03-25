@@ -12,7 +12,7 @@ public class GDConfig {
 	
 	public void loadConfiguration(){
 		String version = plugin.getDescription().getVersion();
-		String[] givenItems = {"274 1", "49 4", "69 2"};
+		String[] givenItems = {"276 1", "261 1", "262 64"};
 		
 		plugin.getConfig().options().header("\n Gentlemen'sDispute v" + version +"\n By Malikk and Arzeyt \n \n For help with the Config file, see the BukkitDev page.  \n ");
 		
@@ -26,8 +26,6 @@ public class GDConfig {
 		
 		plugin.getConfig().addDefault("Challenges.TimeToRespond", 0);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer", true);
-		
-		
 		
 		plugin.getConfig().options().copyDefaults(true);
 		plugin.saveConfig();
