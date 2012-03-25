@@ -22,16 +22,21 @@ public class GentlemensDispute extends JavaPlugin{
 	public void onEnable(){
 		config.loadConfiguration();
 		loadCommandExecutors();
-		Log("Enabled");
+		log("Enabled");
 	}
 	  
 	public void onDisable(){
-		Log("Disabled");
+		log("Disabled");
 	}
 	
-	public void Log(String msg){
+	public void log(String msg){
 		PluginDescriptionFile pdfile = this.getDescription();		
 		this.log.info("[" + pdfile.getName() + "] " + msg);
+	}
+	
+	public void logSevere(String msg){
+		PluginDescriptionFile pdfile = this.getDescription();		
+		this.log.severe("[" + pdfile.getName() + "] " + msg);
 	}
 	
 	public void loadCommandExecutors(){
