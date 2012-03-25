@@ -1,3 +1,6 @@
+Version 0.3
+	* Finished basic /duel and /ch commands
+	* Finished ChallengeAcceptTimer
 Version 0.2
 	* Added empty command classes for duel and challenge accept/decline
 	* Updated plugin.yml with new commands and aliases

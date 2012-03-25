@@ -1,5 +1,5 @@
 name: GentlemensDispute
-version: 0.2
+version: 0.3
 authors: [Malikk, Arzeyt]
 main: us.twoguys.gentsdispute.GentlemensDispute
 commands:

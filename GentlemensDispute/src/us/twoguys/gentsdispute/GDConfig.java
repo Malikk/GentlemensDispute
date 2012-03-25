@@ -81,4 +81,9 @@ public class GDConfig {
 		return boots;
 	}
 	
+	public int getTimeToRespond(){
+		int seconds = plugin.getConfig().getInt("Challenges.TimeToRespond");
+		return seconds;
+	}
+	
 }

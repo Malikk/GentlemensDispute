@@ -19,7 +19,7 @@ public class CmdDuel implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!(sender instanceof Player)){console(); return false;}
+		if (!(sender instanceof Player)){console(); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
 		
 		Player p1 = (Player) sender;
@@ -36,7 +36,7 @@ public class CmdDuel implements CommandExecutor {
 		if (p2 == p1){samePlayer(sender); return false;}
 		
 		//Successful Command
-		success(sender, p2);
+		success(p1, p2);
 		broadcast(p1, p2);
 		
 		GDScheduler sche = new GDScheduler(plugin);
@@ -44,8 +44,10 @@ public class CmdDuel implements CommandExecutor {
 		return true;
 	}
 	
-	private void success(CommandSender sender, Player p2){
-		sender.sendMessage(String.format("You have challenged %s to a Duel!", p2.getName()));
+	private void success(Player p1, Player p2){
+		p1.sendMessage(String.format("You have challenged %s to a Duel!", p2.getName()));
+		p2.sendMessage(String.format("%s has challenged you to a Duel!", p1.getName()));
+		p2.sendMessage(String.format("You have %s seconds to /challenge <accept or decline>", plugin.config.getTimeToRespond()));
 	}
 	
 	private void broadcast(Player p1, Player p2){

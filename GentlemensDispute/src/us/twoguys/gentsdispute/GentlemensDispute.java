@@ -6,6 +6,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.twoguys.gentsdispute.commandExecutors.*;
+import us.twoguys.gentsdispute.modes.*;
+import us.twoguys.gentsdispute.arena.*;
 
 public class GentlemensDispute extends JavaPlugin{
 	
@@ -17,7 +19,8 @@ public class GentlemensDispute extends JavaPlugin{
 	private CmdChallenged response;
 	
 	//Classes
-	GDConfig config = new GDConfig(this);
+	public GDConfig config = new GDConfig(this);
+	public GDModes modes = new GDModes(this);
 	
 	public void onEnable(){
 		config.loadConfiguration();

@@ -12,7 +12,34 @@ public class GDScheduler {
 	}
 	
 	//Challenge Acceptance Timer
-	public void acceptTimer(Player p1, Player p2){
+	public void acceptTimer(final Player p1, final Player p2){
+		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+			boolean firstCheck = true;
+			int counter;
+			
+			public void run(){
+				if (firstCheck){
+					firstCheck = false;
+					plugin.modes.acceptWaiting.put(p2, p1);
+					counter = plugin.config.getTimeToRespond();
+				}else if (firstCheck == false){
+					if (counter > 0){
+						plugin.log("Time Remaining: " + counter + " Seconds");
+						counter--;
+					}else if (counter == 0){
+						p1.sendMessage("Challenge timed out!");
+						p2.sendMessage("Challenge timed out!");
+						plugin.modes.acceptWaiting.remove(p2);
+						plugin.getServer().getScheduler().cancelTask(taskId);
+					}
+				}
+				
+				if (!(plugin.modes.acceptWaiting.containsKey(p2))){
+					plugin.getServer().getScheduler().cancelTask(taskId);
+				}
+				
+			}
+		}, 0L, 20L);
 		
 	}
 	

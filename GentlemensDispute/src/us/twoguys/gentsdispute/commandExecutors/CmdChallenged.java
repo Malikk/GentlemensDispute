@@ -3,6 +3,7 @@ package us.twoguys.gentsdispute.commandExecutors;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 
@@ -16,8 +17,47 @@ public class CmdChallenged implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		// TODO Auto-generated method stub
+		if (!(sender instanceof Player)){console(); return true;}
+		if (!(plugin.modes.acceptWaiting.containsKey((Player)sender))){noChallenge(sender); return true;}
+		if (args.length == 0){noArgs(sender); return false;}
+		
+		Player p2 = (Player) sender;
+		Player p1 =  plugin.modes.acceptWaiting.get(p2);
+		
+		if (args[0].equalsIgnoreCase("accept")){
+			plugin.modes.acceptWaiting.remove(p2);
+			acceptMessages(p1, p2);
+			return true;
+			
+		}else if (args[0].equalsIgnoreCase("decline")){
+			plugin.modes.acceptWaiting.remove(p2);
+			declineMessages(p1, p2);
+			return true;
+		}
+		
 		return false;
+	}
+	
+	private void acceptMessages(Player p1, Player p2){
+		p1.sendMessage(p2.getName() + " has accepted your challenge!");
+		p2.sendMessage("Challenge accepted");
+	}
+	
+	private void declineMessages(Player p1, Player p2){
+		p1.sendMessage(p2.getName() + " has declined your challenge");
+		p2.sendMessage("Challenge declined");
+	}
+	
+	private void console(){
+		plugin.log("You must be logged in to do that.");
+	}
+	
+	private void noArgs(CommandSender sender){
+		sender.sendMessage("You must either accept or decline the challenge.");
+	}
+	
+	private void noChallenge(CommandSender sender){
+		sender.sendMessage("You have not been challenged.");
 	}
 
 }
