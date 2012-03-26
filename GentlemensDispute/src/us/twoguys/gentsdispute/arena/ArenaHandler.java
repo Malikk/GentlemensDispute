@@ -5,7 +5,7 @@ package us.twoguys.gentsdispute.arena;
  * This class will be multi-instanced, so it is not to be used to store collective arena data.
  * The Primary purpose for this class will be to act as the link between the 
  */
-public class GDArenaHandler {
+public class ArenaHandler {
 
 
 	

@@ -6,12 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public class GDArenaData implements Serializable{
+public class ArenaData implements Serializable{
 
 	
 	private static final long serialVersionUID = 5102457006382574656L;
 
-	
+	//selection locations
 	private int x1, y1, z1;
 	private int x2, y2, z2;
 	
@@ -22,7 +22,7 @@ public class GDArenaData implements Serializable{
 	
 	private String arenaName;
 	
-	public GDArenaData(Location corner1, Location corner2, Location spawn, String name){
+	public ArenaData(Location corner1, Location corner2, Location spawn, String arenaName){
 		x1 = corner1.getBlockX();
 		y1 = corner1.getBlockY();
 		z1 = corner1.getBlockZ();
@@ -35,7 +35,7 @@ public class GDArenaData implements Serializable{
 		sy = spawn.getBlockY();
 		sz = spawn.getBlockZ();
 		
-		arenaName = name;
+		this.arenaName = arenaName;
 		
 		worldName = corner1.getWorld().getName();
 	}
@@ -45,7 +45,7 @@ public class GDArenaData implements Serializable{
 	}
 	
 	public Location getCorner1(){
-		return stringToLocation(worldName, x1, y2, z2);
+		return stringToLocation(worldName, x1, y1, z1);
 	}
 	
 	public Location getCorner2(){
@@ -63,7 +63,10 @@ public class GDArenaData implements Serializable{
 	public Location getSpawnLocation(){
 		return stringToLocation(worldName, sx, sy, sz);
 	}
+	
 	private Location stringToLocation(String worldName, int x, int y, int z){
 		return new Location(Bukkit.getWorld(worldName), x, y, z);		
 	}
+	
+	
 }
