@@ -1,7 +1,5 @@
 package us.twoguys.gentsdispute.modes;
 
-import java.util.HashMap;
-
 import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
@@ -9,22 +7,29 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 public class GDModes {
 
 	GentlemensDispute plugin;
-	public HashMap<Player, Player> acceptWaiting = new HashMap<Player, Player>();
 	
 	public GDModes(GentlemensDispute instance){
 		plugin = instance;
 	}
 	
-	//onChallengeAccept
-		//add players to isBattling hashmap
-		//teleport players to arena
-			//players can no longer be damaged
-			//edit inventories
+	public void tpToArena(Player[] players, String arena){
+		//need methods for getting arena data from arena name as string
+		//Save locations in hashMap
+		//tp players to arena object p1 and p2 locations
+	}
 	
-	//onPlayerReady
-		//begin countdown
+	public void tpBack(Player player){
+		//from hashMap with old locations
+	}
 	
-	//Begin Match
-		//run scheduler to make sure players stay in the arena
+	public void waitForPlayerReady(Player[] players){
+		//add players to readyWaiting hashMap
+		//send messages asking the players if they are ready
+		//ringOutSche
+	}
+	
+	public void runRingOutSche(Player p1, Player p2, String arena){
+		//checks as long as the players names are in confinePlayers HashMap
+	}
 	
 }

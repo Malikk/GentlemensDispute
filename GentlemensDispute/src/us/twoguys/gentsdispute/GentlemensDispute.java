@@ -15,12 +15,14 @@ public class GentlemensDispute extends JavaPlugin{
 	private Logger log = Logger.getLogger("Minecraft");
 	
 	//Command Executors
-	private CmdDuel duel;
+	private CmdDuel duelPlayer;
 	private CmdChallenged response;
 	
 	//Classes
 	public GDConfig config = new GDConfig(this);
+	public GDTemporaryDataStorage tempData = new GDTemporaryDataStorage(this);
 	public GDModes modes = new GDModes(this);
+	public GDDuel duel = new GDDuel(this);
 	
 	public void onEnable(){
 		config.loadConfiguration();
@@ -44,8 +46,8 @@ public class GentlemensDispute extends JavaPlugin{
 	
 	public void loadCommandExecutors(){
 		
-		duel = new CmdDuel(this);
-		this.getCommand("duel").setExecutor(duel);
+		duelPlayer = new CmdDuel(this);
+		this.getCommand("duel").setExecutor(duelPlayer);
 		
 		response = new CmdChallenged(this);
 		this.getCommand("challenge").setExecutor(response);

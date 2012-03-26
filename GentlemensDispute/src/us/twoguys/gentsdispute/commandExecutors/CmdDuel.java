@@ -22,6 +22,7 @@ public class CmdDuel implements CommandExecutor {
 		if (!(sender instanceof Player)){console(); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
 		
+		//Get Players
 		Player p1 = (Player) sender;
 		Player p2 = null;
 		
@@ -35,22 +36,34 @@ public class CmdDuel implements CommandExecutor {
 		if (p2 == null){notFound(sender); return false;}
 		if (p2 == p1){samePlayer(sender); return false;}
 		
+		//Get Arena, if specified
+		String arena = "";
+		String at = "";
+		if (args.length == 2){
+			//once data is established, check to make sure arena exists
+			at = " at ";
+			arena = args[1].toString();
+		}
+		
 		//Successful Command
-		success(p1, p2);
-		broadcast(p1, p2);
+		success(p1, p2, arena, at);
+		broadcast(p1, p2, arena, at);
+		
+		Player[] players = {p1, p2};
+		plugin.tempData.addMatchData("duel", arena, players);
 		
 		GDScheduler sche = new GDScheduler(plugin);
 		sche.acceptTimer(p1, p2);
 		return true;
 	}
 	
-	private void success(Player p1, Player p2){
-		p1.sendMessage(String.format("You have challenged %s to a Duel!", p2.getName()));
-		p2.sendMessage(String.format("%s has challenged you to a Duel!", p1.getName()));
+	private void success(Player p1, Player p2, String arena, String at){
+		p1.sendMessage(String.format("You have challenged %s to a Duel%s%s!", p2.getName(), at, arena));
+		p2.sendMessage(String.format("%s has challenged you to a Duel%s%s!", p1.getName(), at, arena));
 		p2.sendMessage(String.format("You have %s seconds to /challenge <accept or decline>", plugin.config.getTimeToRespond()));
 	}
 	
-	private void broadcast(Player p1, Player p2){
+	private void broadcast(Player p1, Player p2, String arena, String at){
 		if (plugin.getConfig().getBoolean("Challenges.BroadcastToServer") == false){return;}
 		
 		for (Player player: Bukkit.getOnlinePlayers()){

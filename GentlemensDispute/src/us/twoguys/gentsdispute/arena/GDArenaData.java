@@ -9,8 +9,11 @@ public class GDArenaData implements Serializable{
 	
 	private static final long serialVersionUID = 5102457006382574656L;
 
-	int x1, y1, z1;
-	int x2, y2, z2;
+	int aX1, aY1, aZ1;
+	int aX2, aY2, aZ2;
+	
+	int p1X, p1Y, p1Z;
+	int p2X, p2Y, p2Z;
 	
 	String arenaName;
 	

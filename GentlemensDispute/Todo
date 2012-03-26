@@ -12,3 +12,10 @@ Long-term Priority
 	* Shootout mode
 	* Wager matches
 	* Statistics
+	
+Ideas
+	* OnPlayerDeath events
+		* if they were in a match, cancel event
+		* This will allow for time to handle their old inventories
+		* possibly restrict movement and give them blindness
+		* tp them back to their old location upon command

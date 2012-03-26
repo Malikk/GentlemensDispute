@@ -46,6 +46,9 @@ public class GDScheduler {
 	//Match Begin Countdown
 	
 	//Ring Out Timer
+	public void ringOutTimer(Player p1, Player p2, String arena){
+		
+	}
 	
 	//Draw Timer
 	
