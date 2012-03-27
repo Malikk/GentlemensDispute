@@ -21,12 +21,13 @@ public class CmdSelection implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(!(sender instanceof Player)){
 			plugin.log("You must be logged in to use that command");
+			return false;
 		}else{
 			Player player = (Player)sender;
 			selectionMaster.addSelector(player);
 			player.sendMessage("Select the boundaries of the arena.");
+			return true;
 		}
-		return false;
 	}
 
 }

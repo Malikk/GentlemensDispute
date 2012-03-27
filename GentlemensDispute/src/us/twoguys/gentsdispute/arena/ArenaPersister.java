@@ -75,7 +75,7 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 					
 					Integer recordCount = oistream.readInt();
 					
-					if(recordCount == 1)return;
+					if(recordCount == 0)return;
 					
 					plugin.log("Loading "+ recordCount +" region(s)");
 					
@@ -97,12 +97,12 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 					e.printStackTrace();
 				}catch(IOException e){
 					plugin.log("IOException while trying to read data file");
-					e.printStackTrace();
 				}catch(ClassNotFoundException e){
 					plugin.log("Could not find class to load");
 				}finally{
 					try{
 						oistream.close();
+						plugin.log("Arenas loaded!");
 					}catch(IOException e){
 						plugin.log("Error while trying to close input stream");
 					}

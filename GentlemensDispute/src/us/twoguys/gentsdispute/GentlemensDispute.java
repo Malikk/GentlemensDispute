@@ -44,13 +44,13 @@ public class GentlemensDispute extends JavaPlugin{
 	}
 	
 	public void log(String msg){
-		PluginDescriptionFile pdfile = this.getDescription();		
-		this.log.info("[" + pdfile.getName() + "] " + msg);
+		PluginDescriptionFile pdfile = this.getDescription();	
+		log.info("[" + pdfile.getName() + "] " + msg);
 	}
 	
 	public void logSevere(String msg){
 		PluginDescriptionFile pdfile = this.getDescription();		
-		this.log.severe("[" + pdfile.getName() + "] " + msg);
+		log.severe("[" + pdfile.getName() + "] " + msg);
 	}
 	
 	public void broadcast(String msg){
