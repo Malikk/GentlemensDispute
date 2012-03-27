@@ -1,10 +1,10 @@
 package us.twoguys.gentsdispute.listeners;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
@@ -14,7 +14,6 @@ public class SelectionListener implements Listener{
 	GentlemensDispute plugin;
 	SelectionMaster selectionMaster;
 	
-	Location loc1, loc2;
 	
 	public SelectionListener(GentlemensDispute instance){
 		plugin = instance;
@@ -29,14 +28,20 @@ public class SelectionListener implements Listener{
 			return;
 		}
 		else if(selectionMaster.getSelectorInt(player) == 1){
-			loc1 = event.getClickedBlock().getLocation();
+			selectionMaster.addCorner1(player, event.getClickedBlock().getLocation());
 	        selectionMaster.setSelector(player, 2);
-	        player.sendMessage("first point selected");
+	        player.sendMessage(ChatColor.GREEN + "First point selected");
 	    }
 		else if(selectionMaster.getSelectorInt(player) == 2){
-		    loc2 = event.getClickedBlock().getLocation();
-		    selectionMaster.removeSelector(player);
-		    player.sendMessage("second point selected");
+		    selectionMaster.addCorner2(player, event.getClickedBlock().getLocation());
+		    selectionMaster.setSelector(player, 3);
+		    player.sendMessage(ChatColor.GREEN + "Second point selected.\n Select the spawn location.");
 		}
+		else if(selectionMaster.getSelectorInt(player) == 3){
+			selectionMaster.addSpawn(player, event.getClickedBlock().getLocation());
+			selectionMaster.setSelector(player, 4);
+			player.sendMessage(ChatColor.GREEN + "The spawn location has been set");
+		}
+		
 	}
 }

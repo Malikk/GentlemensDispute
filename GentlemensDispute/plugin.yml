@@ -13,3 +13,9 @@ commands:
     ready:
         description: Must be entered by all participants for a match to begin
         usage: /ready
+    select:
+        description: Used to begin arena selection.
+        usage: /select
+    create:
+        description: Used to create an arena based on the selected points
+        usage: /create <arenaName>
