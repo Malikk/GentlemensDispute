@@ -32,6 +32,8 @@ public class GDModes {
 		plugin.tempData.addWaitReady(players);
 		plugin.arrayMessage(players, "When you are ready, type /ready");
 		runRingOutSche(players, plugin.tempData.getArena(players));
+		GDScheduler sche = new GDScheduler(plugin);
+		sche.waitingOnReady(players);
 	}
 	
 	public void allPlayersReady(Player[] players){
@@ -42,6 +44,16 @@ public class GDModes {
 	public void runRingOutSche(Player[] players, String arena){
 		GDScheduler sche = new GDScheduler(plugin);
 		sche.ringOutTimer(players, arena);
+	}
+	
+	public void prepareMatchType(Player[] players){
+		String mode = plugin.tempData.getMode(players);
+		
+		if (mode.equalsIgnoreCase("duel")){
+			plugin.duel.prepareDuel(players);
+		}else{
+			return;
+		}
 	}
 	
 	public void beginMatchType(Player[] players){

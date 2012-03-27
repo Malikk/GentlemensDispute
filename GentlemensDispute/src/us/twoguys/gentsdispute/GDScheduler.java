@@ -78,7 +78,9 @@ public class GDScheduler {
 					}else if (count == 0){
 						plugin.modes.beginMatchType(players);
 						plugin.arrayMessage(players, "---BEGIN!---");
-						plugin.broadcastExcept(players, "Match has begun.");
+						if (plugin.config.broadcastEnabled("MatchBeginAndEnd")){
+							plugin.broadcastExcept(players, "Match has begun.");
+						}
 					}
 				}
 			}

@@ -23,17 +23,21 @@ public class CmdChallenged implements CommandExecutor {
 		
 		Player p2 = (Player) sender;
 		Player p1 =  plugin.tempData.getChallenger(p2);
+		Player[] players = {p1, p2};
+		String response = args[0].toString();
 		
-		if (args[0].equalsIgnoreCase("accept")){
-			Player[] players = {p1, p2};
-			plugin.duel.prepareDuel(players);
+		if (response.equalsIgnoreCase("accept")){
+			plugin.modes.prepareMatchType(players);
 			plugin.tempData.removeWaitAccept(p1);
 			acceptMessages(p1, p2);
+			broadcast(players, p1, p2, response);
 			return true;
 			
-		}else if (args[0].equalsIgnoreCase("decline")){
+		}else if (response.equalsIgnoreCase("decline")){
 			plugin.tempData.removeWaitAccept(p1);
+			plugin.tempData.removeMatchData(players);
 			declineMessages(p1, p2);
+			broadcast(players, p1, p2, response);
 			return true;
 		}
 		
@@ -48,6 +52,10 @@ public class CmdChallenged implements CommandExecutor {
 	private void declineMessages(Player p1, Player p2){
 		p1.sendMessage(p2.getName() + " has declined your challenge");
 		p2.sendMessage("Challenge declined");
+	}
+	
+	private void broadcast(Player[] players, Player p1, Player p2, String response){
+		plugin.broadcastExcept(players, String.format("%s has " + response + "ed %s's Challenge!", p2.getName(), p1.getName()));
 	}
 	
 	private void console(){

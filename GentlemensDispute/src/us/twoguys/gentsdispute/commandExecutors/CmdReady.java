@@ -19,8 +19,13 @@ public class CmdReady implements CommandExecutor{
 		if (!(sender instanceof Player)){console(); return true;}
 		if (!(plugin.tempData.waitingOnReadyContains((Player) sender))){notWaiting(sender); return true;}
 		
+		readyMessage((Player) sender);
 		plugin.tempData.removeWaitReady((Player) sender);
 		return true;
+	}
+	
+	private void readyMessage(Player player){
+		plugin.broadcast(player.getName() + " is ready");
 	}
 
 	private void notWaiting(CommandSender sender){

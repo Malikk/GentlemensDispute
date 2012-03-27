@@ -111,20 +111,12 @@ public class GDTemporaryDataStorage {
 	}
 	
 	//DamageProtection Methods
-	public void addDamageProtection(Player player){
-		damageProtection.add(player);
-	}
-	
 	public boolean hasDamageProtection(Player player){
 		if (damageProtection.contains(player)){
 			return true;
 		}else{
 			return false;
 		}
-	}
-	
-	public void removeDamageProtection(Player player){
-		damageProtection.remove(player);
 	}
 	
 	public void addDamageProtection(Player[] players){

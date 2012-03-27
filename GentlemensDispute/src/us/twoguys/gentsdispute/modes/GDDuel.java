@@ -32,8 +32,10 @@ public class GDDuel extends GDModes{
 	//Secondary Methods
 	
 	public void preparePlayers(Player[] players){
+		plugin.tempData.addDamageProtection(players);
 		saveAndClearInventories(players);
 		addGivenWeaponsAndItems(players);
+		addArmor(players);
 	}
 	
 	public void addGivenWeaponsAndItems(Player[] players){

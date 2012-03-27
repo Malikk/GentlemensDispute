@@ -42,8 +42,9 @@ public class CmdDuel implements CommandExecutor {
 		if (args.length == 1){
 			//arena = getDefaultArena
 		}else if (args.length == 2){
-			//once data is established, check to make sure arena exists
-			arena = args[1].toString();
+			String arenaArg = args[1].toString();
+			if (!(plugin.arenaMaster.isValidArenaName(arenaArg))){invalidArena((Player)sender); return false;}
+			arena = arenaArg;
 		}
 		
 		//Successful Command
@@ -65,15 +66,14 @@ public class CmdDuel implements CommandExecutor {
 	}
 	
 	private void broadcast(Player p1, Player p2, String arena){
-		if (plugin.getConfig().getBoolean("Challenges.BroadcastToServer") == false){return;}
+		if (plugin.config.broadcastEnabled("Challenges") == false){return;}
 		
-		for (Player player: Bukkit.getOnlinePlayers()){
-			if (player == p1 || player == p2){
-				continue;
-			}else{
-				player.sendMessage(String.format("%s has challenged %s to a duel!", p1.getName(), p2.getName()));
-			}
-		}
+		Player[] players = {p1, p2};
+		plugin.broadcastExcept(players, String.format("%s has challenged %s to a duel at %s!", p1.getName(), p2.getName(), arena));
+	}
+	
+	private void invalidArena(Player player){
+		player.sendMessage("Invalid arena name.");
 	}
 	
 	private void noArgs(CommandSender sender){

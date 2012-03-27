@@ -28,7 +28,11 @@ public class GDConfig {
 		
 		plugin.getConfig().addDefault("Challenges.TimeToRespond", 30);
 		plugin.getConfig().addDefault("Challenges.CountdownTime", 10);
-		plugin.getConfig().addDefault("Challenges.BroadcastToServer", true);
+		plugin.getConfig().addDefault("Challenges.BroadcastToServer.Challenges", true);
+		plugin.getConfig().addDefault("Challenges.BroadcastToServer.AcceptsAndDeclines", true);
+		plugin.getConfig().addDefault("Challenges.BroadcastToServer.PlayerReady", true);
+		plugin.getConfig().addDefault("Challenges.BroadcastToServer.MatchBeginAndEnd", true);
+		plugin.getConfig().addDefault("Challenges.BroadcastToServer.Winners", true);
 		
 		plugin.getConfig().addDefault("Arenas.General.RingOutTime", 5);
 		plugin.getConfig().addDefault("Arenas.General.PlayersWarpedBack", true);
@@ -95,6 +99,14 @@ public class GDConfig {
 	public int getCountdownTime(){
 		int countdown = plugin.getConfig().getInt("Challenges.CountdownTime");
 		return countdown;
+	}
+	
+	public boolean broadcastEnabled(String type){
+		if (plugin.getConfig().getBoolean("Challenges.BroadcastToServer." + type)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 }

@@ -1,13 +1,15 @@
 name: GentlemensDispute
-version: 0.3
+version: 0.4
 authors: [Malikk, Arzeyt]
 main: us.twoguys.gentsdispute.GentlemensDispute
 commands:
     duel:
         description: Challenges another player to a duel
-        aliases: d
-        usage: /duel <player>
+        usage: /duel <player> [arena]
     challenge:
         description: Used to accept or decline a challenge
         aliases: ch
         usage: /challenge <accept or decline>
+    ready:
+        description: Must be entered by all participants for a match to begin
+        usage: /ready
