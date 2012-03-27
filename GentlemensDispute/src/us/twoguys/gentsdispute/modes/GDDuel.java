@@ -11,11 +11,11 @@ public class GDDuel extends GDModes{
 	}
 	
 	//Primary Methods
+	
 	public void prepareDuel(Player[] players){
 		tpToArena(players, plugin.tempData.getArena(players));
-		//runRingOutSche
-		//edit inventories
-		//waitForPlayerReady
+		preparePlayers(players);
+		waitForPlayerReady(players);
 	}
 	
 	public void beginDuel(Player[] players){
@@ -26,15 +26,25 @@ public class GDDuel extends GDModes{
 	public void endDuel(Player[] players){
 		plugin.tempData.removeMatchData(players);
 		plugin.tempData.removeOnlyMatchDamage(players);
+		
 	}
 	
 	//Secondary Methods
 	
-	public void addGivenWeaponsAndItems(){
-		
+	public void preparePlayers(Player[] players){
+		saveAndClearInventories(players);
+		addGivenWeaponsAndItems(players);
 	}
 	
-	public void addArmor(){
-		
+	public void addGivenWeaponsAndItems(Player[] players){
+		for (Player player: players){
+			player.getInventory().setContents(plugin.config.getGivenDuelItems());
+		}
+	}
+	
+	public void addArmor(Player[] players){
+		for (Player player: players){
+			player.getInventory().setArmorContents(plugin.config.getGivenDuelArmor());
+		}
 	}
 }
