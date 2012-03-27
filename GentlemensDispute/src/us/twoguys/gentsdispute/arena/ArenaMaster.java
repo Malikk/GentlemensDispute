@@ -5,7 +5,6 @@ import java.util.HashSet;
 import org.bukkit.Location;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
-import us.twoguys.gentsdispute.listeners.SelectionMaster;
 
 /*
  * THis should be used as a primary means to create and modify arenas.

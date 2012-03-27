@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 import us.twoguys.gentsdispute.arena.ArenaMaster;
-import us.twoguys.gentsdispute.listeners.SelectionMaster;
+import us.twoguys.gentsdispute.arena.SelectionMaster;
 
 public class CmdCreateArena implements CommandExecutor{
 

@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
+import us.twoguys.gentsdispute.arena.SelectionMaster;
 
 public class SelectionListener implements Listener{
 

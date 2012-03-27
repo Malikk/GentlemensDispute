@@ -1,4 +1,4 @@
-package us.twoguys.gentsdispute.listeners;
+package us.twoguys.gentsdispute.arena;
 
 import java.util.HashMap;
 
@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
-import us.twoguys.gentsdispute.arena.ArenaMaster;
 
 public class SelectionMaster {
 
@@ -16,6 +15,7 @@ public class SelectionMaster {
 	HashMap<Player, Integer> selectors = new HashMap<Player, Integer>();
 	HashMap<Player, Location[]> selectedLocations = new HashMap<Player, Location[]>(); //[0]=corner1 [1]=corner2 [2]=spawn
 	
+	
 	public SelectionMaster(GentlemensDispute instance){
 		plugin = instance;
 		arenaMaster = plugin.arenaMaster;
@@ -23,6 +23,7 @@ public class SelectionMaster {
 	
 	public void addSelector(Player player){
 		selectors.put(player, 1);
+		plugin.log("selector added");
 	}
 	
 	public void removeSelector(Player player){
@@ -50,7 +51,7 @@ public class SelectionMaster {
 	}
 	
 	public void addCorner1(Player player, Location loc){
-		Location[] locs = selectedLocations.get(player);
+		Location[] locs = new Location[10];
 		locs[0] = loc;
 		selectedLocations.put(player, locs);
 	}

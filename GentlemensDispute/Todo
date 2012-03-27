@@ -5,7 +5,7 @@ Immeadiate Priority
 	* Giving weapons/armor (config)
 	* Scheduler for countdown
 	* Scheduler to make sure only one combatant died
-	* Arena selection
+	* Arena selection - modify the selection to use string instead of ints in the hashmap
 	* Arena config/commands for setup
 
 Long-term Priority

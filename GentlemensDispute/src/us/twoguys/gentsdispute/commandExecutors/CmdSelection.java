@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
-import us.twoguys.gentsdispute.listeners.SelectionMaster;
+import us.twoguys.gentsdispute.arena.SelectionMaster;
 
 public class CmdSelection implements CommandExecutor{
 
