@@ -29,9 +29,9 @@ public class GDModes {
 	}
 	
 	public void waitForPlayerReady(Player[] players){
-		//add players to readyWaiting hashMap
-		//send messages asking the players if they are ready
-		//ringOutSche
+		plugin.tempData.addWaitReady(players);
+		plugin.arrayMessage(players, "When you are ready, type /ready");
+		runRingOutSche(players, plugin.tempData.getArena(players));
 	}
 	
 	public void allPlayersReady(Player[] players){
@@ -39,8 +39,9 @@ public class GDModes {
 		sche.countdown(players);
 	}
 	
-	public void runRingOutSche(Player p1, Player p2, String arena){
-		//checks as long as the players names are in confinePlayers HashMap
+	public void runRingOutSche(Player[] players, String arena){
+		GDScheduler sche = new GDScheduler(plugin);
+		sche.ringOutTimer(players, arena);
 	}
 	
 	public void beginMatchType(Player[] players){
@@ -53,11 +54,16 @@ public class GDModes {
 		}
 	}
 	
-	public void saveAndClearInventories(){
-		
+	public void saveAndClearInventories(Player[] players){
+		for (Player player: players){
+			plugin.tempData.saveInventory(player);
+			player.getInventory().clear();
+		}
 	}
 	
-	public void clearInventories(){
-		
+	public void clearInventories(Player[] players){
+		for (Player player: players){
+			player.getInventory().clear();
+		}
 	}
 }

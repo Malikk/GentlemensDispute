@@ -44,7 +44,7 @@ public class GDConfig {
 	    
 	}
 	
-	public ItemStack[] getGivenItems(){
+	public ItemStack[] getGivenDuelItems(){
 		String[] givenItems = (String[]) plugin.getConfig().getList("Modes.Duel.GivenWeaponsAndItems").toArray();
 		ItemStack[] items = new ItemStack[givenItems.length];
 		int counter = 0;
@@ -62,22 +62,27 @@ public class GDConfig {
 		return items;
 	}
 	
-	public ItemStack getHelmet(){
+	public ItemStack[] getGivenDuelArmor(){
+		ItemStack[] armor = {getDuelHelmet(), getDuelChestplate(), getDuelLeggings(), getDuelBoots()};
+		return armor;
+	}
+	
+	public ItemStack getDuelHelmet(){
 		ItemStack helmet = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Helmet", 1));
 		return helmet;
 	}
 	
-	public ItemStack getChestplate(){
+	public ItemStack getDuelChestplate(){
 		ItemStack chestplate = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Chestplate", 1));
 		return chestplate;
 	}
 	
-	public ItemStack getLeggings(){
+	public ItemStack getDuelLeggings(){
 		ItemStack leggings = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Leggings", 1));
 		return leggings;
 	}
 	
-	public ItemStack getBoots(){
+	public ItemStack getDuelBoots(){
 		ItemStack boots = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Boots", 1));
 		return boots;
 	}

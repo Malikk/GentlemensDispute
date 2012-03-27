@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class GDTemporaryDataStorage {
 
@@ -25,7 +26,10 @@ public class GDTemporaryDataStorage {
 	public HashMap<String, Player[]> confinedToArena = new HashMap<String, Player[]>();
 	
 	//Locations
-	public HashMap<Player, Location>  returnLocation = new HashMap<Player, Location>();
+	public HashMap<Player, Location> returnLocation = new HashMap<Player, Location>();
+	
+	//Inventories
+	public HashMap<Player, ItemStack[]> inventoryContents = new HashMap<Player, ItemStack[]>();
 	
 	public GDTemporaryDataStorage(GentlemensDispute instance){
 		plugin = instance;
@@ -87,8 +91,10 @@ public class GDTemporaryDataStorage {
 	}
 	
 	//WaitingOnReady Methods
-	public void addWaitReady(Player player){
-		waitingOnReady.add(player);
+	public void addWaitReady(Player[] players){
+		for (Player player: players){
+			waitingOnReady.add(player);
+		}
 	}
 	
 	public boolean waitingOnReadyContains(Player player){
@@ -193,6 +199,15 @@ public class GDTemporaryDataStorage {
 	
 	public void removePlayerReturnLocation(Player player){
 		returnLocation.remove(player);
+	}
+	
+	//Inventories
+	public void saveInventory(Player player){
+		inventoryContents.put(player, player.getInventory().getContents());
+	}
+	
+	public void loadInventory(Player player){
+		player.getInventory().setContents(inventoryContents.get(player));
 	}
 	
 }

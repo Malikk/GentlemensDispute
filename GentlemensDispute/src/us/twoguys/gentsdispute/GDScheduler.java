@@ -91,6 +91,7 @@ public class GDScheduler {
 			
 			public void run(){
 				//ready for Nick
+				//plugin.tempData.isConfined(Player, arenanameasstring)
 			}
 		}, 0L, 20L);
 	}
