@@ -102,7 +102,6 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 				}finally{
 					try{
 						oistream.close();
-						plugin.log("Arenas loaded!");
 					}catch(IOException e){
 						plugin.log("Error while trying to close input stream");
 					}

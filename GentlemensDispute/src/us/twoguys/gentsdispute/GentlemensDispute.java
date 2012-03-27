@@ -29,12 +29,13 @@ public class GentlemensDispute extends JavaPlugin{
 	public GDTemporaryDataStorage tempData = new GDTemporaryDataStorage(this);
 	public GDModes modes = new GDModes(this);
 	public GDDuel duel = new GDDuel(this);
-	public ArenaMaster arenaMaster = new ArenaMaster(this);
+	public ArenaMaster arenaMaster;
 	public SelectionMaster selectionMaster = new SelectionMaster(this);
 	
 	public void onEnable(){
 		config.loadConfiguration();
 		loadCommandExecutors();
+		arenaMaster = new ArenaMaster(this);
 		log("Enabled");
 	}
 	  
