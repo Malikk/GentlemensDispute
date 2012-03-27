@@ -87,4 +87,9 @@ public class GDConfig {
 		return seconds;
 	}
 	
+	public int getCountdownTime(){
+		int countdown = plugin.getConfig().getInt("Challenges.CountdownTime");
+		return countdown;
+	}
+	
 }

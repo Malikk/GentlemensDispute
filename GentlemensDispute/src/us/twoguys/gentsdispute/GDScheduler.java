@@ -43,6 +43,7 @@ public class GDScheduler {
 		
 	}
 	
+	//Checking if players are ready
 	public void waitingOnReady(final Player[] players){
 		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
 			
@@ -53,13 +54,35 @@ public class GDScheduler {
 					}
 				}
 				
-				//Once no players are in the waitingOnReady HashSet
-				plugin.modes.readyMatchType(players);
+				//Once all players are ready
+				plugin.modes.allPlayersReady(players);
+				plugin.getServer().getScheduler().cancelTask(taskId);
 			}
 		}, 0L, 20L);
 	}
 	
 	//Match Begin Countdown
+	public void countdown(final Player[] players){
+		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+			int count = plugin.config.getCountdownTime();
+			boolean firstCheck = true;
+			
+			public void run(){
+				if (firstCheck){
+					plugin.arrayMessage(players, "Match starting in...");
+					firstCheck = false;
+				}else{
+					if (count > 0){
+						plugin.arrayMessage(players, "" + count);
+						count--;
+					}else if (count == 0){
+						plugin.arrayMessage(players, "---BEGIN!---");
+						plugin.broadcastExcept(players, "Match has begun.");
+					}
+				}
+			}
+		}, 0L, 20L);
+	}
 	
 	//Ring Out Timer
 	public void ringOutTimer(Player p1, Player p2, String arena){

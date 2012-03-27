@@ -2,6 +2,8 @@ package us.twoguys.gentsdispute;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,6 +47,29 @@ public class GentlemensDispute extends JavaPlugin{
 	public void logSevere(String msg){
 		PluginDescriptionFile pdfile = this.getDescription();		
 		this.log.severe("[" + pdfile.getName() + "] " + msg);
+	}
+	
+	public void broadcast(String msg){
+		for (Player player: Bukkit.getOnlinePlayers()){
+			player.sendMessage(msg);
+		}
+	}
+	
+	public void broadcastExcept(Player[] players, String msg){
+		for (Player player: Bukkit.getOnlinePlayers()){
+			for (Player p1: players){
+				if (player.equals(p1)){
+					return;
+				}
+			}
+			player.sendMessage(msg);
+		}
+	}
+	
+	public void arrayMessage(Player[] players, String msg){
+		for (Player player: players){
+			player.sendMessage(msg);
+		}
 	}
 	
 	public void loadCommandExecutors(){

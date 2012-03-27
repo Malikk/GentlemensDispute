@@ -2,7 +2,7 @@ package us.twoguys.gentsdispute.modes;
 
 import org.bukkit.entity.Player;
 
-import us.twoguys.gentsdispute.GentlemensDispute;
+import us.twoguys.gentsdispute.*;
 
 public class GDModes {
 
@@ -28,11 +28,16 @@ public class GDModes {
 		//ringOutSche
 	}
 	
+	public void allPlayersReady(Player[] players){
+		GDScheduler sche = new GDScheduler(plugin);
+		sche.countdown(players);
+	}
+	
 	public void runRingOutSche(Player p1, Player p2, String arena){
 		//checks as long as the players names are in confinePlayers HashMap
 	}
 	
-	public void readyMatchType(Player[] players){
+	public void beginMatchType(Player[] players){
 		String mode = plugin.tempData.getMode(players);
 		
 		if (mode.equalsIgnoreCase("duel")){
