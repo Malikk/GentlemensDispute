@@ -9,7 +9,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.twoguys.gentsdispute.commandExecutors.*;
-import us.twoguys.gentsdispute.listeners.SelectionListener;
+import us.twoguys.gentsdispute.listeners.*;
 import us.twoguys.gentsdispute.modes.*;
 import us.twoguys.gentsdispute.arena.*;
 
@@ -31,6 +31,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public GDModes modes = new GDModes(this);
 	public GDDuel duel = new GDDuel(this);
 	public SelectionMaster selectionMaster = new SelectionMaster(this);
+	public PlayerListener playerListener = new PlayerListener(this);
 	public ArenaMaster arenaMaster;
 	
 	//Listeners
@@ -45,6 +46,7 @@ public class GentlemensDispute extends JavaPlugin{
 		//listeners
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(selectionListener, this);
+		pm.registerEvents(playerListener, this);
 		
 		log("Enabled");
 	}

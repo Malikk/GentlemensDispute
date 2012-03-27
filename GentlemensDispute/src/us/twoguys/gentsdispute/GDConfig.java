@@ -25,6 +25,11 @@ public class GDConfig {
 		plugin.getConfig().addDefault("Modes.Duel.GivenArmor.Chestplate", 311);
 		plugin.getConfig().addDefault("Modes.Duel.GivenArmor.Leggings", 312);
 		plugin.getConfig().addDefault("Modes.Duel.GivenArmor.Boots", 313);
+		plugin.getConfig().addDefault("Modes.Duel.Damage.Mobs", false);
+		plugin.getConfig().addDefault("Modes.Duel.Damage.LavaAndFire", true);
+		plugin.getConfig().addDefault("Modes.Duel.Damage.Explosions", false);
+		plugin.getConfig().addDefault("Modes.Duel.Damage.Cactus", true);
+		plugin.getConfig().addDefault("Modes.Duel.Damage.Fall", true);
 		
 		plugin.getConfig().addDefault("Challenges.TimeToRespond", 30);
 		plugin.getConfig().addDefault("Challenges.CountdownTime", 10);
@@ -48,8 +53,8 @@ public class GDConfig {
 	    
 	}
 	
-	public ItemStack[] getGivenDuelItems(){
-		String[] givenItems = (String[]) plugin.getConfig().getList("Modes.Duel.GivenWeaponsAndItems").toArray();
+	public ItemStack[] getGivenItems(String mode){
+		String[] givenItems = (String[]) plugin.getConfig().getList("Modes." + mode + ".GivenWeaponsAndItems").toArray();
 		ItemStack[] items = new ItemStack[givenItems.length];
 		int counter = 0;
 		
@@ -66,28 +71,28 @@ public class GDConfig {
 		return items;
 	}
 	
-	public ItemStack[] getGivenDuelArmor(){
-		ItemStack[] armor = {getDuelHelmet(), getDuelChestplate(), getDuelLeggings(), getDuelBoots()};
+	public ItemStack[] getGivenArmor(String mode){
+		ItemStack[] armor = {getHelmet(mode), getChestplate(mode), getLeggings(mode), getBoots(mode)};
 		return armor;
 	}
 	
-	public ItemStack getDuelHelmet(){
-		ItemStack helmet = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Helmet", 1));
+	public ItemStack getHelmet(String mode){
+		ItemStack helmet = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Helmet", 1));
 		return helmet;
 	}
 	
-	public ItemStack getDuelChestplate(){
-		ItemStack chestplate = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Chestplate", 1));
+	public ItemStack getChestplate(String mode){
+		ItemStack chestplate = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Chestplate", 1));
 		return chestplate;
 	}
 	
-	public ItemStack getDuelLeggings(){
-		ItemStack leggings = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Leggings", 1));
+	public ItemStack getLeggings(String mode){
+		ItemStack leggings = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Leggings", 1));
 		return leggings;
 	}
 	
-	public ItemStack getDuelBoots(){
-		ItemStack boots = new ItemStack(plugin.getConfig().getInt("Modes.Duel.GivenArmor.Boots", 1));
+	public ItemStack getBoots(String mode){
+		ItemStack boots = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Boots", 1));
 		return boots;
 	}
 	
@@ -103,6 +108,14 @@ public class GDConfig {
 	
 	public boolean broadcastEnabled(String type){
 		if (plugin.getConfig().getBoolean("Challenges.BroadcastToServer." + type)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean damageTypeAllowed(String mode, String type){
+		if (plugin.getConfig().getBoolean("Modes." + mode + ".Damage." + type)){
 			return true;
 		}else{
 			return false;

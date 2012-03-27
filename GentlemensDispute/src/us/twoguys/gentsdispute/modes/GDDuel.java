@@ -40,13 +40,13 @@ public class GDDuel extends GDModes{
 	
 	public void addGivenWeaponsAndItems(Player[] players){
 		for (Player player: players){
-			player.getInventory().setContents(plugin.config.getGivenDuelItems());
+			player.getInventory().setContents(plugin.config.getGivenItems("Duel"));
 		}
 	}
 	
 	public void addArmor(Player[] players){
 		for (Player player: players){
-			player.getInventory().setArmorContents(plugin.config.getGivenDuelArmor());
+			player.getInventory().setArmorContents(plugin.config.getGivenArmor("Duel"));
 		}
 	}
 }

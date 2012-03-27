@@ -25,6 +25,9 @@ public class GDTemporaryDataStorage {
 	//ConfinedToArena
 	public HashMap<String, Player[]> confinedToArena = new HashMap<String, Player[]>();
 	
+	//Died in a Match
+	public HashMap<Player, Location> diedInMatch = new HashMap<Player, Location>();
+	
 	//Locations
 	public HashMap<Player, Location> returnLocation = new HashMap<Player, Location>();
 	
@@ -49,6 +52,37 @@ public class GDTemporaryDataStorage {
 	public String getArena(Player[] players){
 		String[] data = matchData.get(players);
 		return data[1];
+	}
+	
+	public boolean isInBattle(Player player){
+		for (Player[] array: matchData.keySet()){
+			for (Player arrayPlayer: array){
+				if (arrayPlayer.equals(player)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public Player[] getOtherPlayers(Player player){
+		for (Player[] array: matchData.keySet()){
+			for (Player arrayPlayer: array){
+				if (arrayPlayer.equals(player)){
+					return array;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public boolean isOtherPlayer(Player player, Player otherPlayer){
+		for (Player arrayPlayer: getOtherPlayers(player)){
+			if (arrayPlayer.equals(otherPlayer)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void removeMatchData(Player[] players){
@@ -177,6 +211,31 @@ public class GDTemporaryDataStorage {
 	
 	public void release(Player[] players, String arena){
 		confinedToArena.remove(arena);
+	}
+	
+	//Died in a Match
+	public void addDiedInMatch(Player player){
+		Player[] players = plugin.tempData.getOtherPlayers(player);
+		String arena = plugin.tempData.getArena(players);
+		Location loc = plugin.arenaMaster.getArenaData(arena).getSpawnLocation();
+		diedInMatch.put(player, loc);
+	}
+	
+	public boolean diedInMatch(Player player){
+		if (diedInMatch.containsKey(player)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public Location getDiedInMatchLocation(Player player){
+		Location loc = diedInMatch.get(player);
+		return loc;
+	}
+	
+	public void removeDiedInMatch(Player player){
+		diedInMatch.remove(player);
 	}
 	
 	//Locations
