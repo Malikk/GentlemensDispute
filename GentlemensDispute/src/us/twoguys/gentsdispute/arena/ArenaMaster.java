@@ -5,6 +5,7 @@ import java.util.HashSet;
 import org.bukkit.Location;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
+import us.twoguys.gentsdispute.listeners.SelectionMaster;
 
 /*
  * THis should be used as a primary means to create and modify arenas.
@@ -13,7 +14,7 @@ public class ArenaMaster {
 
 	GentlemensDispute plugin;
 	ArenaPersister arenaPersister;
-	
+	SelectionMaster selectionMaster;
 	
 	private HashSet<ArenaData> arenaDataList = new HashSet<ArenaData>();
 	private HashSet<ArenaData> deletedArenaList = new HashSet<ArenaData>();
@@ -21,6 +22,9 @@ public class ArenaMaster {
 	public ArenaMaster(GentlemensDispute instance) {
 		plugin = instance;
 		loadArenaData();
+		selectionMaster = new SelectionMaster(plugin);
+		
+
 	}
 	
 	public boolean createArena(Location corner1, Location corner2, Location spawn, String arenaName){

@@ -8,6 +8,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.twoguys.gentsdispute.commandExecutors.*;
+import us.twoguys.gentsdispute.listeners.SelectionMaster;
 import us.twoguys.gentsdispute.modes.*;
 import us.twoguys.gentsdispute.arena.*;
 
@@ -27,6 +28,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public GDModes modes = new GDModes(this);
 	public GDDuel duel = new GDDuel(this);
 	public ArenaMaster arenaMaster = new ArenaMaster(this);
+	public SelectionMaster selectionMaster = new SelectionMaster(this);
 	
 	public void onEnable(){
 		config.loadConfiguration();

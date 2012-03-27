@@ -35,6 +35,7 @@ public class ArenaData implements Serializable{
 		sy = spawn.getBlockY();
 		sz = spawn.getBlockZ();
 		
+		
 		this.arenaName = arenaName;
 		
 		worldName = corner1.getWorld().getName();
@@ -64,9 +65,14 @@ public class ArenaData implements Serializable{
 		return stringToLocation(worldName, sx, sy, sz);
 	}
 	
+	public void setSpawn(Location loc){
+		sx= loc.getBlockX();
+		sy= loc.getBlockY();
+		sz= loc.getBlockZ();
+	}
+
 	private Location stringToLocation(String worldName, int x, int y, int z){
 		return new Location(Bukkit.getWorld(worldName), x, y, z);		
 	}
-	
 	
 }
