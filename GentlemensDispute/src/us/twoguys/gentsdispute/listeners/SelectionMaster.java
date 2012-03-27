@@ -16,6 +16,30 @@ public class SelectionMaster {
 	}
 	
 	public void addSelector(Player player){
-		
+		selectors.put(player, 1);
+	}
+	
+	public void removeSelector(Player player){
+		selectors.remove(player);
+	}
+	
+	public HashMap<Player, Integer> getSelectors(){
+		return selectors;
+	}
+	
+	public boolean isSelecting(Player player){
+		if(selectors.containsKey(player)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public int getSelectorInt(Player player){
+		return selectors.get(player);
+	}
+	
+	public void setSelector(Player player, int x){
+		selectors.put(player, x);
 	}
 }

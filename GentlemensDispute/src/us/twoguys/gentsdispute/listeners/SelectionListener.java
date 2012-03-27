@@ -12,23 +12,31 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 public class SelectionListener implements Listener{
 
 	GentlemensDispute plugin;
+	SelectionMaster selectionMaster;
+	
+	Location loc1, loc2;
 	
 	public SelectionListener(GentlemensDispute instance){
 		plugin = instance;
-		SelectionMaster selectionMaster = plugin.selectionMaster;
+		this.selectionMaster = plugin.selectionMaster;
 	}
 	
 	@EventHandler
 	public void onSelection(PlayerInteractEvent event){
 		Player player = event.getPlayer();
 		
-		if( == 0){
+		if(selectionMaster.isSelecting(player)==false){
 			return;
 		}
-		if(selectionMaster){
-			Location loc1 = event.getClickedBlock().getLocation();
-		}else if(selectionCounter == 2){
-			Location loc2 = event.getClickedBlock().getLocation();
+		else if(selectionMaster.getSelectorInt(player) == 1){
+			loc1 = event.getClickedBlock().getLocation();
+	        selectionMaster.setSelector(player, 2);
+	        player.sendMessage("first point selected");
+	    }
+		else if(selectionMaster.getSelectorInt(player) == 2){
+		    loc2 = event.getClickedBlock().getLocation();
+		    selectionMaster.removeSelector(player);
+		    player.sendMessage("second point selected");
 		}
 	}
 }
