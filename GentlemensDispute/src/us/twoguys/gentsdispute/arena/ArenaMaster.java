@@ -21,9 +21,9 @@ public class ArenaMaster {
 	
 	public ArenaMaster(GentlemensDispute instance) {
 		plugin = instance;
-		loadArenaData();
 		selectionMaster = new SelectionMaster(plugin);
-		
+		arenaPersister = new ArenaPersister(plugin);
+		loadArenaData();
 
 	}
 	

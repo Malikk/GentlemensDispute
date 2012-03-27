@@ -1,7 +1,6 @@
 package us.twoguys.gentsdispute.commandExecutors;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
