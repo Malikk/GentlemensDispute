@@ -17,6 +17,7 @@ public class GentlemensDispute extends JavaPlugin{
 	//Command Executors
 	private CmdDuel duelPlayer;
 	private CmdChallenged response;
+	private CmdReady ready;
 	
 	//Classes
 	public GDConfig config = new GDConfig(this);
@@ -52,6 +53,9 @@ public class GentlemensDispute extends JavaPlugin{
 		
 		response = new CmdChallenged(this);
 		this.getCommand("challenge").setExecutor(response);
+		
+		ready = new CmdReady(this);
+		this.getCommand("ready").setExecutor(ready);
 	}
 	
 }

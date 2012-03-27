@@ -1,6 +1,7 @@
 package us.twoguys.gentsdispute;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,7 +15,11 @@ public class GDTemporaryDataStorage {
 	
 	//Waiting Lists
 	public HashMap<Player, Player[]> waitingOnAccept = new HashMap<Player, Player[]>();
-	public HashMap<Player, Player[]> waitingOnReady = new HashMap<Player, Player[]>();
+	public HashSet<Player> waitingOnReady = new HashSet<Player>();
+	
+	//Damage Negation Handlers
+	public HashSet<Player> damageProtection = new HashSet<Player>();
+	public HashSet<Player> onlyMatchDamage = new HashSet<Player>();
 	
 	//Locations
 	public HashMap<Player, Location>  returnLocation = new HashMap<Player, Location>();
@@ -29,6 +34,16 @@ public class GDTemporaryDataStorage {
 		matchData.put(players, matchTypeAndArena);
 	}
 	
+	public String getMode(Player[] players){
+		String[] data = matchData.get(players);
+		return data[0];
+	}
+	
+	public String getArena(Player[] players){
+		String[] data = matchData.get(players);
+		return data[1];
+	}
+	
 	public void removeMatchData(Player[] players){
 		matchData.remove(players);
 	}
@@ -38,8 +53,12 @@ public class GDTemporaryDataStorage {
 		waitingOnAccept.put(p1, players);
 	}
 	
-	public boolean checkWaitingOnAccept(Player player){
+	public boolean waitingOnAcceptContains(Player player){
 		for (Player playerKey: waitingOnAccept.keySet()){
+			if (playerKey == player){
+				return true;
+			}
+			
 			for (Player challenged: waitingOnAccept.get(playerKey)){
 				if (player == challenged){
 					return true;
@@ -65,14 +84,58 @@ public class GDTemporaryDataStorage {
 	}
 	
 	//WaitingOnReady Methods
-	public void addWaitReady(Player p1, Player[] players){
-		waitingOnReady.put(p1, players);
+	public void addWaitReady(Player player){
+		waitingOnReady.add(player);
 	}
 	
-	public void removeWaitReady(Player p1){
-		waitingOnReady.remove(p1);
+	public boolean waitingOnReadyContains(Player player){
+		for (Player p: waitingOnReady){
+			if (player == p){
+				return true;
+			}
+		}
+		return false;
 	}
 	
+	public void removeWaitReady(Player player){
+		waitingOnReady.remove(player);
+	}
+	
+	//DamageProtection Methods
+	public void addDamageProtection(Player player){
+		damageProtection.add(player);
+	}
+	
+	public boolean hasDamageProtection(Player player){
+		if (damageProtection.contains(player)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void removeDamageProtection(Player player){
+		damageProtection.remove(player);
+	}
+	
+	//OnlyMatchDamage Methods	
+	public void addOnlyMatchDamage(Player player){
+		onlyMatchDamage.add(player);
+	}
+	
+	public boolean hasOnlyMatchDamage(Player player){
+		if (damageProtection.contains(player)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void removeOnlyMatchDamage(Player player){
+		onlyMatchDamage.remove(player);
+	}
+	
+	//Locations
 	public void addPlayerReturnLocation(Player player, Location loc){
 		returnLocation.put(player, loc);
 	}

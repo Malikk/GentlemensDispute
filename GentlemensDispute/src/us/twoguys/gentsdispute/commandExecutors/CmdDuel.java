@@ -21,6 +21,7 @@ public class CmdDuel implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)){console(); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
+		if (args.length > 2){tooManyArgs(sender); return false;}
 		
 		//Get Players
 		Player p1 = (Player) sender;
@@ -36,18 +37,18 @@ public class CmdDuel implements CommandExecutor {
 		if (p2 == null){notFound(sender); return false;}
 		if (p2 == p1){samePlayer(sender); return false;}
 		
-		//Get Arena, if specified
+		//Get Arena
 		String arena = "";
-		String at = "";
-		if (args.length == 2){
+		if (args.length == 1){
+			//arena = getDefaultArena
+		}else if (args.length == 2){
 			//once data is established, check to make sure arena exists
-			at = " at ";
 			arena = args[1].toString();
 		}
 		
 		//Successful Command
-		success(p1, p2, arena, at);
-		broadcast(p1, p2, arena, at);
+		success(p1, p2, arena);
+		broadcast(p1, p2, arena);
 		
 		Player[] players = {p1, p2};
 		plugin.tempData.addMatchData("duel", arena, players);
@@ -57,13 +58,13 @@ public class CmdDuel implements CommandExecutor {
 		return true;
 	}
 	
-	private void success(Player p1, Player p2, String arena, String at){
-		p1.sendMessage(String.format("You have challenged %s to a Duel%s%s!", p2.getName(), at, arena));
-		p2.sendMessage(String.format("%s has challenged you to a Duel%s%s!", p1.getName(), at, arena));
+	private void success(Player p1, Player p2, String arena){
+		p1.sendMessage(String.format("You have challenged %s to a Duel at %s!", p2.getName(), arena));
+		p2.sendMessage(String.format("%s has challenged you to a Duel at %s!", p1.getName(), arena));
 		p2.sendMessage(String.format("You have %s seconds to /challenge <accept or decline>", plugin.config.getTimeToRespond()));
 	}
 	
-	private void broadcast(Player p1, Player p2, String arena, String at){
+	private void broadcast(Player p1, Player p2, String arena){
 		if (plugin.getConfig().getBoolean("Challenges.BroadcastToServer") == false){return;}
 		
 		for (Player player: Bukkit.getOnlinePlayers()){
@@ -77,6 +78,10 @@ public class CmdDuel implements CommandExecutor {
 	
 	private void noArgs(CommandSender sender){
 		sender.sendMessage("You must name a player to challenge");
+	}
+	
+	private void tooManyArgs(CommandSender sender){
+		sender.sendMessage("You have entered too many arguments");
 	}
 	
 	private void notFound(CommandSender sender){

@@ -18,7 +18,6 @@ public class GDDuel extends GDModes{
 	}
 	
 	public void playersAreReady(){
-		//triggerd by commands
 		//begin countdown
 	}
 	

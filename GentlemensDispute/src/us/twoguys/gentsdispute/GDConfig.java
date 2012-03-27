@@ -27,6 +27,7 @@ public class GDConfig {
 		plugin.getConfig().addDefault("Modes.Duel.GivenArmor.Boots", 313);
 		
 		plugin.getConfig().addDefault("Challenges.TimeToRespond", 30);
+		plugin.getConfig().addDefault("Challenges.CountdownTime", 10);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer", true);
 		
 		plugin.getConfig().addDefault("Arenas.General.RingOutTime", 5);

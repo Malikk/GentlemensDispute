@@ -32,4 +32,14 @@ public class GDModes {
 		//checks as long as the players names are in confinePlayers HashMap
 	}
 	
+	public void readyMatchType(Player[] players){
+		String mode = plugin.tempData.getMode(players);
+		
+		if (mode.equalsIgnoreCase("duel")){
+			plugin.duel.playersAreReady();
+		}else{
+			return;
+		}
+	}
+	
 }
