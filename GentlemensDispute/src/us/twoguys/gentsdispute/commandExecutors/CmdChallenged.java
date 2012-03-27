@@ -25,7 +25,8 @@ public class CmdChallenged implements CommandExecutor {
 		Player p1 =  plugin.tempData.getChallenger(p2);
 		
 		if (args[0].equalsIgnoreCase("accept")){
-			plugin.duel.prepareDuel(p1, p2);
+			Player[] players = {p1, p2};
+			plugin.duel.prepareDuel(players);
 			plugin.tempData.removeWaitAccept(p1);
 			acceptMessages(p1, p2);
 			return true;

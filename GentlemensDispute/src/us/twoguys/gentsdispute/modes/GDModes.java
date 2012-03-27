@@ -1,5 +1,6 @@
 package us.twoguys.gentsdispute.modes;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.*;
@@ -13,13 +14,18 @@ public class GDModes {
 	}
 	
 	public void tpToArena(Player[] players, String arena){
-		//need methods for getting arena data from arena name as string
-		//Save locations in hashMap
-		//tp players to arena object p1 and p2 locations
+		Location tpLoc = plugin.arenaMaster.getArenaData(arena).getSpawnLocation();
+		
+		for (Player player: players){
+			plugin.tempData.addPlayerReturnLocation(player, player.getLocation());
+			player.teleport(tpLoc);
+		}
 	}
 	
 	public void tpBack(Player player){
-		//from hashMap with old locations
+		Location tpLoc = plugin.tempData.getPlayerReturnLocation(player);
+		player.teleport(tpLoc);
+		plugin.tempData.removePlayerReturnLocation(player);
 	}
 	
 	public void waitForPlayerReady(Player[] players){
@@ -41,10 +47,17 @@ public class GDModes {
 		String mode = plugin.tempData.getMode(players);
 		
 		if (mode.equalsIgnoreCase("duel")){
-			plugin.duel.playersAreReady();
+			plugin.duel.beginDuel(players);
 		}else{
 			return;
 		}
 	}
 	
+	public void saveAndClearInventories(){
+		
+	}
+	
+	public void clearInventories(){
+		
+	}
 }

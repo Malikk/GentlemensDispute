@@ -21,6 +21,9 @@ public class GDTemporaryDataStorage {
 	public HashSet<Player> damageProtection = new HashSet<Player>();
 	public HashSet<Player> onlyMatchDamage = new HashSet<Player>();
 	
+	//ConfinedToArena
+	public HashMap<String, Player[]> confinedToArena = new HashMap<String, Player[]>();
+	
 	//Locations
 	public HashMap<Player, Location>  returnLocation = new HashMap<Player, Location>();
 	
@@ -118,6 +121,18 @@ public class GDTemporaryDataStorage {
 		damageProtection.remove(player);
 	}
 	
+	public void addDamageProtection(Player[] players){
+		for (Player player: players){
+			damageProtection.add(player);
+		}
+	}
+	
+	public void removeDamageProtection(Player[] players){
+		for (Player player: players){
+			damageProtection.remove(player);
+		}
+	}
+	
 	//OnlyMatchDamage Methods	
 	public void addOnlyMatchDamage(Player player){
 		onlyMatchDamage.add(player);
@@ -135,9 +150,45 @@ public class GDTemporaryDataStorage {
 		onlyMatchDamage.remove(player);
 	}
 	
+	public void addOnlyMatchDamage(Player[] players){
+		for (Player player: players){
+			onlyMatchDamage.add(player);
+		}
+	}
+	
+	public void removeOnlyMatchDamage(Player[] players){
+		for (Player player: players){
+			onlyMatchDamage.remove(player);
+		}
+	}
+	
+	//ConfinePlayersToArena
+	public void confine(Player[] players, String arena){
+		confinedToArena.put(arena, players);
+	}
+	
+	public boolean isConfined(Player player, String arena){
+		Player[] players = confinedToArena.get(arena);
+		for (Player arrayPlayer: players){
+			if (arrayPlayer.equals(player)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void release(Player[] players, String arena){
+		confinedToArena.remove(arena);
+	}
+	
 	//Locations
 	public void addPlayerReturnLocation(Player player, Location loc){
 		returnLocation.put(player, loc);
+	}
+	
+	public Location getPlayerReturnLocation(Player player){
+		Location loc = returnLocation.get(player);
+		return loc;
 	}
 	
 	public void removePlayerReturnLocation(Player player){

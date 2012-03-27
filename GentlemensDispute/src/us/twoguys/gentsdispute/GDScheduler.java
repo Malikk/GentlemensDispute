@@ -76,6 +76,7 @@ public class GDScheduler {
 						plugin.arrayMessage(players, "" + count);
 						count--;
 					}else if (count == 0){
+						plugin.modes.beginMatchType(players);
 						plugin.arrayMessage(players, "---BEGIN!---");
 						plugin.broadcastExcept(players, "Match has begun.");
 					}
@@ -85,8 +86,13 @@ public class GDScheduler {
 	}
 	
 	//Ring Out Timer
-	public void ringOutTimer(Player p1, Player p2, String arena){
-		
+	public void ringOutTimer(final Player[] players, final String arena){
+		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+			
+			public void run(){
+				//ready for Nick
+			}
+		}, 0L, 20L);
 	}
 	
 	//Draw Timer

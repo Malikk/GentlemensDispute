@@ -10,23 +10,31 @@ public class GDDuel extends GDModes{
 		super(instance);
 	}
 	
-	public void prepareDuel(Player p1, Player p2){
-		//tpToArena
+	//Primary Methods
+	public void prepareDuel(Player[] players){
+		tpToArena(players, plugin.tempData.getArena(players));
 		//runRingOutSche
 		//edit inventories
 		//waitForPlayerReady
 	}
 	
-	public void playersAreReady(){
-		//begin countdown
+	public void beginDuel(Player[] players){
+		plugin.tempData.removeDamageProtection(players);
+		plugin.tempData.addOnlyMatchDamage(players);
 	}
 	
-	public void beginDuel(){
+	public void endDuel(Player[] players){
+		plugin.tempData.removeMatchData(players);
+		plugin.tempData.removeOnlyMatchDamage(players);
+	}
+	
+	//Secondary Methods
+	
+	public void addGivenWeaponsAndItems(){
 		
 	}
 	
-	public void endDuel(){
+	public void addArmor(){
 		
 	}
-	
 }
