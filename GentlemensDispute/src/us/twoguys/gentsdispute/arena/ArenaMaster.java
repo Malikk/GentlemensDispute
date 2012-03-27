@@ -25,7 +25,6 @@ public class ArenaMaster {
 	
 	public boolean createArena(Location corner1, Location corner2, Location spawn, String arenaName){
 		
-		
 		if(isValidArenaName(arenaName) && !collides(corner1, corner2)){
 			ArenaData arena = new ArenaData(corner1, corner2, spawn, arenaName);
 			arenaDataList.add(arena);

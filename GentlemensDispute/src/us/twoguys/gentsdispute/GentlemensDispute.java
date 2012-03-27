@@ -33,6 +33,7 @@ public class GentlemensDispute extends JavaPlugin{
 	}
 	  
 	public void onDisable(){
+		arenaMaster.saveArenaData();
 		log("Disabled");
 	}
 	
