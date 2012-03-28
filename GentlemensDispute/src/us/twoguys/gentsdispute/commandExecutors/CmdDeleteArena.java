@@ -1,0 +1,23 @@
+package us.twoguys.gentsdispute.commandExecutors;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+
+import us.twoguys.gentsdispute.GentlemensDispute;
+
+public class CmdDeleteArena implements CommandExecutor {
+
+	GentlemensDispute plugin;
+	
+	public CmdDeleteArena(GentlemensDispute instance){
+		plugin = instance;
+	}
+
+	@Override
+	public boolean onCommand(CommandSender arg0, Command arg1, String arg2,
+			String[] arg3) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}
