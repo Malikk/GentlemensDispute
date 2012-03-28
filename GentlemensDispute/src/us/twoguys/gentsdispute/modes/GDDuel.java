@@ -10,6 +10,16 @@ public class GDDuel extends GDModes{
 		super(instance);
 	}
 	
+	//Outcomes
+	
+	public void declareWinner(Player[] players, Player winner){
+		winMessage(players, winner);
+	}
+	
+	public void declareDraw(Player[] players){
+		drawMessage(players);
+	}
+	
 	//Primary Methods
 	
 	public void prepareDuel(Player[] players){
@@ -26,7 +36,7 @@ public class GDDuel extends GDModes{
 	public void endDuel(Player[] players){
 		plugin.match.removeMatchData(players);
 		plugin.match.removeOnlyMatchDamage(players);
-		
+		endMessage(players);
 	}
 	
 	//Secondary Methods
@@ -47,6 +57,30 @@ public class GDDuel extends GDModes{
 	public void addArmor(Player[] players){
 		for (Player player: players){
 			player.getInventory().setArmorContents(plugin.config.getGivenArmor("Duel"));
+		}
+	}
+	
+	//Message Methods
+	
+	public void winMessage(Player[] players, Player winner){
+		if (plugin.config.broadcastEnabled("MatchOutcomes")){
+			plugin.broadcast(String.format("%s has won the Duel!"));
+		}else{
+			plugin.arrayMessage(players, String.format("%s has won the Duel!", winner.getName()));
+		}
+	}
+	
+	public void drawMessage(Player[] players){
+		if (plugin.config.broadcastEnabled("MatchOutcomes")){
+			plugin.broadcast(String.format("The match was a Draw!"));
+		}else{
+			plugin.arrayMessage(players, String.format("The match was a Draw!"));
+		}
+	}
+	
+	public void endMessage(Player[] players){
+		if (plugin.config.broadcastEnabled("MatchBeginAndEnd")){
+			plugin.broadcastExcept(players, String.format("The Duel between %s and %s has ended!", players[0].getName(), players[1].getName()));
 		}
 	}
 }

@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import us.twoguys.gentsdispute.GDScheduler;
 import us.twoguys.gentsdispute.GentlemensDispute;
 
 public class PlayerListener implements Listener{
@@ -50,9 +51,16 @@ public class PlayerListener implements Listener{
 	public void onPlayerDeath(PlayerDeathEvent event){
 		if (!(plugin.match.isInBattle(event.getEntity()))){return;}
 		
+		Player player = event.getEntity();
+		
 		event.setKeepLevel(true);
 		event.getDrops().clear();
-		plugin.match.addDiedInMatch(event.getEntity());
+		plugin.match.addDiedInMatch(player);
+		
+		Player[] players = plugin.match.getOtherPlayers(player);
+		
+		GDScheduler sche = new GDScheduler(plugin);
+		sche.drawChecker(players);
 	}
 	
 	@EventHandler

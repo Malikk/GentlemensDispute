@@ -14,12 +14,26 @@ public class GDModes {
 	}
 	
 	//OutComes
-	public void draw(Player[] players){
+	public void drawMatchType(Player[] players){
+		String mode = plugin.match.getMode(players);
 		
+		if (mode.equalsIgnoreCase("duel")){
+			plugin.duel.endDuel(players);
+			plugin.duel.declareDraw(players);
+		}else{
+			return;
+		}
 	}
 	
-	public void winner(Player[] players, Player winner){
+	public void winnerMatchType(Player[] players, Player winner){
+		String mode = plugin.match.getMode(players);
 		
+		if (mode.equalsIgnoreCase("duel")){
+			plugin.duel.endDuel(players);
+			plugin.duel.declareWinner(players, winner);
+		}else{
+			return;
+		}
 	}
 	
 	public void tpToArena(Player[] players, String arena){

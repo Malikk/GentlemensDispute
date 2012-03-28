@@ -9,6 +9,7 @@ public class GDScheduler {
 	GentlemensDispute plugin;
 	private int taskId;
 	private Player stillAlive;
+	private HashSet<Player> isAlive = new HashSet<Player>();
 	
 	public GDScheduler(GentlemensDispute instance){
 		plugin = instance;
@@ -81,6 +82,7 @@ public class GDScheduler {
 					}else if (count == 0){
 						plugin.modes.beginMatchType(players);
 						plugin.arrayMessage(players, "---BEGIN!---");
+						
 						if (plugin.config.broadcastEnabled("MatchBeginAndEnd")){
 							plugin.broadcastExcept(players, "Match has begun.");
 						}
@@ -104,12 +106,10 @@ public class GDScheduler {
 	}
 	
 	//Draw Timer
-	public void drawChecker(final Player[] players, final HashSet<Player> isAlive){
+	public void drawChecker(final Player[] players){
 		for (Player arrayPlayer: players){
 			isAlive.add(arrayPlayer);
 		}
-		
-		//if this doesnt work, move hashSet out of scheduler
 		
 		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
 			
@@ -134,10 +134,10 @@ public class GDScheduler {
 					return;
 				}else if (counter == 1){
 					Player winner = stillAlive;
-					plugin.modes.winner(players, winner);
+					plugin.modes.winnerMatchType(players, winner);
 					plugin.getServer().getScheduler().cancelTask(taskId);
 				}else if (counter == 0){
-					plugin.modes.draw(players);
+					plugin.modes.drawMatchType(players);
 					plugin.getServer().getScheduler().cancelTask(taskId);
 				}
 				

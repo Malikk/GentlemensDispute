@@ -32,16 +32,16 @@ public class CmdChallenged implements CommandExecutor {
 			acceptMessages(p1, p2);
 			broadcast(players, p1, p2, response);
 			return true;
-			
 		}else if (response.equalsIgnoreCase("decline")){
 			plugin.match.removeWaitAccept(p1);
 			plugin.match.removeMatchData(players);
 			declineMessages(p1, p2);
 			broadcast(players, p1, p2, response);
 			return true;
+		}else{
+			invalidResponse(sender, response);
+			return false;
 		}
-		
-		return false;
 	}
 	
 	private void acceptMessages(Player p1, Player p2){
@@ -68,6 +68,10 @@ public class CmdChallenged implements CommandExecutor {
 	
 	private void noChallenge(CommandSender sender){
 		sender.sendMessage("You have not been challenged.");
+	}
+	
+	private void invalidResponse(CommandSender sender, String response){
+		sender.sendMessage(response + " is not a valid response");
 	}
 
 }

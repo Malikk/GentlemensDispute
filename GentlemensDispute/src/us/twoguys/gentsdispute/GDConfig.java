@@ -37,7 +37,7 @@ public class GDConfig {
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.AcceptsAndDeclines", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.PlayerReady", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.MatchBeginAndEnd", true);
-		plugin.getConfig().addDefault("Challenges.BroadcastToServer.Winners", true);
+		plugin.getConfig().addDefault("Challenges.BroadcastToServer.MatchOutcomes", true);
 		
 		plugin.getConfig().addDefault("Arenas.General.RingOutTime", 5);
 		plugin.getConfig().addDefault("Arenas.General.PlayersWarpedBack", true);
