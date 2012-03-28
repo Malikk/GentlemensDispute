@@ -37,8 +37,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public void onEnable(){
 		config.loadConfiguration();
 		
-		arenaMaster.loadArenaData();
-		//arenaMaster = new ArenaMaster(this);
+		arenaPersister.Deserialize();
 		
 		loadCommandExecutors();
 		
@@ -51,7 +50,7 @@ public class GentlemensDispute extends JavaPlugin{
 	}
 	  
 	public void onDisable(){
-		arenaMaster.saveArenaData();
+		arenaPersister.Serialize();
 		log("Disabled");
 	}
 	

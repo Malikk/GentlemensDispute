@@ -12,14 +12,12 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 public class ArenaMaster {
 
 	GentlemensDispute plugin;
-	ArenaPersister arenaPersister;
 	
 	private HashSet<ArenaData> arenaDataList = new HashSet<ArenaData>();
 	private HashSet<ArenaData> deletedArenaList = new HashSet<ArenaData>();
 	
 	public ArenaMaster(GentlemensDispute instance) {
 		plugin = instance;
-		arenaPersister = new ArenaPersister(plugin);
 
 
 	}
@@ -75,14 +73,7 @@ public class ArenaMaster {
 		}
 		return arenaData;
 	}
-	
-	public void loadArenaData(){
-		arenaPersister.Deserialize();
-	}
-	
-	public void saveArenaData(){
-		arenaPersister.Serialize();
-	}
+
 	
 	public HashSet<ArenaData> getArenaDataList(){
 		return this.arenaDataList;
