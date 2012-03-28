@@ -68,6 +68,14 @@ public class PlayerListener implements Listener{
 		plugin.match.removeOldInventory(player);
 	}
 	
+	public boolean playerIsOnFire(Player player){
+		if (player.getFireTicks() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public void playerDamaged(Player damaged, String mode, EntityDamageEvent event){
 		DamageCause cause = event.getCause();
 		String type = null;
