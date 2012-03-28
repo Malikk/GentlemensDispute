@@ -20,7 +20,7 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 		
 		public ArenaPersister(GentlemensDispute instance){
 			this.plugin = instance;
-			this.arenaMaster = plugin.arenaMaster;
+			arenaMaster = plugin.arenaMaster;
 		}
 		
 		public void Serialize(){
@@ -38,24 +38,30 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 				FileOutputStream fostream = new FileOutputStream("plugins"+File.pathSeparator+"GentlemensDispute"+File.pathSeparator+"ArenaData.dat");
 				ObjectOutputStream oostream = new ObjectOutputStream(fostream);
 				
-				oostream.writeInt(arenaMaster.getArenaDataList().size());
-				
-				if(arenaMaster.getArenaDataList().isEmpty()){
-					plugin.log("No arenas to save...");
-				}else{
-					try{
-						for (ArenaData arenaData : arenaMaster.getArenaDataList()){
-							if(arenaMaster.isDeleted(arenaData.getName())== false){
-								oostream.writeObject(arenaData);
-								plugin.log(arenaData.getName() + " saved");
-							}
-						}
-					}catch(Exception e){
-						plugin.log("serialization unsuccessful");
-					}
-				oostream.close();
-				plugin.log("Arenas successfully serialized");
+				try{
+
+					oostream.writeInt(arenaMaster.getArenaDataList().size());
+				}catch(Exception e){
+					plugin.log("No arenas to save!");
+					return;
 				}
+					
+					if(arenaMaster.getArenaDataList().isEmpty()){
+						plugin.log("No arenas to save...");
+					}else{
+						try{
+							for (ArenaData arenaData : arenaMaster.getArenaDataList()){
+								if(arenaMaster.isDeleted(arenaData.getName())== false){
+									oostream.writeObject(arenaData);
+									plugin.log(arenaData.getName() + " arena saved");
+								}
+							}
+						}catch(Exception e){
+							plugin.log("serialization unsuccessful");
+						}
+					oostream.close();
+					plugin.log("Arenas successfully serialized");
+					}
 			}catch (IOException e){
 				e.printStackTrace();
 			}

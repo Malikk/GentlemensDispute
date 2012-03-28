@@ -24,9 +24,10 @@ public class ArenaMaster {
 	
 	public boolean createArena(Location corner1, Location corner2, Location spawn, String arenaName){
 		
-		if(nameIsTaken(arenaName) && !collides(corner1, corner2)){
+		if(!nameIsTaken(arenaName) && !collides(corner1, corner2)){
 			ArenaData arena = new ArenaData(corner1, corner2, spawn, arenaName);
 			arenaDataList.add(arena);
+			plugin.log("Created " + arenaName + ". The members in arenaDataList are: "+getArenaNamesString());
 			return true;
 		}else{
 			plugin.logSevere("Could not create an arena!");
@@ -51,6 +52,7 @@ public class ArenaMaster {
 			}
 		}
 		return false;
+	
 	}
 	
 	public boolean nameIsTaken(String arenaName){
@@ -79,6 +81,14 @@ public class ArenaMaster {
 		return this.arenaDataList;
 	}
 	
+	public String getArenaNamesString(){
+		StringBuilder string = new StringBuilder();
+		for(ArenaData arena: getArenaDataList()){
+			string.append(arena.getName() + ", ");
+		}
+		return string.toString();
+	}
+
 	private void deleteArena(ArenaData arenaData){
 		deletedArenaList.add(arenaData);
 	}

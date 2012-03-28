@@ -31,16 +31,14 @@ public class CmdCreateArena implements CommandExecutor{
 			return false;
 		}
 		else if(selectionMaster.getSelectorInt((Player)sender)==4){
-			String arg = args[0];		    
-		    
+			
 			if(args.length==0){
 				sender.sendMessage(ChatColor.RED + "Type an arena name in next time");
 				return false;
 			}else if(args.length==1){
-				if(!arenaMaster.nameIsTaken(arg)){
+				if(!arenaMaster.nameIsTaken(args[0])){
 				
-				selectionMaster.createArenaWithSelectedPoints((Player)sender, arg);				
-				sender.sendMessage(ChatColor.GREEN + "Arena created!");
+				selectionMaster.createArenaWithSelectedPoints((Player)sender, args[0]);				
 				return true;
 				}
 			}

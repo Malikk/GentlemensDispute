@@ -27,8 +27,9 @@ public class GentlemensDispute extends JavaPlugin{
 	public GDModes modes = new GDModes(this);
 	public GDDuel duel = new GDDuel(this);
 	public SelectionMaster selectionMaster = new SelectionMaster(this);
-	public ArenaPersister arenaPersister = new ArenaPersister(this);
 	public ArenaMaster arenaMaster = new ArenaMaster(this);
+	public ArenaPersister arenaPersister = new ArenaPersister(this);
+
 	
 	//Listeners
 	SelectionListener selectionListener = new SelectionListener(this);
