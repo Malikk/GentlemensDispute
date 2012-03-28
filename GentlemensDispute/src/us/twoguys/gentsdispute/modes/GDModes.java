@@ -13,6 +13,15 @@ public class GDModes {
 		plugin = instance;
 	}
 	
+	//OutComes
+	public void draw(Player[] players){
+		
+	}
+	
+	public void winner(Player[] players, Player winner){
+		
+	}
+	
 	public void tpToArena(Player[] players, String arena){
 		Location tpLoc = plugin.arenaMaster.getArenaData(arena).getSpawnLocation();
 		
@@ -61,6 +70,16 @@ public class GDModes {
 		
 		if (mode.equalsIgnoreCase("duel")){
 			plugin.duel.beginDuel(players);
+		}else{
+			return;
+		}
+	}
+	
+	public void endMatchType(Player[] players){
+		String mode = plugin.match.getMode(players);
+		
+		if (mode.equalsIgnoreCase("duel")){
+			plugin.duel.endDuel(players);
 		}else{
 			return;
 		}

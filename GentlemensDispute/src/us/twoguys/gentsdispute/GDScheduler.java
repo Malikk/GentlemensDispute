@@ -7,7 +7,8 @@ import org.bukkit.entity.Player;
 public class GDScheduler {
 	
 	GentlemensDispute plugin;
-	int taskId;
+	private int taskId;
+	private Player stillAlive;
 	
 	public GDScheduler(GentlemensDispute instance){
 		plugin = instance;
@@ -83,6 +84,8 @@ public class GDScheduler {
 						if (plugin.config.broadcastEnabled("MatchBeginAndEnd")){
 							plugin.broadcastExcept(players, "Match has begun.");
 						}
+						
+						plugin.getServer().getScheduler().cancelTask(taskId);
 					}
 				}
 			}
@@ -101,16 +104,43 @@ public class GDScheduler {
 	}
 	
 	//Draw Timer
-	public void drawChecker(final Player[] players){
+	public void drawChecker(final Player[] players, final HashSet<Player> isAlive){
+		for (Player arrayPlayer: players){
+			isAlive.add(arrayPlayer);
+		}
+		
+		//if this doesnt work, move hashSet out of scheduler
+		
 		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
-			HashSet<Player> hasDied = new HashSet<Player>();
 			
 			public void run(){
+				int counter = 0;
+				
 				for (Player player: players){
 					if (player.isDead()){
-						hasDied.add(player);
+						isAlive.remove(player);
 					}
 				}
+				
+				for (Player hashPlayer: isAlive){
+					if (plugin.playerListener.playerIsOnFire(hashPlayer)){
+						return;
+					}
+					stillAlive = hashPlayer;
+					counter++;
+				}
+				
+				if (counter > 1){
+					return;
+				}else if (counter == 1){
+					Player winner = stillAlive;
+					plugin.modes.winner(players, winner);
+					plugin.getServer().getScheduler().cancelTask(taskId);
+				}else if (counter == 0){
+					plugin.modes.draw(players);
+					plugin.getServer().getScheduler().cancelTask(taskId);
+				}
+				
 			}
 		}, 0L, 20L);
 	}
