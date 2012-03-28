@@ -19,11 +19,7 @@ public class GentlemensDispute extends JavaPlugin{
 	private Logger log = Logger.getLogger("Minecraft");
 	
 	//Command Executors
-	private CmdDuel duelPlayer;
-	private CmdChallenged response;
-	private CmdReady ready;
-	private CmdSelection select;
-	private CmdCreateArena createArena;
+
 	
 	//Classes
 	public GDConfig config = new GDConfig(this);
@@ -31,17 +27,20 @@ public class GentlemensDispute extends JavaPlugin{
 	public GDModes modes = new GDModes(this);
 	public GDDuel duel = new GDDuel(this);
 	public SelectionMaster selectionMaster = new SelectionMaster(this);
-	public PlayerListener playerListener = new PlayerListener(this);
-	public ArenaMaster arenaMaster;
+	public ArenaPersister arenaPersister = new ArenaPersister(this);
+	public ArenaMaster arenaMaster = new ArenaMaster(this);
 	
 	//Listeners
 	SelectionListener selectionListener = new SelectionListener(this);
+	PlayerListener playerListener = new PlayerListener(this);
 	
 	public void onEnable(){
 		config.loadConfiguration();
-		loadCommandExecutors();
 		
-		arenaMaster = new ArenaMaster(this);
+		arenaMaster.loadArenaData();
+		//arenaMaster = new ArenaMaster(this);
+		
+		loadCommandExecutors();
 		
 		//listeners
 		PluginManager pm = this.getServer().getPluginManager();
@@ -90,6 +89,11 @@ public class GentlemensDispute extends JavaPlugin{
 	}
 	
 	public void loadCommandExecutors(){
+		CmdDuel duelPlayer;
+		CmdChallenged response;
+		CmdReady ready;
+		CmdSelection select;
+		CmdCreateArena createArena;
 		
 		duelPlayer = new CmdDuel(this);
 		this.getCommand("duel").setExecutor(duelPlayer);

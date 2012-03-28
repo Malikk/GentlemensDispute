@@ -13,22 +13,20 @@ public class ArenaMaster {
 
 	GentlemensDispute plugin;
 	ArenaPersister arenaPersister;
-	SelectionMaster selectionMaster;
 	
 	private HashSet<ArenaData> arenaDataList = new HashSet<ArenaData>();
 	private HashSet<ArenaData> deletedArenaList = new HashSet<ArenaData>();
 	
 	public ArenaMaster(GentlemensDispute instance) {
 		plugin = instance;
-		selectionMaster = new SelectionMaster(plugin);
 		arenaPersister = new ArenaPersister(plugin);
-		loadArenaData();
+
 
 	}
 	
 	public boolean createArena(Location corner1, Location corner2, Location spawn, String arenaName){
 		
-		if(isValidArenaName(arenaName) && !collides(corner1, corner2)){
+		if(nameIsTaken(arenaName) && !collides(corner1, corner2)){
 			ArenaData arena = new ArenaData(corner1, corner2, spawn, arenaName);
 			arenaDataList.add(arena);
 			return true;
@@ -57,15 +55,12 @@ public class ArenaMaster {
 		return false;
 	}
 	
-	public boolean isValidArenaName(String arenaName){
+	public boolean nameIsTaken(String arenaName){
 		for(ArenaData arena: getArenaDataList()){
 			if(arena.getName().equalsIgnoreCase(arenaName)){
-				return false;
-			}else{
 				return true;
 			}
 		}
-		plugin.log(arenaName + "is already taken");
 		return false;	
 	}
 	
@@ -81,7 +76,7 @@ public class ArenaMaster {
 		return arenaData;
 	}
 	
-	private void loadArenaData(){
+	public void loadArenaData(){
 		arenaPersister.Deserialize();
 	}
 	

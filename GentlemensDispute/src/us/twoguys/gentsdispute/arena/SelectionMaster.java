@@ -2,6 +2,7 @@ package us.twoguys.gentsdispute.arena;
 
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -43,7 +44,12 @@ public class SelectionMaster {
 	}
 	
 	public int getSelectorInt(Player player){
-		return selectors.get(player);
+		if(isSelecting(player)){
+			return selectors.get(player);
+		}else{
+			player.sendMessage(ChatColor.RED + "You must select points first.");
+			return 0;
+		}
 	}
 	
 	public void setSelector(Player player, int x){
@@ -89,6 +95,7 @@ public class SelectionMaster {
 		Location corner2 = getSelectedCorner2(player);
 		Location spawn = getSelectedSpawn(player);
 		
+		player.sendMessage(corner1.toString() + corner2.toString() + spawn.toString() + arenaName);
 		arenaMaster.createArena(corner1, corner2, spawn, arenaName);
 	}
 }
