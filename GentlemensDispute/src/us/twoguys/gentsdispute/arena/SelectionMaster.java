@@ -68,10 +68,16 @@ public class SelectionMaster{
 		selectedLocations.put(player, locs);
 	}
 	
-	public void addSpawn(Player player, Location loc){
+	public boolean addSpawn(Player player, Location loc){
 		Location[] locs = selectedLocations.get(player);
 		locs[2] = loc;
-		selectedLocations.put(player, locs);
+		if(this.plugin.arenaMaster.cuboidContainsLocation(locs[0], locs[1], loc)){
+			selectedLocations.put(player, locs);
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	public Location[] getSelectedLocations(Player player){

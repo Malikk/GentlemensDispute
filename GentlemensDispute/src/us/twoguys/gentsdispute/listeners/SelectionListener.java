@@ -38,9 +38,13 @@ public class SelectionListener implements Listener{
 		    player.sendMessage(ChatColor.GREEN + "Second point selected." +ChatColor.DARK_GREEN+" Select the spawn location.");
 		}
 		else if(selectionMaster.getSelectorInt(player) == 3){
-			selectionMaster.addSpawn(player, event.getClickedBlock().getLocation());
-			selectionMaster.setSelector(player, 4);
-			player.sendMessage(ChatColor.GREEN + "The spawn location has been set");
+			boolean spawnSet = selectionMaster.addSpawn(player, event.getClickedBlock().getLocation());
+			if(spawnSet==false){
+				player.sendMessage(ChatColor.RED + "The spawn location must be within the arena");
+			}else{
+				selectionMaster.setSelector(player, 4);
+				player.sendMessage(ChatColor.GREEN + "The spawn location has been set");
+			}
 		}
 		
 	}

@@ -111,4 +111,42 @@ public class ArenaMaster {
 		return false;
 	}
 	
+	public boolean arenaContainsLocation(Location loc, String arenaName){
+		if(loc.getWorld().getName().equalsIgnoreCase(getArenaData(arenaName).getWorldName())){return false;}
+		
+		Location corner1 = getArenaData(arenaName).getCorner1();
+		Location corner2 = getArenaData(arenaName).getCorner2();
+		
+		if(cuboidContainsLocation(corner1, corner2, loc)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean cuboidContainsLocation(Location corner1, Location corner2, Location loc){
+		
+		RegionBasic rb = new RegionBasic(corner1, corner2);
+		
+		int x = loc.getBlockX();
+		int y = loc.getBlockY();
+		int z = loc.getBlockZ();
+		
+		int xl = rb.getLargeX();
+		int yl = rb.getLargeY();
+		int zl = rb.getLargeZ();
+		
+		int xs = rb.getSmallX();
+		int ys = rb.getSmallY();
+		int zs = rb.getSmallZ();
+		
+		if(xl > x && x > xs ){
+			if(yl > y && y > ys){
+				if(zl > z && z > zs){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
