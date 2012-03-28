@@ -17,21 +17,21 @@ public class GDModes {
 		Location tpLoc = plugin.arenaMaster.getArenaData(arena).getSpawnLocation();
 		
 		for (Player player: players){
-			plugin.tempData.addPlayerReturnLocation(player, player.getLocation());
+			plugin.match.addPlayerReturnLocation(player, player.getLocation());
 			player.teleport(tpLoc);
 		}
 	}
 	
 	public void tpBack(Player player){
-		Location tpLoc = plugin.tempData.getPlayerReturnLocation(player);
+		Location tpLoc = plugin.match.getPlayerReturnLocation(player);
 		player.teleport(tpLoc);
-		plugin.tempData.removePlayerReturnLocation(player);
+		plugin.match.removePlayerReturnLocation(player);
 	}
 	
 	public void waitForPlayerReady(Player[] players){
-		plugin.tempData.addWaitReady(players);
+		plugin.match.addWaitReady(players);
 		plugin.arrayMessage(players, "When you are ready, type /ready");
-		runRingOutSche(players, plugin.tempData.getArena(players));
+		runRingOutSche(players, plugin.match.getArena(players));
 		GDScheduler sche = new GDScheduler(plugin);
 		sche.waitingOnReady(players);
 	}
@@ -47,7 +47,7 @@ public class GDModes {
 	}
 	
 	public void prepareMatchType(Player[] players){
-		String mode = plugin.tempData.getMode(players);
+		String mode = plugin.match.getMode(players);
 		
 		if (mode.equalsIgnoreCase("duel")){
 			plugin.duel.prepareDuel(players);
@@ -57,7 +57,7 @@ public class GDModes {
 	}
 	
 	public void beginMatchType(Player[] players){
-		String mode = plugin.tempData.getMode(players);
+		String mode = plugin.match.getMode(players);
 		
 		if (mode.equalsIgnoreCase("duel")){
 			plugin.duel.beginDuel(players);
@@ -68,7 +68,7 @@ public class GDModes {
 	
 	public void saveAndClearInventories(Player[] players){
 		for (Player player: players){
-			plugin.tempData.saveInventory(player);
+			plugin.match.saveInventory(player);
 			player.getInventory().clear();
 		}
 	}

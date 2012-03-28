@@ -17,10 +17,10 @@ public class CmdReady implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)){console(); return true;}
-		if (!(plugin.tempData.waitingOnReadyContains((Player) sender))){notWaiting(sender); return true;}
+		if (!(plugin.match.waitingOnReadyContains((Player) sender))){notWaiting(sender); return true;}
 		
 		readyMessage((Player) sender);
-		plugin.tempData.removeWaitReady((Player) sender);
+		plugin.match.removeWaitReady((Player) sender);
 		return true;
 	}
 	

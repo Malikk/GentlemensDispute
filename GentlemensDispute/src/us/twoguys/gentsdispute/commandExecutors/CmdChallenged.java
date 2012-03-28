@@ -18,24 +18,24 @@ public class CmdChallenged implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)){console(); return true;}
-		if (!(plugin.tempData.waitingOnAcceptContains((Player) sender))){noChallenge(sender); return true;}
+		if (!(plugin.match.waitingOnAcceptContains((Player) sender))){noChallenge(sender); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
 		
 		Player p2 = (Player) sender;
-		Player p1 =  plugin.tempData.getChallenger(p2);
+		Player p1 =  plugin.match.getChallenger(p2);
 		Player[] players = {p1, p2};
 		String response = args[0].toString();
 		
 		if (response.equalsIgnoreCase("accept")){
 			plugin.modes.prepareMatchType(players);
-			plugin.tempData.removeWaitAccept(p1);
+			plugin.match.removeWaitAccept(p1);
 			acceptMessages(p1, p2);
 			broadcast(players, p1, p2, response);
 			return true;
 			
 		}else if (response.equalsIgnoreCase("decline")){
-			plugin.tempData.removeWaitAccept(p1);
-			plugin.tempData.removeMatchData(players);
+			plugin.match.removeWaitAccept(p1);
+			plugin.match.removeMatchData(players);
 			declineMessages(p1, p2);
 			broadcast(players, p1, p2, response);
 			return true;

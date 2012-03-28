@@ -7,7 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class GDTemporaryDataStorage {
+public class GDMatch {
 
 	GentlemensDispute plugin;
 	
@@ -34,7 +34,7 @@ public class GDTemporaryDataStorage {
 	//Inventories
 	public HashMap<Player, ItemStack[]> inventoryContents = new HashMap<Player, ItemStack[]>();
 	
-	public GDTemporaryDataStorage(GentlemensDispute instance){
+	public GDMatch(GentlemensDispute instance){
 		plugin = instance;
 	}
 	
@@ -215,8 +215,8 @@ public class GDTemporaryDataStorage {
 	
 	//Died in a Match
 	public void addDiedInMatch(Player player){
-		Player[] players = plugin.tempData.getOtherPlayers(player);
-		String arena = plugin.tempData.getArena(players);
+		Player[] players = plugin.match.getOtherPlayers(player);
+		String arena = plugin.match.getArena(players);
 		Location loc = plugin.arenaMaster.getArenaData(arena).getSpawnLocation();
 		diedInMatch.put(player, loc);
 	}
@@ -261,4 +261,7 @@ public class GDTemporaryDataStorage {
 		player.getInventory().setContents(inventoryContents.get(player));
 	}
 	
+	public void removeOldInventory(Player player){
+		inventoryContents.remove(player);
+	}
 }

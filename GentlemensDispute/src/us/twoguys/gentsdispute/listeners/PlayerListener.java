@@ -3,13 +3,13 @@ package us.twoguys.gentsdispute.listeners;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 
@@ -25,15 +25,15 @@ public class PlayerListener implements Listener{
 	public void onEntityDamage(EntityDamageEvent event){
 		if (event.isCancelled()){return;}
 		if (!(event.getEntity() instanceof Player)){return;}
-		if (!(plugin.tempData.hasDamageProtection((Player)event.getEntity())) && !(plugin.tempData.hasOnlyMatchDamage((Player)event.getEntity()))){return;}
+		if (!(plugin.match.hasDamageProtection((Player)event.getEntity())) && !(plugin.match.hasOnlyMatchDamage((Player)event.getEntity()))){return;}
 		
 		Player damaged = (Player) event.getEntity();
 		Player[] players;
 		String mode;
 		
 		try{
-			players = plugin.tempData.getOtherPlayers(damaged);
-			mode = plugin.tempData.getMode(players);
+			players = plugin.match.getOtherPlayers(damaged);
+			mode = plugin.match.getMode(players);
 		}catch(Exception e){
 			return;
 		}
@@ -48,12 +48,24 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
-		if (!(plugin.tempData.isInBattle(event.getEntity()))){return;}
-		
-		Player player = event.getEntity();
+		if (!(plugin.match.isInBattle(event.getEntity()))){return;}
 		
 		event.setKeepLevel(true);
 		event.getDrops().clear();
+		plugin.match.addDiedInMatch(event.getEntity());
+	}
+	
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent event){
+		if (!(plugin.match.diedInMatch(event.getPlayer()))){return;}
+		
+		Player player = event.getPlayer();
+		
+		player.teleport(plugin.match.getDiedInMatchLocation(player));
+		plugin.match.removeDiedInMatch(player);
+		
+		plugin.match.loadInventory(player);
+		plugin.match.removeOldInventory(player);
 	}
 	
 	public void playerDamaged(Player damaged, String mode, EntityDamageEvent event){
@@ -72,9 +84,9 @@ public class PlayerListener implements Listener{
 			return;
 		}
 		
-		if (plugin.tempData.hasDamageProtection(damaged)){
+		if (plugin.match.hasDamageProtection(damaged)){
 			event.setCancelled(true);
-		}else if (plugin.tempData.hasOnlyMatchDamage(damaged)){
+		}else if (plugin.match.hasOnlyMatchDamage(damaged)){
 			if (plugin.config.damageTypeAllowed(mode, type)){return;}
 			event.setCancelled(true);
 		}
@@ -90,11 +102,11 @@ public class PlayerListener implements Listener{
 			damager = event.getDamager();
 		}
 		
-		if (plugin.tempData.hasDamageProtection(damaged)){
+		if (plugin.match.hasDamageProtection(damaged)){
 			event.setCancelled(true);
-		}else if (plugin.tempData.hasOnlyMatchDamage(damaged)){
+		}else if (plugin.match.hasOnlyMatchDamage(damaged)){
 			if (damager instanceof Player){
-				if (plugin.tempData.isOtherPlayer(damaged, (Player)damager)){return;}
+				if (plugin.match.isOtherPlayer(damaged, (Player)damager)){return;}
 				event.setCancelled(true);
 			}else{
 				if (plugin.config.damageTypeAllowed(mode, "Mobs")){return;}

@@ -52,7 +52,7 @@ public class CmdDuel implements CommandExecutor {
 		broadcast(p1, p2, arena);
 		
 		Player[] players = {p1, p2};
-		plugin.tempData.addMatchData("duel", arena, players);
+		plugin.match.addMatchData("duel", arena, players);
 		
 		GDScheduler sche = new GDScheduler(plugin);
 		sche.acceptTimer(p1, p2);

@@ -1,5 +1,7 @@
 package us.twoguys.gentsdispute;
 
+import java.util.HashSet;
+
 import org.bukkit.entity.Player;
 
 public class GDScheduler {
@@ -20,7 +22,7 @@ public class GDScheduler {
 			public void run(){
 				if (firstCheck){
 					Player[] players = {p1, p2};
-					plugin.tempData.addWaitAccept(p1, players);
+					plugin.match.addWaitAccept(p1, players);
 					counter = plugin.config.getTimeToRespond();
 					firstCheck = false;
 				}else if (firstCheck == false){
@@ -30,12 +32,12 @@ public class GDScheduler {
 					}else if (counter == 0){
 						p1.sendMessage("Challenge timed out!");
 						p2.sendMessage("Challenge timed out!");
-						plugin.tempData.removeWaitAccept(p1);
+						plugin.match.removeWaitAccept(p1);
 						plugin.getServer().getScheduler().cancelTask(taskId);
 					}
 				}
 				
-				if (!(plugin.tempData.waitingOnAcceptContains(p1)) || !(plugin.tempData.waitingOnAcceptContains(p2))){
+				if (!(plugin.match.waitingOnAcceptContains(p1)) || !(plugin.match.waitingOnAcceptContains(p2))){
 					plugin.getServer().getScheduler().cancelTask(taskId);
 				}
 			}
@@ -49,7 +51,7 @@ public class GDScheduler {
 			
 			public void run(){
 				for (Player player: players){
-					if (plugin.tempData.waitingOnReadyContains(player)){
+					if (plugin.match.waitingOnReadyContains(player)){
 						return;
 					}
 				}
@@ -99,7 +101,19 @@ public class GDScheduler {
 	}
 	
 	//Draw Timer
-	
+	public void drawChecker(final Player[] players){
+		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+			HashSet<Player> hasDied = new HashSet<Player>();
+			
+			public void run(){
+				for (Player player: players){
+					if (player.isDead()){
+						hasDied.add(player);
+					}
+				}
+			}
+		}, 0L, 20L);
+	}
 	
 	
 }

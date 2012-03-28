@@ -27,7 +27,7 @@ public class GentlemensDispute extends JavaPlugin{
 	
 	//Classes
 	public GDConfig config = new GDConfig(this);
-	public GDTemporaryDataStorage tempData = new GDTemporaryDataStorage(this);
+	public GDMatch match = new GDMatch(this);
 	public GDModes modes = new GDModes(this);
 	public GDDuel duel = new GDDuel(this);
 	public SelectionMaster selectionMaster = new SelectionMaster(this);
