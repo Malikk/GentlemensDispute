@@ -27,7 +27,7 @@ public class ArenaMaster {
 		if(!nameIsTaken(arenaName) && !collides(corner1, corner2)){
 			ArenaData arena = new ArenaData(corner1, corner2, spawn, arenaName);
 			arenaDataList.add(arena);
-			plugin.log("Created " + arenaName + ". The members in arenaDataList are: "+getArenaNamesString());
+			plugin.log("Created " + arenaName);
 			return true;
 		}else{
 			plugin.logSevere("Could not create an arena!");

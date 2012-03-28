@@ -45,23 +45,19 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 					plugin.log("No arenas to save!");
 					return;
 				}
-					
-					if(arenaMaster.getArenaDataList().isEmpty()){
-						plugin.log("No arenas to save...");
-					}else{
-						try{
-							for (ArenaData arenaData : arenaMaster.getArenaDataList()){
-								if(arenaMaster.isDeleted(arenaData.getName())== false){
-									oostream.writeObject(arenaData);
-									plugin.log(arenaData.getName() + " arena saved");
-								}
+					try{
+						for (ArenaData arenaData : arenaMaster.getArenaDataList()){
+							if(arenaMaster.isDeleted(arenaData.getName())== false){
+								oostream.writeObject(arenaData);
+								plugin.log(arenaData.getName() + " arena saved");
 							}
-						}catch(Exception e){
-							plugin.log("serialization unsuccessful");
 						}
-					oostream.close();
-					plugin.log("Arenas successfully serialized");
+					}catch(Exception e){
+						plugin.log("serialization unsuccessful");
 					}
+				oostream.close();
+				plugin.log("Arenas successfully serialized");
+					
 			}catch (IOException e){
 				e.printStackTrace();
 			}
@@ -83,7 +79,7 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 					
 					if(recordCount == 0)return;
 					
-					plugin.log("Loading "+ recordCount +" region(s)");
+					plugin.log("Loading "+ recordCount +" arena(s)");
 					
 					for(int i = 0; i < recordCount; i++){
 						ArenaData arena = (ArenaData)oistream.readObject();
@@ -95,7 +91,7 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 						
 						arenaMaster.createArena(loc1, loc2, spawn, arenaName);
 						
-						plugin.log(arenaName + "loaded");
+						plugin.log(arenaName + " loaded");
 								
 					}
 				}catch(FileNotFoundException e){

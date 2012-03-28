@@ -35,7 +35,7 @@ public class SelectionListener implements Listener{
 		else if(selectionMaster.getSelectorInt(player) == 2){
 		    selectionMaster.addCorner2(player, event.getClickedBlock().getLocation());
 		    selectionMaster.setSelector(player, 3);
-		    player.sendMessage(ChatColor.GREEN + "Second point selected.\n Select the spawn location.");
+		    player.sendMessage(ChatColor.GREEN + "Second point selected." +ChatColor.DARK_GREEN+" Select the spawn location.");
 		}
 		else if(selectionMaster.getSelectorInt(player) == 3){
 			selectionMaster.addSpawn(player, event.getClickedBlock().getLocation());

@@ -95,7 +95,6 @@ public class SelectionMaster{
 		Location corner2 = getSelectedCorner2(player);
 		Location spawn = getSelectedSpawn(player);
 		
-		player.sendMessage(corner1.toString() + corner2.toString() + spawn.toString() + arenaName);
 		if(this.plugin.arenaMaster.createArena(corner1, corner2, spawn, arenaName)){
 			player.sendMessage(ChatColor.GREEN +"Arena created successfully");
 		}else{

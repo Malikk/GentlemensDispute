@@ -19,3 +19,9 @@ commands:
     create:
         description: Used to create an arena based on the selected points
         usage: /create <arenaName>
+    delete:
+        description: Used to delete an arena
+        usage: /delete <arenaName>
+    listarenas:
+        description: Displays a list of all arenas
+        usage: /listarenas
