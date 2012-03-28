@@ -8,18 +8,18 @@ import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 
-public class SelectionMaster {
+public class SelectionMaster{
+
+
 
 	GentlemensDispute plugin;
-	ArenaMaster arenaMaster;
 	
 	HashMap<Player, Integer> selectors = new HashMap<Player, Integer>();
 	HashMap<Player, Location[]> selectedLocations = new HashMap<Player, Location[]>(); //[0]=corner1 [1]=corner2 [2]=spawn
 	
 	
-	public SelectionMaster(GentlemensDispute instance){
+	public SelectionMaster(GentlemensDispute instance) {
 		plugin = instance;
-		arenaMaster = plugin.arenaMaster;
 	}
 	
 	public void addSelector(Player player){
@@ -96,6 +96,6 @@ public class SelectionMaster {
 		Location spawn = getSelectedSpawn(player);
 		
 		player.sendMessage(corner1.toString() + corner2.toString() + spawn.toString() + arenaName);
-		arenaMaster.createArena(corner1, corner2, spawn, arenaName);
+		this.plugin.arenaMaster.createArena(corner1, corner2, spawn, arenaName);
 	}
 }
