@@ -5,19 +5,20 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
+import us.twoguys.gentsdispute.arena.ArenaMaster;
 
 public class CmdListArenas implements CommandExecutor{
-	
+
 	GentlemensDispute plugin;
+	ArenaMaster arenaMaster;
 	
 	public CmdListArenas(GentlemensDispute instance){
 		plugin = instance;
+		arenaMaster = plugin.arenaMaster;
 	}
 
-	@Override
-	public boolean onCommand(CommandSender arg0, Command arg1, String arg2,
-			String[] arg3) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean onCommand(CommandSender sender, Command label, String arg, String[] args) {
+		sender.sendMessage(arenaMaster.getArenaNamesString());	
+		return true;
 	}
 }
