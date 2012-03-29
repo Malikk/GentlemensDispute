@@ -3,6 +3,7 @@ package us.twoguys.gentsdispute.arena;
 import java.util.HashSet;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 
@@ -145,6 +146,15 @@ public class ArenaMaster {
 				if(zl > z && z > zs){
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean isInAnyArena(Location loc){
+		for(ArenaData arena : getArenaDataList()){
+			if(arenaContainsLocation(loc, arena.getName())){
+				return true;
 			}
 		}
 		return false;
