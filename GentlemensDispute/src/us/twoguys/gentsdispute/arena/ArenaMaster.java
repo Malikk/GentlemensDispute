@@ -3,8 +3,6 @@ package us.twoguys.gentsdispute.arena;
 import java.util.HashSet;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
 import us.twoguys.gentsdispute.GentlemensDispute;
 
 /*
@@ -25,7 +23,7 @@ public class ArenaMaster {
 	
 	public boolean createArena(Location corner1, Location corner2, Location spawn, String arenaName){
 		
-		if(!nameIsTaken(arenaName) && !collides(corner1, corner2)){
+		if(!nameIsTaken(arenaName) && !collidesWithArena(corner1, corner2)){
 			ArenaData arena = new ArenaData(corner1, corner2, spawn, arenaName);
 			arenaDataList.add(arena);
 			plugin.log("Created " + arenaName);
@@ -36,8 +34,14 @@ public class ArenaMaster {
 		}
 	}
 	
-	public boolean collides(Location loc1, Location loc2){
-		RegionBasic regionBasic = new RegionBasic(loc1, loc2);
+	/**
+	 * 
+	 * @param corner1 - the first corner of a cuboid
+	 * @param corner2 - the second corner of a cuboid
+	 * @return True if the new cuboid collides with an arena. False if it does not collide with an arena
+	 */
+	public boolean collidesWithArena(Location corner1, Location corner2){
+		RegionBasic regionBasic = new RegionBasic(corner1, corner2);
 		Location R1L = regionBasic.getLargeLoc();
 		Location R1S = regionBasic.getSmallLoc();
 		
@@ -77,11 +81,18 @@ public class ArenaMaster {
 		return arenaData;
 	}
 
-	
+	/**
+	 * 
+	 * @return HashSet containing all the ArenaData objects that are loaded.
+	 */
 	public HashSet<ArenaData> getArenaDataList(){
 		return this.arenaDataList;
 	}
 	
+	/**
+	 * 
+	 * @return An string with a list of all the current arenas in the format "arena1, arena2, arena3..."
+	 */
 	public String getArenaNamesString(){
 		StringBuilder string = new StringBuilder();
 		for(ArenaData arena: getArenaDataList()){
@@ -112,6 +123,12 @@ public class ArenaMaster {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param loc - the location to check
+	 * @param arenaName - the arena in which to check the location
+	 * @return True if the location is in the arena. False if the location is not in the arena.
+	 */
 	public boolean arenaContainsLocation(Location loc, String arenaName){
 		if(loc.getWorld().getName().equalsIgnoreCase(getArenaData(arenaName).getWorldName())){return false;}
 		
@@ -124,7 +141,14 @@ public class ArenaMaster {
 			return false;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param corner1 - the first corner location of a cuboid
+	 * @param corner2 - the second corner location of the same cuboid
+	 * @param loc - the location that is desired to be checked
+	 * @return true if the location is within the cuboid region.
+	 * false if the location is not within the cuboid region
+	 */
 	public boolean cuboidContainsLocation(Location corner1, Location corner2, Location loc){
 		
 		RegionBasic rb = new RegionBasic(corner1, corner2);
@@ -158,5 +182,20 @@ public class ArenaMaster {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @return ArenaData that the point is inside. Returns null if the location is not in an arena
+	 */
+	public ArenaData getContainingArena(Location loc){
+		for(ArenaData arena: getArenaDataList()){
+			if(arenaContainsLocation(loc, arena.getName())){
+				return arena;
+			}
+		}
+		plugin.logSevere("getContainingArena returned null!");
+		return null;
 	}
 }

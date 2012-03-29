@@ -104,7 +104,7 @@ public class SelectionMaster{
 		if(this.plugin.arenaMaster.createArena(corner1, corner2, spawn, arenaName)){
 			player.sendMessage(ChatColor.GREEN +"Arena created successfully");
 		}else{
-			if(this.plugin.arenaMaster.collides(corner1, corner2)){
+			if(this.plugin.arenaMaster.collidesWithArena(corner1, corner2)){
 				player.sendMessage(ChatColor.RED+"Arena collides with another arena.");
 			}else if(this.plugin.arenaMaster.nameIsTaken(arenaName)){
 				player.sendMessage(ChatColor.RED+"This arena name is already taken");
