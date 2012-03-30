@@ -9,17 +9,20 @@ import org.bukkit.entity.Player;
 import us.twoguys.gentsdispute.GentlemensDispute;
 import us.twoguys.gentsdispute.arena.ArenaMaster;
 import us.twoguys.gentsdispute.arena.SelectionMaster;
+import us.twoguys.gentsdispute.arena.Visualizer;
 
 public class CmdCreateArena implements CommandExecutor{
 
 	GentlemensDispute plugin;
 	SelectionMaster selectionMaster;
 	ArenaMaster arenaMaster;
+	Visualizer visualizer;
 	
 	public CmdCreateArena(GentlemensDispute instance){
 		plugin = instance;
 		selectionMaster = plugin.selectionMaster;
 		arenaMaster = plugin.arenaMaster;
+		visualizer = plugin.visualizer;
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -38,7 +41,8 @@ public class CmdCreateArena implements CommandExecutor{
 			}else if(args.length==1){
 				if(!arenaMaster.nameIsTaken(args[0])){
 				
-				selectionMaster.createArenaWithSelectedPoints((Player)sender, args[0]);				
+				selectionMaster.createArenaWithSelectedPoints((Player)sender, args[0]);		
+				visualizer.revertAll();
 				return true;
 				}
 			}

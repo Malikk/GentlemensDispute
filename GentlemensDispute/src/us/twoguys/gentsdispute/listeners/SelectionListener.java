@@ -8,14 +8,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
-import us.twoguys.gentsdispute.arena.ArenaVisualizer;
 import us.twoguys.gentsdispute.arena.SelectionMaster;
+import us.twoguys.gentsdispute.arena.Visualizer;
 
 public class SelectionListener implements Listener{
 
 	GentlemensDispute plugin;
 	SelectionMaster selectionMaster;
-	ArenaVisualizer visualizer;
+	Visualizer visualizer;
 	
 	
 	public SelectionListener(GentlemensDispute instance){
