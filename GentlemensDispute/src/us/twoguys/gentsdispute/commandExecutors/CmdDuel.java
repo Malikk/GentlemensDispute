@@ -43,7 +43,7 @@ public class CmdDuel implements CommandExecutor {
 			//arena = getDefaultArena
 		}else if (args.length == 2){
 			String arenaArg = args[1].toString();
-			if (!(plugin.arenaMaster.nameIsTaken(arenaArg))){invalidArena((Player)sender); return false;}
+			if (plugin.arenaMaster.nameIsTaken(arenaArg) == false){invalidArena((Player)sender); return false;}
 			arena = arenaArg;
 		}
 		

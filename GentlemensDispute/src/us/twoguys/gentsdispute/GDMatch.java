@@ -1,7 +1,9 @@
 package us.twoguys.gentsdispute;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -12,7 +14,7 @@ public class GDMatch {
 	GentlemensDispute plugin;
 	
 	//Match Data
-	public HashMap<Player[], String[]> matchData = new HashMap<Player[], String[]>();
+	public HashMap<List<Player>, String[]> matchData = new HashMap<List<Player>, String[]>();
 	
 	//Waiting Lists
 	public HashMap<Player, Player[]> waitingOnAccept = new HashMap<Player, Player[]>();
@@ -40,23 +42,29 @@ public class GDMatch {
 	
 	//MatchData Methods
 	public void addMatchData(String mode, String arena, Player[] players){
+		Player p1 = players[0];
+		Player p2 = players[1];
+		plugin.log("Adding match data: " + mode + " at " + arena + " for " + p1.getName() + " and " + p2.getName());
 		String[] matchTypeAndArena = {mode, arena};
-		matchData.put(players, matchTypeAndArena);
+		matchData.put(Arrays.asList(players), matchTypeAndArena);
 	}
 	
 	public String getMode(Player[] players){
-		String[] data = matchData.get(players);
-		return data[0];
+		String[] data = matchData.get(Arrays.asList(players));
+		String mode = data[0].toString();
+		return mode;
 	}
 	
 	public String getArena(Player[] players){
-		String[] data = matchData.get(players);
-		return data[1];
+		String[] data = matchData.get(Arrays.asList(players));
+		String arena = data[1].toString();
+		plugin.log("Arena is: " + arena);
+		return arena;
 	}
 	
 	public boolean isInBattle(Player player){
-		for (Player[] array: matchData.keySet()){
-			for (Player arrayPlayer: array){
+		for (List<Player> list: matchData.keySet()){
+			for (Player arrayPlayer: list){
 				if (arrayPlayer.equals(player)){
 					return true;
 				}
@@ -66,10 +74,11 @@ public class GDMatch {
 	}
 	
 	public Player[] getOtherPlayers(Player player){
-		for (Player[] array: matchData.keySet()){
-			for (Player arrayPlayer: array){
+		for (List<Player> list: matchData.keySet()){
+			for (Player arrayPlayer: list){
 				if (arrayPlayer.equals(player)){
-					return array;
+					Player[] players = (Player[]) list.toArray();
+					return players;
 				}
 			}
 		}
