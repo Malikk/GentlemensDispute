@@ -21,7 +21,7 @@ public class ArenaData implements Serializable{
 	private String worldName;
 	
 	private String arenaName;
-	
+	 
 	public ArenaData(Location corner1, Location corner2, Location spawn, String arenaName){
 		x1 = corner1.getBlockX();
 		y1 = corner1.getBlockY();
