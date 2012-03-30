@@ -32,9 +32,10 @@ public class GDConfig {
 		plugin.getConfig().addDefault("Modes.Duel.Damage.Cactus", true);
 		plugin.getConfig().addDefault("Modes.Duel.Damage.Fall", true);
 		
-		plugin.getConfig().addDefault("Challenges.TimeToRespond", 30);
-		plugin.getConfig().addDefault("Challenges.CountdownTime", 10);
-		plugin.getConfig().addDefault("Challenges.TimeUntilForcedTp", 120);
+		plugin.getConfig().addDefault("Challenges.TimeLimits.TimeToRespond", 30);
+		plugin.getConfig().addDefault("Challenges.TimeLimits.CountdownTime", 10);
+		plugin.getConfig().addDefault("Challenges.TimeLimits.RingOutTime", 5);
+		plugin.getConfig().addDefault("Challenges.TimeLimits.TimeUntilForcedTp", 120);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.Challenges", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.AcceptsAndDeclines", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.PlayerReady", true);
@@ -100,17 +101,22 @@ public class GDConfig {
 	}
 	
 	public int getTimeToRespond(){
-		int seconds = plugin.getConfig().getInt("Challenges.TimeToRespond");
+		int seconds = plugin.getConfig().getInt("Challenges.TimeLimits.TimeToRespond");
 		return seconds;
 	}
 	
 	public int getCountdownTime(){
-		int countdown = plugin.getConfig().getInt("Challenges.CountdownTime");
+		int countdown = plugin.getConfig().getInt("Challenges.TimeLimits.CountdownTime");
 		return countdown;
 	}
 	
 	public int getForcedTpTime(){
-		int countdown = plugin.getConfig().getInt("Challenges.TimeUntilForcedTp");
+		int countdown = plugin.getConfig().getInt("Challenges.TimeLimits.TimeUntilForcedTp");
+		return countdown;
+	}
+	
+	public int getRingOutTime(){
+		int countdown = plugin.getConfig().getInt("Challenges.TimeLimits.RingOutTime");
 		return countdown;
 	}
 	

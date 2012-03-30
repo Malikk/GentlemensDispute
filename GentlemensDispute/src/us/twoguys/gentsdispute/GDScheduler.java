@@ -1,5 +1,6 @@
 package us.twoguys.gentsdispute;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.bukkit.entity.Player;
@@ -10,6 +11,7 @@ public class GDScheduler {
 	private int taskId;
 	private Player stillAlive;
 	private HashSet<Player> isAlive = new HashSet<Player>();
+	private HashMap<Player, Integer> isOutOfBounds = new HashMap<Player, Integer>();
 	
 	public GDScheduler(GentlemensDispute instance){
 		plugin = instance;
@@ -97,10 +99,32 @@ public class GDScheduler {
 	//Ring Out Timer
 	public void ringOutTimer(final Player[] players, final String arena){
 		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+			int ringOutTime = plugin.config.getRingOutTime();
 			
 			public void run(){
-				//ready for Nick
-				//plugin.tempData.isConfined(Player, arenanameasstring)
+				for (Player player: players){
+					if (plugin.match.isConfined(player, arena)){
+						if (!(plugin.arenaMaster.arenaContainsLocation(player.getLocation(), arena))){
+							if (isOutOfBounds.containsKey(player)){
+								int timeLeft = isOutOfBounds.get(player);
+								
+								if (timeLeft == 0){
+									player.sendMessage("You have been disqualified.");
+									player.damage(9001);
+								}else{
+									player.sendMessage("" + timeLeft);
+									isOutOfBounds.put(player, timeLeft--);
+								}
+							}else{
+								player.sendMessage(String.format("WARNING: You are out of bounds!"));
+								player.sendMessage(String.format("You Have %s seconds to return to the arena!", ringOutTime));
+								isOutOfBounds.put(player, ringOutTime);
+							}
+						}else{
+							isOutOfBounds.remove(player);
+						}
+					}
+				}
 			}
 		}, 0L, 20L);
 	}
