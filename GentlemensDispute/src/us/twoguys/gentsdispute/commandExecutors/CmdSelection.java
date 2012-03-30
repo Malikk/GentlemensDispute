@@ -16,6 +16,7 @@ public class CmdSelection implements CommandExecutor{
 	public CmdSelection(GentlemensDispute instance){
 		plugin = instance;
 		selectionMaster = plugin.selectionMaster;
+		
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

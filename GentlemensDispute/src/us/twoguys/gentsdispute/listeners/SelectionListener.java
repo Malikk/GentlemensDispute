@@ -9,16 +9,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 import us.twoguys.gentsdispute.arena.SelectionMaster;
+import us.twoguys.gentsdispute.arena.Visualizer;
 
 public class SelectionListener implements Listener{
 
 	GentlemensDispute plugin;
 	SelectionMaster selectionMaster;
+	Visualizer visualizer;
 	
 	
 	public SelectionListener(GentlemensDispute instance){
 		plugin = instance;
 		this.selectionMaster = plugin.selectionMaster;
+		visualizer = plugin.visualizer;
 	}
 	
 	@EventHandler
@@ -31,14 +34,18 @@ public class SelectionListener implements Listener{
 		else if(selectionMaster.getSelectorInt(player) == 1){
 			selectionMaster.addCorner1(player, event.getClickedBlock().getLocation());
 	        selectionMaster.setSelector(player, 2);
+	        //visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
 	        player.sendMessage(ChatColor.GREEN + "First point selected");
 	    }
 		else if(selectionMaster.getSelectorInt(player) == 2){
 		    selectionMaster.addCorner2(player, event.getClickedBlock().getLocation());
 		    selectionMaster.setSelector(player, 3);
+		   // visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
 		    player.sendMessage(ChatColor.GREEN + "Second point selected." +ChatColor.DARK_GREEN+" Select the spawn location.");
 		}
 		else if(selectionMaster.getSelectorInt(player) == 3){
+			//visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
+			
 			Location spawn = new Location(event.getClickedBlock().getWorld(), event.getClickedBlock().getX(),
 					event.getClickedBlock().getY() + 1, event.getClickedBlock().getZ());
 			
