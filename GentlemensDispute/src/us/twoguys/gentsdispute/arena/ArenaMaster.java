@@ -72,7 +72,7 @@ public class ArenaMaster {
 	public ArenaData getArenaData(String arenaName){
 		ArenaData arenaData = null;
 		for(ArenaData arena: arenaDataList){
-			if(arena.getName() == arenaName){
+			if(arena.getName().equalsIgnoreCase(arenaName)){
 				arenaData = arena;
 			}else{
 				plugin.logSevere(arenaName + " does not exist!");
