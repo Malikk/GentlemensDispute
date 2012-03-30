@@ -34,8 +34,9 @@ public class GDDuel extends GDModes{
 	}
 	
 	public void endDuel(Player[] players){
-		plugin.match.removeMatchData(players);
 		plugin.match.removeOnlyMatchDamage(players);
+		plugin.match.addDamageProtection(players);
+		plugin.match.addWaitingAfterMatch(players);
 		endMessage(players);
 	}
 	

@@ -2,7 +2,6 @@ package us.twoguys.gentsdispute;
 
 import java.util.HashSet;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class GDScheduler {
@@ -150,14 +149,45 @@ public class GDScheduler {
 	public void tpBackTimer(final Player[] players){
 		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
 			int counter = plugin.config.getForcedTpTime();
+			boolean firstCheck = true;
 			
 			public void run(){
-				if (counter > 0){
-					counter--;
-					return;
-				}else if (counter == 0){
-					for (Player player: players){
-						//if (plugin.arenaMaster.arenaContainsLocation(player.getLocation(), arenaName);
+				int playerCounter = 0;
+				
+				//If no players are still waiting
+				for (Player waiting: players){
+					if (plugin.match.isWaitingAfterMatch(waiting)){
+						continue;
+					}else{
+						playerCounter++;
+					}
+					
+					if (playerCounter == players.length){
+						plugin.match.removeMatchData(players);
+						plugin.getServer().getScheduler().cancelTask(taskId);
+					}
+				}
+				
+				//If players are still waiting
+				if (firstCheck){
+					plugin.arrayMessage(players, String.format("You will be teleported away in %s seconds.", counter));
+					plugin.arrayMessage(players, String.format("type /gdtp to leave now"));
+					firstCheck = false;
+				}else{
+					if (counter > 0){
+						counter--;
+						return;
+					}else if (counter == 0){
+						for (Player player: players){
+							String arena = plugin.match.getArena(players);
+							if (plugin.match.isConfined(player, arena)){
+								plugin.modes.tpBack(player);
+							}else{
+								continue;
+							}
+						}
+						plugin.match.removeMatchData(players);
+						plugin.getServer().getScheduler().cancelTask(taskId);
 					}
 				}
 			}

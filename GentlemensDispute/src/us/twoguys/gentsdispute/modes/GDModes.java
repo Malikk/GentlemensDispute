@@ -48,6 +48,9 @@ public class GDModes {
 	public void tpBack(Player player){
 		Location tpLoc = plugin.match.getPlayerReturnLocation(player);
 		player.teleport(tpLoc);
+		restoreInventory(player);
+		plugin.match.release(player);
+		plugin.match.removeDamageProtection(player);
 		plugin.match.removePlayerReturnLocation(player);
 	}
 	
@@ -110,5 +113,11 @@ public class GDModes {
 		for (Player player: players){
 			player.getInventory().clear();
 		}
+	}
+	
+	public void restoreInventory(Player player){
+		player.getInventory().clear();
+		plugin.match.loadInventory(player);
+		plugin.match.removeOldInventory(player);
 	}
 }

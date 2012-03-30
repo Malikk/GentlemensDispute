@@ -56,6 +56,7 @@ public class GDConfig {
 	}
 	
 	public ItemStack[] getGivenItems(String mode){
+		@SuppressWarnings("unchecked")
 		List<String> givenItems = (List<String>) plugin.getConfig().getList("Modes." + mode + ".GivenWeaponsAndItems");
 		ItemStack[] items = new ItemStack[givenItems.size()];
 		int counter = 0;
