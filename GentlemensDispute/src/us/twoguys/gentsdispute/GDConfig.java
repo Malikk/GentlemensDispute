@@ -1,6 +1,7 @@
 package us.twoguys.gentsdispute;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -33,6 +34,7 @@ public class GDConfig {
 		
 		plugin.getConfig().addDefault("Challenges.TimeToRespond", 30);
 		plugin.getConfig().addDefault("Challenges.CountdownTime", 10);
+		plugin.getConfig().addDefault("Challenges.TimeUntilForcedTp", 120);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.Challenges", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.AcceptsAndDeclines", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.PlayerReady", true);
@@ -54,8 +56,8 @@ public class GDConfig {
 	}
 	
 	public ItemStack[] getGivenItems(String mode){
-		String[] givenItems = (String[]) plugin.getConfig().getList("Modes." + mode + ".GivenWeaponsAndItems").toArray();
-		ItemStack[] items = new ItemStack[givenItems.length];
+		List<String> givenItems = (List<String>) plugin.getConfig().getList("Modes." + mode + ".GivenWeaponsAndItems");
+		ItemStack[] items = new ItemStack[givenItems.size()];
 		int counter = 0;
 		
 		for (String itemInfo: givenItems){
@@ -77,22 +79,22 @@ public class GDConfig {
 	}
 	
 	public ItemStack getHelmet(String mode){
-		ItemStack helmet = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Helmet", 1));
+		ItemStack helmet = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Helmet"));
 		return helmet;
 	}
 	
 	public ItemStack getChestplate(String mode){
-		ItemStack chestplate = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Chestplate", 1));
+		ItemStack chestplate = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Chestplate"));
 		return chestplate;
 	}
 	
 	public ItemStack getLeggings(String mode){
-		ItemStack leggings = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Leggings", 1));
+		ItemStack leggings = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Leggings"));
 		return leggings;
 	}
 	
 	public ItemStack getBoots(String mode){
-		ItemStack boots = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Boots", 1));
+		ItemStack boots = new ItemStack(plugin.getConfig().getInt("Modes." + mode + ".GivenArmor.Boots"));
 		return boots;
 	}
 	
@@ -103,6 +105,11 @@ public class GDConfig {
 	
 	public int getCountdownTime(){
 		int countdown = plugin.getConfig().getInt("Challenges.CountdownTime");
+		return countdown;
+	}
+	
+	public int getForcedTpTime(){
+		int countdown = plugin.getConfig().getInt("Challenges.TimeUntilForcedTp");
 		return countdown;
 	}
 	

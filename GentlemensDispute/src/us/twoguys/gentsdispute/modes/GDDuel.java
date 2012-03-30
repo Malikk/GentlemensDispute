@@ -64,7 +64,7 @@ public class GDDuel extends GDModes{
 	
 	public void winMessage(Player[] players, Player winner){
 		if (plugin.config.broadcastEnabled("MatchOutcomes")){
-			plugin.broadcast(String.format("%s has won the Duel!"));
+			plugin.broadcast(String.format("%s has won the Duel!", winner.getName()));
 		}else{
 			plugin.arrayMessage(players, String.format("%s has won the Duel!", winner.getName()));
 		}

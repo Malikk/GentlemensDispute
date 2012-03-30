@@ -2,6 +2,7 @@ package us.twoguys.gentsdispute;
 
 import java.util.HashSet;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class GDScheduler {
@@ -145,5 +146,22 @@ public class GDScheduler {
 		}, 0L, 20L);
 	}
 	
+	//tp Back Timer
+	public void tpBackTimer(final Player[] players){
+		taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+			int counter = plugin.config.getForcedTpTime();
+			
+			public void run(){
+				if (counter > 0){
+					counter--;
+					return;
+				}else if (counter == 0){
+					for (Player player: players){
+						//if (plugin.arenaMaster.arenaContainsLocation(player.getLocation(), arenaName);
+					}
+				}
+			}
+		}, 0L, 20L);
+	}
 	
 }

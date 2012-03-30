@@ -1,6 +1,7 @@
 package us.twoguys.gentsdispute;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,7 @@ public class GDMatch {
 	public HashSet<Player> onlyMatchDamage = new HashSet<Player>();
 	
 	//ConfinedToArena
-	public HashMap<String, Player[]> confinedToArena = new HashMap<String, Player[]>();
+	public HashMap<Player, String> confinedToArena = new HashMap<Player, String>();
 	
 	//Died in a Match
 	public HashMap<Player, Location> diedInMatch = new HashMap<Player, Location>();
@@ -205,21 +206,21 @@ public class GDMatch {
 	
 	//ConfinePlayersToArena
 	public void confine(Player[] players, String arena){
-		confinedToArena.put(arena, players);
+		for (Player player: players){
+			confinedToArena.put(player, arena);
+		}
 	}
 	
 	public boolean isConfined(Player player, String arena){
-		Player[] players = confinedToArena.get(arena);
-		for (Player arrayPlayer: players){
-			if (arrayPlayer.equals(player)){
-				return true;
-			}
+		if (confinedToArena.containsKey(player)){
+			return true;
+		}else{
+			return false;
 		}
-		return false;
 	}
 	
-	public void release(Player[] players, String arena){
-		confinedToArena.remove(arena);
+	public void release(Player player, String arena){
+		confinedToArena.remove(player);
 	}
 	
 	//Died in a Match
