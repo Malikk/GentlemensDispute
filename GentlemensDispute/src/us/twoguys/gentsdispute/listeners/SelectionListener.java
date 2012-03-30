@@ -9,13 +9,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 import us.twoguys.gentsdispute.arena.SelectionMaster;
-import us.twoguys.gentsdispute.arena.Visualizer;
+import us.twoguys.gentsdispute.arena.ArenaVisualizer;
 
 public class SelectionListener implements Listener{
 
 	GentlemensDispute plugin;
 	SelectionMaster selectionMaster;
-	Visualizer visualizer;
+	ArenaVisualizer visualizer;
 	
 	
 	public SelectionListener(GentlemensDispute instance){
