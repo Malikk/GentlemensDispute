@@ -1,6 +1,7 @@
 package us.twoguys.gentsdispute.listeners;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,7 +39,11 @@ public class SelectionListener implements Listener{
 		    player.sendMessage(ChatColor.GREEN + "Second point selected." +ChatColor.DARK_GREEN+" Select the spawn location.");
 		}
 		else if(selectionMaster.getSelectorInt(player) == 3){
-			boolean spawnSet = selectionMaster.addSpawn(player, event.getClickedBlock().getLocation());
+			Location spawn = new Location(event.getClickedBlock().getWorld(), event.getClickedBlock().getX(),
+					event.getClickedBlock().getY() + 1, event.getClickedBlock().getZ());
+			
+			boolean spawnSet = selectionMaster.addSpawn(player, spawn);
+			
 			if(spawnSet==false){
 				player.sendMessage(ChatColor.RED + "The spawn location must be within the arena");
 			}else{
