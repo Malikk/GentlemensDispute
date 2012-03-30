@@ -178,7 +178,11 @@ public class ArenaMaster {
 		}
 		return false;
 	}
-	
+	/**
+	 * 
+	 * @param loc
+	 * @return true if the location is in any arena, and false if it's not.
+	 */
 	public boolean isInAnyArena(Location loc){
 		for(ArenaData arena : getArenaDataList()){
 			if(arenaContainsLocation(loc, arena.getName())){

@@ -29,6 +29,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public SelectionMaster selectionMaster = new SelectionMaster(this);
 	public ArenaMaster arenaMaster = new ArenaMaster(this);
 	public ArenaPersister arenaPersister = new ArenaPersister(this);
+	public Visualizer visualizer = new Visualizer(this);
 
 	
 	//Listeners
