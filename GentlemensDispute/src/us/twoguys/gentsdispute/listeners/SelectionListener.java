@@ -34,18 +34,16 @@ public class SelectionListener implements Listener{
 		else if(selectionMaster.getSelectorInt(player) == 1){
 			selectionMaster.addCorner1(player, event.getClickedBlock().getLocation());
 	        selectionMaster.setSelector(player, 2);
-	        //visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
+	        visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
 	        player.sendMessage(ChatColor.GREEN + "First point selected");
 	    }
 		else if(selectionMaster.getSelectorInt(player) == 2){
 		    selectionMaster.addCorner2(player, event.getClickedBlock().getLocation());
 		    selectionMaster.setSelector(player, 3);
-		   // visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
+		    visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
 		    player.sendMessage(ChatColor.GREEN + "Second point selected." +ChatColor.DARK_GREEN+" Select the spawn location.");
 		}
-		else if(selectionMaster.getSelectorInt(player) == 3){
-			//visualizer.visualizeBlock(event.getClickedBlock(), visualizer.getDefaultBlockMaterial());
-			
+		else if(selectionMaster.getSelectorInt(player) == 3){			
 			Location spawn = new Location(event.getClickedBlock().getWorld(), event.getClickedBlock().getX(),
 					event.getClickedBlock().getY() + 1, event.getClickedBlock().getZ());
 			
