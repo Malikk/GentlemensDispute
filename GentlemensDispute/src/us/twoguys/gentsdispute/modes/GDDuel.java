@@ -2,6 +2,7 @@ package us.twoguys.gentsdispute.modes;
 
 import org.bukkit.entity.Player;
 
+import us.twoguys.gentsdispute.GDScheduler;
 import us.twoguys.gentsdispute.GentlemensDispute;
 
 public class GDDuel extends GDModes{
@@ -38,6 +39,9 @@ public class GDDuel extends GDModes{
 		plugin.match.addDamageProtection(players);
 		plugin.match.addWaitingAfterMatch(players);
 		endMessage(players);
+		
+		GDScheduler sche = new GDScheduler(plugin);
+		sche.tpBackTimer(players);
 	}
 	
 	//Secondary Methods

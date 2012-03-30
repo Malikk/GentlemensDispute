@@ -1,21 +1,14 @@
 Immeadiate Priority
-	* Commands for challenging (duels only)
-	* Commands for accepting/declining
-	* Removing combatant inventories
-	* Giving weapons/armor (config)
-	* Scheduler for countdown
-	* Scheduler to make sure only one combatant died
-	* Arena selection - modify the selection to use string instead of ints in the hashmap
-	* Arena config/commands for setup
+	* /rematch command
+	* Check to make sure the arena isnt already in use
+	* default arenas
+	* Arena spectator spawns
+	* RingOut scheduler
 
 Long-term Priority
 	* Shootout mode
 	* Wager matches
 	* Statistics
 	
-Ideas
-	* OnPlayerDeath events
-		* if they were in a match, cancel event
-		* This will allow for time to handle their old inventories
-		* possibly restrict movement and give them blindness
-		* tp them back to their old location upon command
+Known Bugs
+	* Armors are kept after matches

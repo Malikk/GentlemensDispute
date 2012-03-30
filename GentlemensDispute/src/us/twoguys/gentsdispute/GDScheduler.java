@@ -175,6 +175,7 @@ public class GDScheduler {
 					firstCheck = false;
 				}else{
 					if (counter > 0){
+						plugin.log("" + counter);
 						counter--;
 						return;
 					}else if (counter == 0){

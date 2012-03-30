@@ -13,6 +13,9 @@ commands:
     ready:
         description: Must be entered by all participants for a match to begin
         usage: /ready
+    gdtp:
+        description: Teleports players to and from arenas
+        usage: /gdtp [arena]
     select:
         description: Used to begin arena selection.
         usage: /select

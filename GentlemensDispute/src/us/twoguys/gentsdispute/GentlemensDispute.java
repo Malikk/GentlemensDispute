@@ -93,6 +93,7 @@ public class GentlemensDispute extends JavaPlugin{
 		CmdDuel duelPlayer;
 		CmdChallenged response;
 		CmdReady ready;
+		CmdTeleport teleport;
 		CmdSelection select;
 		CmdCreateArena createArena;
 		CmdDeleteArena deleteArena;
@@ -106,6 +107,9 @@ public class GentlemensDispute extends JavaPlugin{
 		
 		ready = new CmdReady(this);
 		this.getCommand("ready").setExecutor(ready);
+		
+		teleport = new CmdTeleport(this);
+		this.getCommand("gdtp").setExecutor(teleport);
 		
 		select = new CmdSelection(this);
 		this.getCommand("select").setExecutor(select);

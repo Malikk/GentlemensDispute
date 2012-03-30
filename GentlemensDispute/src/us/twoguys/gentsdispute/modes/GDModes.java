@@ -68,6 +68,7 @@ public class GDModes {
 	}
 	
 	public void runRingOutSche(Player[] players, String arena){
+		plugin.match.confine(players, arena);
 		GDScheduler sche = new GDScheduler(plugin);
 		sche.ringOutTimer(players, arena);
 	}
