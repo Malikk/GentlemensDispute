@@ -20,6 +20,7 @@ public class CmdDuel implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)){console(); return true;}
+		if (plugin.match.hasMatchData((Player)sender)){existingMatch(sender); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
 		if (args.length > 2){tooManyArgs(sender); return false;}
 		
@@ -36,6 +37,7 @@ public class CmdDuel implements CommandExecutor {
 		
 		if (p2 == null){notFound(sender); return false;}
 		if (p2 == p1){samePlayer(sender); return false;}
+		if (plugin.match.hasMatchData(p2)){otherExistingMatch(sender, p2); return true;}
 		
 		//Get Arena
 		String arena = "";
@@ -70,6 +72,14 @@ public class CmdDuel implements CommandExecutor {
 		
 		Player[] players = {p1, p2};
 		plugin.broadcastExcept(players, String.format("%s has challenged %s to a duel at %s!", p1.getName(), p2.getName(), arena));
+	}
+	
+	private void existingMatch(CommandSender sender){
+		sender.sendMessage("You are already in a match.");
+	}
+	
+	private void otherExistingMatch(CommandSender sender, Player player){
+		sender.sendMessage(String.format("%s is already in a match", player.getName()));
 	}
 	
 	private void invalidArena(Player player){

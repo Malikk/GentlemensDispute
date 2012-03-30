@@ -19,6 +19,7 @@ public class GDMatch {
 	//Waiting Lists
 	public HashMap<Player, Player[]> waitingOnAccept = new HashMap<Player, Player[]>();
 	public HashSet<Player> waitingOnReady = new HashSet<Player>();
+	public HashSet<Player> waitingAfterMatch = new HashSet<Player>();
 	
 	//Damage Negation Handlers
 	public HashSet<Player> damageProtection = new HashSet<Player>();
@@ -62,7 +63,7 @@ public class GDMatch {
 		return arena;
 	}
 	
-	public boolean isInBattle(Player player){
+	public boolean hasMatchData(Player player){
 		for (List<Player> list: matchData.keySet()){
 			for (Player arrayPlayer: list){
 				if (arrayPlayer.equals(player)){
@@ -174,6 +175,29 @@ public class GDMatch {
 		}
 	}
 	
+	public void removeDamageProtection(Player player){
+		damageProtection.remove(player);
+	}
+	
+	//Waiting After Match
+	public void addWaitingAfterMatch(Player[] players){
+		for (Player player: players){
+			waitingAfterMatch.add(player);
+		}
+	}
+	
+	public boolean isWaitingAfterMatch(Player player){
+		if (waitingAfterMatch.contains(player)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void removeWaitingAfterMatch(Player player){
+		waitingAfterMatch.remove(player);
+	}
+	
 	//OnlyMatchDamage Methods	
 	public void addOnlyMatchDamage(Player player){
 		onlyMatchDamage.add(player);
@@ -218,7 +242,7 @@ public class GDMatch {
 		}
 	}
 	
-	public void release(Player player, String arena){
+	public void release(Player player){
 		confinedToArena.remove(player);
 	}
 	

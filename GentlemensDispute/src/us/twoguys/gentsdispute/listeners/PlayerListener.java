@@ -49,11 +49,12 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
-		if (!(plugin.match.isInBattle(event.getEntity()))){return;}
+		if (!(plugin.match.hasMatchData(event.getEntity()))){return;}
 		
 		Player player = event.getEntity();
 		
 		event.setKeepLevel(true);
+		event.setDroppedExp(0);
 		event.getDrops().clear();
 		plugin.match.addDiedInMatch(player);
 		
@@ -71,9 +72,6 @@ public class PlayerListener implements Listener{
 		
 		player.teleport(plugin.match.getDiedInMatchLocation(player));
 		plugin.match.removeDiedInMatch(player);
-		
-		plugin.match.loadInventory(player);
-		plugin.match.removeOldInventory(player);
 	}
 	
 	public boolean playerIsOnFire(Player player){
