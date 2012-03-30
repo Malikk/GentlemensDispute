@@ -119,15 +119,16 @@ public class GDScheduler {
 										player.damage(9001);
 									}else if (plugin.match.isWaitingAfterMatch(player)){
 										player.sendMessage("To leave the arena type /gdtp");
-										player.damage(9001);
+										player.teleport(plugin.arenaMaster.getArenaData(arena).getSpawnLocation());
 									}else{
 										player.sendMessage("You have been disqualified.");
 										player.damage(9001);
 									}
 								}else{
 									player.sendMessage("" + timeLeft);
-									isOutOfBounds.put(player, timeLeft);
 									timeLeft--;
+									isOutOfBounds.remove(player);
+									isOutOfBounds.put(player, timeLeft);
 								}
 							}else{
 								player.sendMessage(String.format("WARNING: You are out of bounds!"));
