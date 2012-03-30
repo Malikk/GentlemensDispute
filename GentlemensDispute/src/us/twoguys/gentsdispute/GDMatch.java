@@ -141,7 +141,7 @@ public class GDMatch {
 		}
 	}
 	
-	public boolean waitingOnReadyContains(Player player){
+	public boolean isWaitingOnReady(Player player){
 		for (Player p: waitingOnReady){
 			if (player == p){
 				return true;

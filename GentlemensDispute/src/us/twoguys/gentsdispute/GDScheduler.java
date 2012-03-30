@@ -55,7 +55,7 @@ public class GDScheduler {
 			
 			public void run(){
 				for (Player player: players){
-					if (plugin.match.waitingOnReadyContains(player)){
+					if (plugin.match.isWaitingOnReady(player)){
 						return;
 					}
 				}
@@ -102,6 +102,11 @@ public class GDScheduler {
 			int ringOutTime = plugin.config.getRingOutTime();
 			
 			public void run(){
+				//check for matchData
+				int counter = 0;
+				
+				plugin.log("ring out running");
+				
 				for (Player player: players){
 					if (plugin.match.isConfined(player, arena)){
 						if (!(plugin.arenaMaster.arenaContainsLocation(player.getLocation(), arena))){
@@ -109,11 +114,20 @@ public class GDScheduler {
 								int timeLeft = isOutOfBounds.get(player);
 								
 								if (timeLeft == 0){
-									player.sendMessage("You have been disqualified.");
-									player.damage(9001);
+									if (plugin.match.isWaitingOnReady(player)){
+										player.sendMessage("You have been disqualified.");
+										player.damage(9001);
+									}else if (plugin.match.isWaitingAfterMatch(player)){
+										player.sendMessage("To leave the arena type /gdtp");
+										player.damage(9001);
+									}else{
+										player.sendMessage("You have been disqualified.");
+										player.damage(9001);
+									}
 								}else{
 									player.sendMessage("" + timeLeft);
-									isOutOfBounds.put(player, timeLeft--);
+									isOutOfBounds.put(player, timeLeft);
+									timeLeft--;
 								}
 							}else{
 								player.sendMessage(String.format("WARNING: You are out of bounds!"));
@@ -123,7 +137,14 @@ public class GDScheduler {
 						}else{
 							isOutOfBounds.remove(player);
 						}
+					}else{
+						counter++;
 					}
+				}
+				
+				//If no players are still confined
+				if (counter == players.length){
+					plugin.getServer().getScheduler().cancelTask(taskId);
 				}
 			}
 		}, 0L, 20L);
