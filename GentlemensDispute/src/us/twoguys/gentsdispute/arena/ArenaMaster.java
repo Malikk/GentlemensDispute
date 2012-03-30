@@ -134,7 +134,11 @@ public class ArenaMaster {
 	 * @return True if the location is in the arena. False if the location is not in the arena.
 	 */
 	public boolean arenaContainsLocation(Location loc, String arenaName){
-		if(loc.getWorld().getName().equalsIgnoreCase(getArenaData(arenaName).getWorldName())){return false;}
+		String worldName = loc.getWorld().getName();
+		String arenaWorldName = getArenaData(arenaName).getWorldName();
+		if(!worldName.equalsIgnoreCase(arenaWorldName)){
+			return false;
+			}
 		
 		Location corner1 = getArenaData(arenaName).getCorner1();
 		Location corner2 = getArenaData(arenaName).getCorner2();
