@@ -58,6 +58,15 @@ public class Visualizer {
 		visualizeBlock(rb.getLargeLoc().add(-x,0,0).getBlock(), getDefaultBlockMaterial());
 		visualizeBlock(rb.getLargeLoc().add(0,0,z).getBlock(), getDefaultBlockMaterial());
 		
+		
+	}
+	
+	public void visualizeArena(String arenaName){
+		ArenaData arena = plugin.arenaMaster.getArenaData(arenaName);
+		Location loc1 = arena.getCorner1();
+		Location loc2 = arena.getCorner2();
+		
+		visualizeCuboidBasic(loc1, loc2);
 	}
 
 	public void revertBlock(Location loc){
@@ -93,5 +102,10 @@ public class Visualizer {
 	public Material getDefaultBlockMaterial(){
 		Material material = Material.GLOWSTONE;	
 		return material;
+	}
+	
+	private int getDefaultIncrementValue(){
+		int value = 2;
+		return value;
 	}
 }
