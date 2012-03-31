@@ -2,6 +2,7 @@ package us.twoguys.gentsdispute.arena;
 
 import java.util.HashSet;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import us.twoguys.gentsdispute.GentlemensDispute;
 
@@ -100,13 +101,20 @@ public class ArenaMaster {
 	public String getArenaNamesString(){
 		StringBuilder string = new StringBuilder();
 		for(ArenaData arena: getArenaDataList()){
-			string.append(arena.getName() + ", ");
+			string.append(ChatColor.DARK_AQUA + arena.getName() + " ");
 		}
-		return string.toString();
+		if(string.length() <= 1){
+			return new String(ChatColor.RED+"There are no arenas stored");
+		}else{
+			return string.toString();
+		}
 	}
 
 	private void deleteArena(ArenaData arenaData){
 		deletedArenaList.add(arenaData);
+		HashSet<ArenaData> temp = getArenaDataList();
+		temp.remove(arenaData);
+		arenaDataList = temp;
 	}
 	
 	public void deleteArena(String arenaName){

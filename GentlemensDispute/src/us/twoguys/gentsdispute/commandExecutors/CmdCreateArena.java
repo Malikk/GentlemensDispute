@@ -48,6 +48,8 @@ public class CmdCreateArena implements CommandExecutor{
 				ArenaData arena = arenaMaster.getArenaData(args[0]);
 				plugin.visualizer.visualizeCuboidBasic(arena.getCorner1(), arena.getCorner2());
 				return true;
+				}else{
+					sender.sendMessage(ChatColor.RED+"That name is already taken");
 				}
 			}
 		}

@@ -50,13 +50,13 @@ public class Visualizer {
 		
 		visualizeBlock(rb.getSmallLoc().getBlock(), getDefaultBlockMaterial());
 		visualizeBlock(rb.getSmallLoc().add(0,0,z).getBlock(), getDefaultBlockMaterial());
-		visualizeBlock(rb.getSmallLoc().add(x,0,z).getBlock(), getDefaultBlockMaterial());
 		visualizeBlock(rb.getSmallLoc().add(x,0,0).getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getSmallLoc().add(0,0,-z).getBlock(), getDefaultBlockMaterial());
 		
 		visualizeBlock(rb.getLargeLoc().getBlock(), getDefaultBlockMaterial());
 		visualizeBlock(rb.getLargeLoc().add(0,0,-z).getBlock(), getDefaultBlockMaterial());
-		visualizeBlock(rb.getLargeLoc().add(-x,0,-z).getBlock(), getDefaultBlockMaterial());
 		visualizeBlock(rb.getLargeLoc().add(-x,0,0).getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getLargeLoc().add(0,0,z).getBlock(), getDefaultBlockMaterial());
 		
 	}
 
@@ -71,7 +71,7 @@ public class Visualizer {
 		}
 		removeStoredItem(loc);
 		
-		plugin.log("Block successfully reverted to: "+getStoredBlocks().get(loc).toString());
+		//plugin.log("Block successfully reverted to: "+getStoredBlocks().get(loc).toString());
 
 	}
 	
