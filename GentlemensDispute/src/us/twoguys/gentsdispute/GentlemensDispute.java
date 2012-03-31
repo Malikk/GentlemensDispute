@@ -51,6 +51,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public void onDisable(){
 		arenaPersister.Serialize();
 		visualizer.revertAll();
+		match.revertAll();
 		log("Disabled");
 	}
 	

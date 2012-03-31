@@ -338,4 +338,16 @@ public class GDMatch {
 		inventoryContents.remove(player);
 		armorContents.remove(player);
 	}
+	
+	public void revertAll(){
+		//return locations
+		for (Player tpPlayer: returnLocation.keySet()){
+			tpPlayer.teleport(returnLocation.get(tpPlayer));
+		}
+		
+		//inventories and armors
+		for (Player invPlayer: inventoryContents.keySet()){
+			loadInventory(invPlayer);
+		}
+	}
 }
