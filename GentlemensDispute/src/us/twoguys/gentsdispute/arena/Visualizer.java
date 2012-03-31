@@ -27,7 +27,6 @@ public class Visualizer {
 
 		Block newBlock = block;
 		newBlock.setType(material);
-		plugin.log("The block that was acutally saved is: " + getStoredBlocks().get(block.getLocation()).toString());
 	}
 	
 	public void visualizeSpawn(Block block){
@@ -41,6 +40,25 @@ public class Visualizer {
 		head.setType(Material.PUMPKIN);
 	}
 	
+
+	public void visualizeCuboidBasic(Location loc1, Location loc2){
+		RegionBasic rb = new RegionBasic(loc1, loc2);
+		
+		int x = Math.abs(rb.getLargeX()-rb.getSmallX());
+		//int y = rb.getLargeY()-rb.getSmallY();
+		int z = Math.abs(rb.getLargeZ()-rb.getSmallZ());
+		
+		visualizeBlock(rb.getSmallLoc().getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getSmallLoc().add(0,0,z).getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getSmallLoc().add(x,0,z).getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getSmallLoc().add(x,0,0).getBlock(), getDefaultBlockMaterial());
+		
+		visualizeBlock(rb.getLargeLoc().getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getLargeLoc().add(0,0,-z).getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getLargeLoc().add(-x,0,-z).getBlock(), getDefaultBlockMaterial());
+		visualizeBlock(rb.getLargeLoc().add(-x,0,0).getBlock(), getDefaultBlockMaterial());
+		
+	}
 
 	public void revertBlock(Location loc){
 		try{
@@ -70,13 +88,6 @@ public class Visualizer {
 		for(Location loc : getStoredBlocks().keySet()){
 			revertBlock(loc);
 		}
-	}
-	
-	public void acquireVisualizerTargets(Location loc1, Location loc2){
-		
-	}
-	public void visualizeCuboidBasic(Location loc1, Location loc2){
-		
 	}
 	
 	public Material getDefaultBlockMaterial(){

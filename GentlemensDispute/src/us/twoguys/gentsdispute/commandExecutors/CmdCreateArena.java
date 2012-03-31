@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
+import us.twoguys.gentsdispute.arena.ArenaData;
 import us.twoguys.gentsdispute.arena.ArenaMaster;
 import us.twoguys.gentsdispute.arena.SelectionMaster;
 import us.twoguys.gentsdispute.arena.Visualizer;
@@ -43,6 +44,9 @@ public class CmdCreateArena implements CommandExecutor{
 				
 				selectionMaster.createArenaWithSelectedPoints((Player)sender, args[0]);		
 				visualizer.revertAll();
+				
+				ArenaData arena = arenaMaster.getArenaData(args[0]);
+				plugin.visualizer.visualizeCuboidBasic(arena.getCorner1(), arena.getCorner2());
 				return true;
 				}
 			}
