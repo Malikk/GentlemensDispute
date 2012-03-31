@@ -31,7 +31,6 @@ public class GDScheduler {
 					firstCheck = false;
 				}else if (firstCheck == false){
 					if (counter > 0){
-						plugin.log("Time Remaining: " + counter + " Seconds");
 						counter--;
 					}else if (counter == 0){
 						p1.sendMessage("Challenge timed out!");
@@ -79,7 +78,7 @@ public class GDScheduler {
 					firstCheck = false;
 				}else{
 					if (count > 0){
-						plugin.arrayMessage(players, "" + count);
+						plugin.arrayMessage(players, " " + count);
 						count--;
 					}else if (count == 0){
 						plugin.modes.beginMatchType(players);
@@ -105,12 +104,9 @@ public class GDScheduler {
 				//check for matchData
 				int counter = 0;
 				
-				plugin.log("ring out running");
-				
 				for (Player player: players){
-					if (plugin.match.isConfined(player, arena)){
+					if (plugin.match.isConfined(player, arena) && !(player.isDead())){
 						if (!(plugin.arenaMaster.arenaContainsLocation(player.getLocation(), arena))){
-						//if (plugin.arenaMaster.isInAnyArena(player.getLocation())){
 							if (isOutOfBounds.containsKey(player)){
 								int timeLeft = isOutOfBounds.get(player);
 								
@@ -125,8 +121,8 @@ public class GDScheduler {
 										player.sendMessage("You have been disqualified.");
 										player.damage(9001);
 									}
+									isOutOfBounds.remove(player);
 								}else{
-									player.sendMessage("" + timeLeft);
 									timeLeft--;
 									isOutOfBounds.remove(player);
 									isOutOfBounds.put(player, timeLeft);
@@ -134,7 +130,7 @@ public class GDScheduler {
 							}else{
 								player.sendMessage(String.format("WARNING: You are out of bounds!"));
 								player.sendMessage(String.format("You Have %s seconds to return to the arena!", ringOutTime));
-								isOutOfBounds.put(player, ringOutTime);
+								isOutOfBounds.put(player, ringOutTime - 1);
 							}
 						}else{
 							isOutOfBounds.remove(player);
@@ -182,9 +178,11 @@ public class GDScheduler {
 				}else if (counter == 1){
 					Player winner = stillAlive;
 					plugin.modes.winnerMatchType(players, winner);
+					plugin.match.removeDrawChecker(players);
 					plugin.getServer().getScheduler().cancelTask(taskId);
 				}else if (counter == 0){
 					plugin.modes.drawMatchType(players);
+					plugin.match.removeDrawChecker(players);
 					plugin.getServer().getScheduler().cancelTask(taskId);
 				}
 				
@@ -210,6 +208,7 @@ public class GDScheduler {
 					}
 					
 					if (playerCounter == players.length){
+						plugin.broadcast(String.format("%s is now available!", plugin.match.getArena(players)));
 						plugin.match.removeMatchData(players);
 						plugin.getServer().getScheduler().cancelTask(taskId);
 					}
@@ -221,8 +220,13 @@ public class GDScheduler {
 					plugin.arrayMessage(players, String.format("type /gdtp to leave now"));
 					firstCheck = false;
 				}else{
-					if (counter > 0){
-						plugin.log("" + counter);
+					if (counter == 45){
+						plugin.arrayMessage(players, "45 seconds remaining");
+						return;
+					}else if (counter == 10){
+						plugin.arrayMessage(players, "10 seconds remaining");
+						return;
+					}else if (counter > 0){
 						counter--;
 						return;
 					}else if (counter == 0){
@@ -234,12 +238,23 @@ public class GDScheduler {
 								continue;
 							}
 						}
+						plugin.broadcast(String.format("%s is now available!", plugin.match.getArena(players)));
 						plugin.match.removeMatchData(players);
 						plugin.getServer().getScheduler().cancelTask(taskId);
 					}
 				}
 			}
-		}, 0L, 20L);
+		}, 40L, 20L);
 	}
 	
+	//Respawn
+	public void respawn(final Player player){
+		taskId = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
+			
+			public void run(){
+				player.teleport(plugin.match.getDiedInMatchLocation(player));
+				plugin.match.removeDiedInMatch(player);
+			}
+		}, 5L);
+	}
 }

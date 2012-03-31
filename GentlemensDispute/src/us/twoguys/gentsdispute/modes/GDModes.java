@@ -52,6 +52,7 @@ public class GDModes {
 		plugin.match.release(player);
 		plugin.match.removeDamageProtection(player);
 		plugin.match.removePlayerReturnLocation(player);
+		plugin.match.removeWaitingAfterMatch(player);
 	}
 	
 	public void waitForPlayerReady(Player[] players){

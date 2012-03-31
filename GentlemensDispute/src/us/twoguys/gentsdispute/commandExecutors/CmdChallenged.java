@@ -27,10 +27,10 @@ public class CmdChallenged implements CommandExecutor {
 		String response = args[0].toString();
 		
 		if (response.equalsIgnoreCase("accept")){
-			plugin.modes.prepareMatchType(players);
-			plugin.match.removeWaitAccept(p1);
 			acceptMessages(p1, p2);
 			broadcast(players, p1, p2, response);
+			plugin.modes.prepareMatchType(players);
+			plugin.match.removeWaitAccept(p1);
 			return true;
 		}else if (response.equalsIgnoreCase("decline")){
 			plugin.match.removeWaitAccept(p1);

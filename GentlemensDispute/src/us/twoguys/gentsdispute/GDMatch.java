@@ -30,6 +30,7 @@ public class GDMatch {
 	
 	//Died in a Match
 	public HashMap<Player, Location> diedInMatch = new HashMap<Player, Location>();
+	public HashSet<Player> runningDrawCheckers = new HashSet<Player>();
 	
 	//Locations
 	public HashMap<Player, Location> returnLocation = new HashMap<Player, Location>();
@@ -44,9 +45,6 @@ public class GDMatch {
 	
 	//MatchData Methods
 	public void addMatchData(String mode, String arena, Player[] players){
-		Player p1 = players[0];
-		Player p2 = players[1];
-		plugin.log("Adding match data: " + mode + " at " + arena + " for " + p1.getName() + " and " + p2.getName());
 		String[] matchTypeAndArena = {mode, arena};
 		matchData.put(Arrays.asList(players), matchTypeAndArena);
 	}
@@ -60,8 +58,17 @@ public class GDMatch {
 	public String getArena(Player[] players){
 		String[] data = matchData.get(Arrays.asList(players));
 		String arena = data[1].toString();
-		plugin.log("Arena is: " + arena);
 		return arena;
+	}
+	
+	public boolean arenaIsInUse(String arena){
+		for (List<Player> list: matchData.keySet()){
+			String hashArena = getArena((Player[]) list.toArray());
+			if (arena.equalsIgnoreCase(hashArena)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean hasMatchData(Player player){
@@ -272,6 +279,28 @@ public class GDMatch {
 		diedInMatch.remove(player);
 	}
 	
+	//Running Draw Checkers
+	public void addDrawChecker(Player player){
+		runningDrawCheckers.add(player);
+	}
+	
+	public boolean alreadyChecking(Player player){
+		Player[] players = plugin.match.getOtherPlayers(player);
+		
+		for (Player arrayPlayer: players){
+			if (runningDrawCheckers.contains(arrayPlayer)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void removeDrawChecker(Player[] players){
+		for (Player player: players){
+			runningDrawCheckers.remove(player);
+		}
+	}
+	
 	//Locations
 	public void addPlayerReturnLocation(Player player, Location loc){
 		returnLocation.put(player, loc);
@@ -280,6 +309,14 @@ public class GDMatch {
 	public Location getPlayerReturnLocation(Player player){
 		Location loc = returnLocation.get(player);
 		return loc;
+	}
+	
+	public boolean hasReturnLocation(Player player){
+		if (returnLocation.containsKey(player)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public void removePlayerReturnLocation(Player player){

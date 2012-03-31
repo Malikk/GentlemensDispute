@@ -60,8 +60,13 @@ public class PlayerListener implements Listener{
 		
 		Player[] players = plugin.match.getOtherPlayers(player);
 		
-		GDScheduler sche = new GDScheduler(plugin);
-		sche.drawChecker(players);
+		if (plugin.match.alreadyChecking(player)){
+			return;
+		}else{
+			plugin.match.addDrawChecker(player);
+			GDScheduler sche = new GDScheduler(plugin);
+			sche.drawChecker(players);
+		}
 	}
 	
 	@EventHandler
@@ -69,9 +74,10 @@ public class PlayerListener implements Listener{
 		if (!(plugin.match.diedInMatch(event.getPlayer()))){return;}
 		
 		Player player = event.getPlayer();
+
+		GDScheduler sche = new GDScheduler(plugin);
+		sche.respawn(player);
 		
-		player.teleport(plugin.match.getDiedInMatchLocation(player));
-		plugin.match.removeDiedInMatch(player);
 	}
 	
 	public boolean playerIsOnFire(Player player){

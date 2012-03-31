@@ -1,14 +1,13 @@
 Immeadiate Priority
 	* /rematch command
-	* Check to make sure the arena isnt already in use
 	* default arenas
-	* Arena spectator spawns
-	* RingOut scheduler
+	* health regen
+	* set/save health
+	* onDisable
+		* tp everyone back who has a return location
+		* give players all their inventory items back
 
 Long-term Priority
 	* Shootout mode
 	* Wager matches
 	* Statistics
-	
-Known Bugs
-	* Armors are kept after matches

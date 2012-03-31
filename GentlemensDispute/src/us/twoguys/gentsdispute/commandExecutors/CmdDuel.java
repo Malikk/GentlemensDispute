@@ -46,6 +46,7 @@ public class CmdDuel implements CommandExecutor {
 		}else if (args.length == 2){
 			String arenaArg = args[1].toString();
 			if (plugin.arenaMaster.nameIsTaken(arenaArg) == false){invalidArena((Player)sender); return false;}
+			if (plugin.match.arenaIsInUse(arenaArg)){inUse(sender, arenaArg); return true;}
 			arena = arenaArg;
 		}
 		
@@ -84,6 +85,10 @@ public class CmdDuel implements CommandExecutor {
 	
 	private void invalidArena(Player player){
 		player.sendMessage("Invalid arena name.");
+	}
+	
+	private void inUse(CommandSender sender, String arena){
+		sender.sendMessage(arena + " is already in use!");
 	}
 	
 	private void noArgs(CommandSender sender){
