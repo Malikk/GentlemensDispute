@@ -97,6 +97,7 @@ public class GentlemensDispute extends JavaPlugin{
 		CmdCreateArena createArena;
 		CmdDeleteArena deleteArena;
 		CmdListArenas listArenas;
+		CmdVisualize visualize;
 		
 		duelPlayer = new CmdDuel(this);
 		this.getCommand("duel").setExecutor(duelPlayer);
@@ -122,6 +123,8 @@ public class GentlemensDispute extends JavaPlugin{
 		listArenas = new CmdListArenas(this);
 		this.getCommand("listarenas").setExecutor(listArenas);
 		
+		visualize = new CmdVisualize(this);
+		this.getCommand("visualize").setExecutor(visualize);
 	}
 	
 }

@@ -69,22 +69,31 @@ public class Visualizer {
 		Location loc1 = arena.getCorner1();
 		Location loc2 = arena.getCorner2();
 		
-		HashSet<Location> arenaLocs= arenaLocations.get(arenaName);
-		arenaLocs.add(loc1);
+		HashSet<Location> arenaLocs;
+		
+			arenaLocs = arenaLocations.get(arenaName);
+		try{
+			arenaLocs.add(loc1);
+		}catch(Exception e){
+			arenaLocs = new HashSet<Location>();
+			arenaLocs.add(loc1);
+		}
 		arenaLocs.add(loc2);
+		
+		arenaLocations.put(arenaName, arenaLocs);
 		
 		visualizeCuboidBasic(loc1, loc2);
 	}
 	
-	public void revertArena(String arenaName){
+	/*public void revertArena(String arenaName){
 		HashSet<Location> arenaLocs = arenaLocations.get(arenaName);
 		for(Location loc : arenaLocs){
 			revertLocation(loc);
 		}
 		arenaLocations.remove(arenaName);
-		
+	
 	}
-
+	 */
 	public void revertLocation(Location loc){
 		try{
 			Material original = getStoredBlocks().get(loc);

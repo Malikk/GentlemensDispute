@@ -28,3 +28,6 @@ commands:
     listarenas:
         description: Displays a list of all arenas
         usage: /listarenas
+    visualize:
+        description: Visualizes an arena
+        usage: /visualize <arenaName>
