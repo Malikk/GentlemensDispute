@@ -1,6 +1,8 @@
 package us.twoguys.gentsdispute.arena;
 
 import java.util.HashMap;
+import java.util.HashSet;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,6 +15,7 @@ public class Visualizer {
 	GentlemensDispute plugin;
 	
 	HashMap<Location, Material> storedBlocks = new HashMap<Location, Material>();
+	HashMap<String, HashSet<Location>> arenaLocations = new HashMap<String, HashSet<Location>>();
 	
 	public Visualizer(GentlemensDispute instance){
 		plugin = instance;
@@ -66,10 +69,23 @@ public class Visualizer {
 		Location loc1 = arena.getCorner1();
 		Location loc2 = arena.getCorner2();
 		
+		HashSet<Location> arenaLocs= arenaLocations.get(arenaName);
+		arenaLocs.add(loc1);
+		arenaLocs.add(loc2);
+		
 		visualizeCuboidBasic(loc1, loc2);
 	}
+	
+	public void revertArena(String arenaName){
+		HashSet<Location> arenaLocs = arenaLocations.get(arenaName);
+		for(Location loc : arenaLocs){
+			revertLocation(loc);
+		}
+		arenaLocations.remove(arenaName);
+		
+	}
 
-	public void revertBlock(Location loc){
+	public void revertLocation(Location loc){
 		try{
 			Material original = getStoredBlocks().get(loc);
 			loc.getBlock().setType(original);
@@ -95,7 +111,7 @@ public class Visualizer {
 	
 	public void revertAll(){
 		for(Location loc : getStoredBlocks().keySet()){
-			revertBlock(loc);
+			revertLocation(loc);
 		}
 	}
 	
