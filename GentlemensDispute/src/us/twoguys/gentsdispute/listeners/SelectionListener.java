@@ -66,7 +66,7 @@ public class SelectionListener implements Listener{
 		}
 	}
 	
-	@EventHandler
+	/*@EventHandler
 	public void onBlockBreak(BlockBreakEvent event){
 		Set<Location> locations = plugin.visualizer.getStoredBlocks().keySet();
 		if(locations.isEmpty()){
@@ -78,4 +78,4 @@ public class SelectionListener implements Listener{
 			return;
 		}
 	}
-}
+*/}
