@@ -87,9 +87,10 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 						Location loc1 = arena.getCorner1();
 						Location loc2 = arena.getCorner2();
 						Location spawn = arena.getSpawnLocation();
+						Location spectatorSpawn = arena.getSpectatorSpawn();
 						String arenaName = arena.getName();
 						
-						arenaMaster.createArena(loc1, loc2, spawn, arenaName);
+						arenaMaster.createArena(loc1, loc2, spawn, spectatorSpawn, arenaName);
 						
 						plugin.log(arenaName + " loaded");
 								

@@ -17,10 +17,8 @@ public class GentlemensDispute extends JavaPlugin{
 	
 	//Logger
 	private Logger log = Logger.getLogger("Minecraft");
-	
-	//Command Executors
 
-	
+
 	//Classes
 	public GDConfig config = new GDConfig(this);
 	public GDMatch match = new GDMatch(this);
@@ -31,7 +29,6 @@ public class GentlemensDispute extends JavaPlugin{
 	public ArenaPersister arenaPersister = new ArenaPersister(this);
 	public Visualizer visualizer = new Visualizer(this);
 
-	
 	//Listeners
 	SelectionListener selectionListener = new SelectionListener(this);
 	PlayerListener playerListener = new PlayerListener(this);
@@ -53,6 +50,7 @@ public class GentlemensDispute extends JavaPlugin{
 	  
 	public void onDisable(){
 		arenaPersister.Serialize();
+		visualizer.revertAll();
 		log("Disabled");
 	}
 	

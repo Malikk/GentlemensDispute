@@ -29,11 +29,11 @@ public class CmdCreateArena implements CommandExecutor{
 		if(!(sender instanceof Player)){
 			plugin.log("You must be logged in to do that!");
 			return false;
-		}else if(selectionMaster.getSelectorInt((Player)sender)!=4){
+		}else if(!selectionMaster.getSelectorString((Player)sender).equalsIgnoreCase("complete")){
 			sender.sendMessage(ChatColor.RED + "You have not selected enough points to create an arena");
 			return false;
 		}
-		else if(selectionMaster.getSelectorInt((Player)sender)==4){
+		else if(selectionMaster.getSelectorString((Player)sender).equalsIgnoreCase("complete")){
 			
 			if(args.length==0){
 				sender.sendMessage(ChatColor.RED + "Type an arena name in next time");

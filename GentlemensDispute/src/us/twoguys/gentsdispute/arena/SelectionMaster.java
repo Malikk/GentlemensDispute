@@ -14,7 +14,7 @@ public class SelectionMaster{
 
 	GentlemensDispute plugin;
 	
-	HashMap<Player, Integer> selectors = new HashMap<Player, Integer>();
+	HashMap<Player, String> selectors = new HashMap<Player, String>();
 	HashMap<Player, Location[]> selectedLocations = new HashMap<Player, Location[]>(); //[0]=corner1 [1]=corner2 [2]=spawn
 	
 	
@@ -23,7 +23,10 @@ public class SelectionMaster{
 	}
 	
 	public void addSelector(Player player){
-		selectors.put(player, 1);
+		if(selectors.containsKey(player)){
+			plugin.visualizer.revertAll();
+		}
+		selectors.put(player, "corner1");
 		plugin.log("selector added");
 	}
 	
@@ -31,7 +34,7 @@ public class SelectionMaster{
 		selectors.remove(player);
 	}
 	
-	public HashMap<Player, Integer> getSelectors(){
+	public HashMap<Player, String> getSelectors(){
 		return selectors;
 	}
 	
@@ -43,17 +46,17 @@ public class SelectionMaster{
 		}
 	}
 	
-	public int getSelectorInt(Player player){
+	public String getSelectorString(Player player){
 		if(isSelecting(player)){
 			return selectors.get(player);
 		}else{
 			player.sendMessage(ChatColor.RED + "You must select points first.");
-			return 0;
+			return null;
 		}
 	}
 	
-	public void setSelector(Player player, int x){
-		selectors.put(player, x);
+	public void setSelector(Player player, String string){
+		selectors.put(player, string);
 	}
 	
 	public void addCorner1(Player player, Location loc){
@@ -70,13 +73,19 @@ public class SelectionMaster{
 	
 	public boolean addSpawn(Player player, Location loc){
 		Location[] locs = selectedLocations.get(player);
-		locs[2] = loc;
+		locs[2] = loc.add(0,1,0);
 		if(this.plugin.arenaMaster.cuboidContainsLocation(locs[0], locs[1], loc)){
 			selectedLocations.put(player, locs);
 			return true;
 		}else{
 			return false;
 		}
+		
+	}
+	
+	public void addSpectatorSpawn(Player player, Location loc){
+		Location[] locs = selectedLocations.get(player);
+		locs[3] = loc.add(0,1,0);
 		
 	}
 	
@@ -96,12 +105,17 @@ public class SelectionMaster{
 		return selectedLocations.get(player)[2];
 	}
 	
+	public Location getSelectedSpectatorSpawn(Player player){
+		return selectedLocations.get(player)[3];
+	}
+	
 	public void createArenaWithSelectedPoints(Player player, String arenaName){
 		Location corner1 = getSelectedCorner1(player);
 		Location corner2 = getSelectedCorner2(player);
 		Location spawn = getSelectedSpawn(player);
+		Location spectatorSpawn = getSelectedSpectatorSpawn(player);
 		
-		if(this.plugin.arenaMaster.createArena(corner1, corner2, spawn, arenaName)){
+		if(this.plugin.arenaMaster.createArena(corner1, corner2, spawn, spectatorSpawn, arenaName)){
 			player.sendMessage(ChatColor.GREEN +"Arena created successfully");
 		}else{
 			if(this.plugin.arenaMaster.collidesWithArena(corner1, corner2)){

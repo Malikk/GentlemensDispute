@@ -21,10 +21,10 @@ public class ArenaMaster {
 
 	}
 	
-	public boolean createArena(Location corner1, Location corner2, Location spawn, String arenaName){
+	public boolean createArena(Location corner1, Location corner2, Location spawn, Location spectatorSpawn, String arenaName){
 		
 		if(!nameIsTaken(arenaName) && !collidesWithArena(corner1, corner2)){
-			ArenaData arena = new ArenaData(corner1, corner2, spawn, arenaName);
+			ArenaData arena = new ArenaData(corner1, corner2, spawn, spectatorSpawn, arenaName);
 			arenaDataList.add(arena);
 			plugin.log("Created " + arenaName);
 			return true;

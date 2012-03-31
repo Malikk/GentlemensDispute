@@ -16,13 +16,14 @@ public class ArenaData implements Serializable{
 	private int x2, y2, z2;
 	
 	//spawn location
-	private int sx, sy, sz;
+	private int sx, sy, sz; //duelers
+	private int specx, specy, specz; //spectators
 	
 	private String worldName;
 	
 	private String arenaName;
 	 
-	public ArenaData(Location corner1, Location corner2, Location spawn, String arenaName){
+	public ArenaData(Location corner1, Location corner2, Location spawn, Location spectatorSpawn, String arenaName){
 		x1 = corner1.getBlockX();
 		y1 = corner1.getBlockY();
 		z1 = corner1.getBlockZ();
@@ -35,6 +36,9 @@ public class ArenaData implements Serializable{
 		sy = spawn.getBlockY();
 		sz = spawn.getBlockZ();
 		
+		specx = spectatorSpawn.getBlockX();
+		specy = spectatorSpawn.getBlockY();
+		specz = spectatorSpawn.getBlockZ();
 		
 		this.arenaName = arenaName;
 		
@@ -65,10 +69,20 @@ public class ArenaData implements Serializable{
 		return stringToLocation(worldName, sx, sy, sz);
 	}
 	
+	public Location getSpectatorSpawn(){
+		return stringToLocation(getWorldName(), specx, specy, specz);
+	}
+	
 	public void setSpawn(Location loc){
 		sx= loc.getBlockX();
 		sy= loc.getBlockY();
 		sz= loc.getBlockZ();
+	}
+	
+	public void setSpectatorSpawn(Location loc){
+		specx = loc.getBlockX();
+		specy = loc.getBlockY();
+		specz = loc.getBlockZ();
 	}
 
 	private Location stringToLocation(String worldName, int x, int y, int z){

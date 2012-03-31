@@ -30,6 +30,18 @@ public class Visualizer {
 		plugin.log("The block that was acutally saved is: " + getStoredBlocks().get(block.getLocation()).toString());
 	}
 	
+	public void visualizeSpawn(Block block){
+		saveBlock(block.getRelative(0,1,0));
+		saveBlock(block.getRelative(0,2,0));
+		
+		Block foot = block.getRelative(0,1,0);
+		Block head = block.getRelative(0,2,0);
+		
+		foot.setType(getDefaultBlockMaterial());
+		head.setType(Material.PUMPKIN);
+	}
+	
+
 	public void revertBlock(Location loc){
 		try{
 			Material original = getStoredBlocks().get(loc);
@@ -59,6 +71,7 @@ public class Visualizer {
 			revertBlock(loc);
 		}
 	}
+	
 	public void acquireVisualizerTargets(Location loc1, Location loc2){
 		
 	}
