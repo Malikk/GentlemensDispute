@@ -36,6 +36,7 @@ public class GDMatch {
 	
 	//Inventories
 	public HashMap<Player, ItemStack[]> inventoryContents = new HashMap<Player, ItemStack[]>();
+	public HashMap<Player, ItemStack[]> armorContents = new HashMap<Player, ItemStack[]>();
 	
 	public GDMatch(GentlemensDispute instance){
 		plugin = instance;
@@ -288,13 +289,16 @@ public class GDMatch {
 	//Inventories
 	public void saveInventory(Player player){
 		inventoryContents.put(player, player.getInventory().getContents());
+		armorContents.put(player, player.getInventory().getArmorContents());
 	}
 	
 	public void loadInventory(Player player){
 		player.getInventory().setContents(inventoryContents.get(player));
+		player.getInventory().setArmorContents(armorContents.get(player));
 	}
 	
 	public void removeOldInventory(Player player){
 		inventoryContents.remove(player);
+		armorContents.remove(player);
 	}
 }

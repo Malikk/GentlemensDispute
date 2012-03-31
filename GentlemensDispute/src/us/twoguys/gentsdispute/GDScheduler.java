@@ -110,6 +110,7 @@ public class GDScheduler {
 				for (Player player: players){
 					if (plugin.match.isConfined(player, arena)){
 						if (!(plugin.arenaMaster.arenaContainsLocation(player.getLocation(), arena))){
+						//if (plugin.arenaMaster.isInAnyArena(player.getLocation())){
 							if (isOutOfBounds.containsKey(player)){
 								int timeLeft = isOutOfBounds.get(player);
 								

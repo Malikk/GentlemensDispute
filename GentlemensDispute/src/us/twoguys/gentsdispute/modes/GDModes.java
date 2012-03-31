@@ -118,6 +118,7 @@ public class GDModes {
 	
 	public void restoreInventory(Player player){
 		player.getInventory().clear();
+		player.getInventory().setArmorContents(null);
 		plugin.match.loadInventory(player);
 		plugin.match.removeOldInventory(player);
 	}
