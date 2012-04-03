@@ -27,7 +27,7 @@ public class SelectionMaster{
 			plugin.visualizer.revertAll();
 		}
 		selectors.put(player, "corner1");
-		plugin.log("selector added");
+		//plugin.log("selector added");
 	}
 	
 	public void removeSelector(Player player){
