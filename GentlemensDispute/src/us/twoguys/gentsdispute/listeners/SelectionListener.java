@@ -66,16 +66,15 @@ public class SelectionListener implements Listener{
 		}
 	}
 	
-	/*@EventHandler
+	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event){
 		Set<Location> locations = plugin.visualizer.getStoredBlocks().keySet();
-		if(locations.isEmpty()){
-			return;
-		}
-		for(Location loc : locations){
-			if(event.getBlock().getLocation()==loc);
+		
+		if (event.isCancelled()){return;}
+		
+		if (locations.contains(event.getBlock().getLocation())){
 			event.setCancelled(true);
 			return;
 		}
 	}
-*/}
+}
