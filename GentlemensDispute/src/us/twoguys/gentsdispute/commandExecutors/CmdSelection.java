@@ -23,6 +23,11 @@ public class CmdSelection implements CommandExecutor{
 		if(!(sender instanceof Player)){
 			plugin.log("You must be logged in to use that command");
 			return false;
+		}else if(selectionMaster.isSelecting((Player)sender)){
+			selectionMaster.removeSelector((Player)sender);
+			sender.sendMessage("You are no longer selecting an arena");
+			plugin.visualizer.revertAll();
+			return true;
 		}else{
 			Player player = (Player)sender;
 			selectionMaster.addSelector(player);

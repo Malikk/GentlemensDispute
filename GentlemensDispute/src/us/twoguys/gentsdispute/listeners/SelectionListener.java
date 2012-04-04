@@ -33,35 +33,17 @@ public class SelectionListener implements Listener{
 		}
 		else if(selectionMaster.getSelectorString(player).equalsIgnoreCase("corner1")){
 			selectionMaster.addCorner1(player, event.getClickedBlock().getLocation());
-	        selectionMaster.setSelector(player, "corner2");
-	        plugin.visualizer.visualizeBlock(event.getClickedBlock(), plugin.visualizer.getDefaultBlockMaterial());
-	        player.sendMessage(ChatColor.GREEN + "First point selected");
 	    }
 		else if(selectionMaster.getSelectorString(player).equalsIgnoreCase("corner2")){
-		    selectionMaster.addCorner2(player, event.getClickedBlock().getLocation());
-		    selectionMaster.setSelector(player, "spawn");
-		    plugin.visualizer.visualizeBlock(event.getClickedBlock(), plugin.visualizer.getDefaultBlockMaterial());
-		    player.sendMessage(ChatColor.GREEN + "Second point selected." +ChatColor.DARK_GREEN+" Select the spawn location.");
+		    selectionMaster.addCorner2(player, event.getClickedBlock().getLocation());    
 		}
 		else if(selectionMaster.getSelectorString(player).equalsIgnoreCase("spawn")){			
-			Location spawn = event.getClickedBlock().getLocation().add(0, 1, 0);
 			
-			boolean spawnSet = selectionMaster.addSpawn(player, spawn);
-			
-			if(spawnSet==false){
-				player.sendMessage(ChatColor.RED + "The spawn location must be within the arena");
-			}else{
-				selectionMaster.setSelector(player, "spectatorSpawn");
-				player.sendMessage(ChatColor.GREEN + "The spawn location has been set");
-				plugin.visualizer.visualizeSpawn(event.getClickedBlock());
-
-			}
+			Location spawn = event.getClickedBlock().getLocation().add(0, 1, 0);		
+			selectionMaster.addSpawn(player, spawn);
 		}
 		else if(selectionMaster.getSelectorString(player).equalsIgnoreCase("spectatorSpawn")){
 			selectionMaster.addSpectatorSpawn(player, event.getClickedBlock().getLocation());
-			player.sendMessage(ChatColor.GREEN + "The spectator spawn location has been set");
-			selectionMaster.setSelector(player, "complete");
-			plugin.visualizer.visualizeSpawn(event.getClickedBlock());
 			
 		}
 	}

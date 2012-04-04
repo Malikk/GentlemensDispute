@@ -3,6 +3,7 @@ package us.twoguys.gentsdispute.arena;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -30,6 +31,10 @@ public class Visualizer {
 
 		Block newBlock = block;
 		newBlock.setType(material);
+	}
+	
+	public void visualizeLocation(Location loc, Material material){
+		visualizeBlock(Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc), material);
 	}
 	
 	public void visualizeSpawn(Block block){
