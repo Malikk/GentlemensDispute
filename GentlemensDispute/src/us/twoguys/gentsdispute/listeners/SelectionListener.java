@@ -2,7 +2,6 @@ package us.twoguys.gentsdispute.listeners;
 
 import java.util.Set;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

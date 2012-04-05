@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 
@@ -23,7 +24,9 @@ public class Visualizer {
 	}
 	
 	public void saveBlock(Block block){
-		storedBlocks.put(block.getLocation(), block.getType());
+		if(!storedBlocks.containsKey(block.getLocation())){
+			storedBlocks.put(block.getLocation(), block.getType());
+		}else{return;}
 	}
 	
 	public void visualizeBlock(Block block, Material material){
@@ -90,23 +93,15 @@ public class Visualizer {
 		visualizeCuboidBasic(loc1, loc2);
 	}
 	
-	/*public void revertArena(String arenaName){
-		HashSet<Location> arenaLocs = arenaLocations.get(arenaName);
-		for(Location loc : arenaLocs){
-			revertLocation(loc);
-		}
-		arenaLocations.remove(arenaName);
-	
-	}
-	 */
 	public void revertLocation(Location loc){
 		try{
 			Material original = getStoredBlocks().get(loc);
 			loc.getBlock().setType(original);
 			
-		}catch(Exception e){
-			plugin.logSevere("Block was not reverted");
+		}catch(NullPointerException np){
 			return;
+		}catch(Exception e){
+			plugin.logSevere("Error in reversion");
 		}
 		removeStoredItem(loc);
 		
@@ -134,6 +129,21 @@ public class Visualizer {
 		return material;
 	}
 	
+	public void revertSelectedBlocks(Player player){
+		Location[] locs = plugin.selectionMaster.getSelectedLocations(player);
+		
+		try{
+			locs[1].getBlock();
+		}catch(Exception e){
+			return;
+		}
+		
+		for(Location loc : locs){
+			revertLocation(loc);
+		}
+	}
+	
+	@SuppressWarnings("unused")
 	private int getDefaultIncrementValue(){
 		int value = 2;
 		return value;
