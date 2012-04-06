@@ -3,6 +3,7 @@ package us.twoguys.gentsdispute.wagers;
 import net.milkbowl.vault.Vault;
 import net.milkbowl.vault.economy.Economy;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
@@ -38,10 +39,20 @@ public class GDVault {
         return (economy != null);
     }
 	
-	//remove money
+	public void addMoney(Player player, Double amt){
+		economy.depositPlayer(player.getName(), amt);
+	}
 	
-	//add money
+	public void removeMoney(Player player, Double amt){
+		economy.withdrawPlayer(player.getName(), amt);
+	}
 	
-	//check for money
+	public boolean hasMoney(Player player, Double amt){
+		if (economy.has(player.getName(), amt)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }
