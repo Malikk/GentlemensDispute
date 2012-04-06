@@ -31,3 +31,4 @@ commands:
     visualize:
         description: Visualizes an arena
         usage: /visualize <arenaName>
+softdepend: [Vault]
