@@ -19,8 +19,32 @@ public class Visualizer {
 	HashMap<Location, Material> storedBlocks = new HashMap<Location, Material>();
 	HashMap<String, HashSet<Location>> arenaLocations = new HashMap<String, HashSet<Location>>();
 	
+	HashSet<Material> illegalTypes = new HashSet<Material>();
+	
+	
 	public Visualizer(GentlemensDispute instance){
 		plugin = instance;
+		illegalTypes.add(Material.BED);
+		illegalTypes.add(Material.BED_BLOCK);
+		illegalTypes.add(Material.BREWING_STAND);
+		illegalTypes.add(Material.BURNING_FURNACE);
+		illegalTypes.add(Material.CACTUS);
+        illegalTypes.add(Material.CHEST);
+		illegalTypes.add(Material.DISPENSER);
+		illegalTypes.add(Material.FURNACE);
+		illegalTypes.add(Material.IRON_DOOR_BLOCK);
+		illegalTypes.add(Material.PISTON_BASE);
+		illegalTypes.add(Material.PISTON_EXTENSION);
+		illegalTypes.add(Material.PISTON_MOVING_PIECE);
+		illegalTypes.add(Material.PISTON_STICKY_BASE);
+		illegalTypes.add(Material.PORTAL);
+		illegalTypes.add(Material.SIGN);
+		illegalTypes.add(Material.SIGN_POST);
+		illegalTypes.add(Material.TRAP_DOOR);
+		illegalTypes.add(Material.STONE_BUTTON);
+		illegalTypes.add(Material.WALL_SIGN);
+		illegalTypes.add(Material.WOOD_DOOR);
+		illegalTypes.add(Material.WOODEN_DOOR);
 	}
 	
 	public void saveBlock(Block block){
@@ -30,6 +54,10 @@ public class Visualizer {
 	}
 	
 	public void visualizeBlock(Block block, Material material){
+		if(illegalTypes.contains(block.getType())){
+			return;
+		}
+		
 		saveBlock(block);
 
 		Block newBlock = block;
@@ -41,11 +69,11 @@ public class Visualizer {
 	}
 	
 	public void visualizeSpawn(Block block){
+		saveBlock(block);
 		saveBlock(block.getRelative(0,1,0));
-		saveBlock(block.getRelative(0,2,0));
 		
-		Block foot = block.getRelative(0,1,0);
-		Block head = block.getRelative(0,2,0);
+		Block foot = block;
+		Block head = block.getRelative(0,1,0);
 		
 		foot.setType(getDefaultBlockMaterial());
 		head.setType(Material.PUMPKIN);
@@ -109,6 +137,20 @@ public class Visualizer {
 
 	}
 	
+	public void revertSelectedBlocks(Player player){
+		Location[] locs = plugin.selectionMaster.getSelectedLocations(player);
+		
+		try{
+			locs[1].getBlock();
+		}catch(Exception e){
+			return;
+		}
+		
+		for(Location loc : locs){
+			revertLocation(loc);
+		}
+	}
+
 	public void removeStoredItem(Location loc){
 		HashMap<Location, Material> tempStorage = getStoredBlocks();
 		tempStorage.remove(tempStorage.get(loc));
@@ -127,20 +169,6 @@ public class Visualizer {
 	public Material getDefaultBlockMaterial(){
 		Material material = Material.GLOWSTONE;	
 		return material;
-	}
-	
-	public void revertSelectedBlocks(Player player){
-		Location[] locs = plugin.selectionMaster.getSelectedLocations(player);
-		
-		try{
-			locs[1].getBlock();
-		}catch(Exception e){
-			return;
-		}
-		
-		for(Location loc : locs){
-			revertLocation(loc);
-		}
 	}
 	
 	@SuppressWarnings("unused")

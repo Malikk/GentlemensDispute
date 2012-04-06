@@ -75,10 +75,11 @@ public class SelectionMaster{
 			locs[0] = loc.getBlock().getLocation();
 			selectedLocations.put(player, locs);
 			setSelector(player, "corner2");
+			player.sendMessage(ChatColor.GREEN + "First point selected");
 	        player.sendMessage(ChatColor.DARK_GREEN+"select the second corner");
 			
 			plugin.visualizer.visualizeLocation(loc, plugin.visualizer.getDefaultBlockMaterial());
-	        player.sendMessage(ChatColor.GREEN + "First point selected");
+	        
 	}
 	
 	public void addCorner2(Player player, Location loc){
@@ -87,10 +88,11 @@ public class SelectionMaster{
 			locs[1] = loc.getBlock().getLocation();
 			selectedLocations.put(player, locs);
 		    setSelector(player, "spawn");
+		    player.sendMessage(ChatColor.GREEN + "Second point selected.");
 		    player.sendMessage(ChatColor.DARK_GREEN+"select the spawn");
 		    
 			plugin.visualizer.visualizeLocation(loc, plugin.visualizer.getDefaultBlockMaterial());
-		    player.sendMessage(ChatColor.GREEN + "Second point selected.");
+		   
 		}else{
 			player.sendMessage(ChatColor.RED+"You have already selected this point!");
 		}
@@ -121,12 +123,11 @@ public class SelectionMaster{
 			Location[] locs = selectedLocations.get(player);
 			locs[3] = loc.getBlock().getLocation();
 			setSelector(player, "complete");
-		
-			
+
             player.sendMessage(ChatColor.GREEN + "The spectator spawn location has been set");
         	player.sendMessage(ChatColor.GREEN + "Finished selecting arena!");
         	
-			plugin.visualizer.visualizeSpawn(Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc));
+			plugin.visualizer.visualizeSpawn(Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc).getRelative(0,1,0));
 		}else{
 			player.sendMessage(ChatColor.RED+"You have already selected this point!");
 		}
