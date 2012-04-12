@@ -30,6 +30,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public ArenaPersister arenaPersister = new ArenaPersister(this);
 	public Visualizer visualizer = new Visualizer(this);
 	public GDVault vault = new GDVault(this);
+	public WagerHandler wager = new WagerHandler(this);
 
 	//Listeners
 	SelectionListener selectionListener = new SelectionListener(this);

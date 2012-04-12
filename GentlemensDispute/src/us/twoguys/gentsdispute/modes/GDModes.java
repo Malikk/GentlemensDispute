@@ -13,7 +13,6 @@ public class GDModes {
 		plugin = instance;
 	}
 	
-	//OutComes
 	public void drawMatchType(Player[] players){
 		String mode = plugin.match.getMode(players);
 		
@@ -77,6 +76,8 @@ public class GDModes {
 	public void prepareMatchType(Player[] players){
 		String mode = plugin.match.getMode(players);
 		
+		plugin.match.openMatchForWagers(players);
+		
 		if (mode.equalsIgnoreCase("duel")){
 			plugin.duel.prepareDuel(players);
 		}else{
@@ -86,6 +87,8 @@ public class GDModes {
 	
 	public void beginMatchType(Player[] players){
 		String mode = plugin.match.getMode(players);
+		
+		plugin.match.closeMatchForWagers(players);
 		
 		if (mode.equalsIgnoreCase("duel")){
 			plugin.duel.beginDuel(players);

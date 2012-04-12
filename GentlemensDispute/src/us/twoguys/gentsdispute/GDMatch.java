@@ -21,6 +21,9 @@ public class GDMatch {
 	public HashSet<Player> waitingOnReady = new HashSet<Player>();
 	public HashSet<Player> waitingAfterMatch = new HashSet<Player>();
 	
+	//Open for wagers
+	public HashSet<List<Player>> openWager = new HashSet<List<Player>>();
+	
 	//Damage Negation Handlers
 	public HashSet<Player> damageProtection = new HashSet<Player>();
 	public HashSet<Player> onlyMatchDamage = new HashSet<Player>();
@@ -160,6 +163,23 @@ public class GDMatch {
 	
 	public void removeWaitReady(Player player){
 		waitingOnReady.remove(player);
+	}
+	
+	//Open for Wagers methods
+	public void openMatchForWagers(Player[] players){
+		openWager.add(Arrays.asList(players));
+	}
+	
+	public boolean isOpenForWagers(Player[] players){
+		if (openWager.contains(Arrays.asList(players))){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void closeMatchForWagers(Player[] players){
+		openWager.remove(Arrays.asList(players));
 	}
 	
 	//DamageProtection Methods

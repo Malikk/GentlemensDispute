@@ -1,30 +1,35 @@
 package us.twoguys.gentsdispute.wagers;
 
+import org.bukkit.entity.Player;
+
 /**
  * 
  *This data class contains two constructors. One is a set-all style of instantiation, the other only requires
  *the player name. 
  */
-public class wagerData {
+public class WagerData {
 
 	
-	String playerName, betOn, arenaName;
+	Player player, betOn;
+	String arenaName;
 	double bet;
+	boolean combatant;
 	
 	
-	public wagerData(String playerName, String betOn, String arenaName, double bet){
-		this.playerName = playerName;
+	public WagerData(Player player, Player betOn, String arenaName, double bet, boolean combatant){
+		this.player = player;
 		this.betOn = betOn;
 		this.arenaName = arenaName;
 		this.bet = bet;
+		this.combatant = combatant;
 	}
 	
-	public wagerData(String playerName){
-		this.playerName = playerName;
+	public WagerData(Player player){
+		this.player = player;
 	}
 	
-	public void setBetOn(String playerName){
-		betOn = playerName;
+	public void setBetOn(Player betOn){
+		this.betOn = betOn;
 	}
 	
 	public void setArenaName(String arenaName){
@@ -35,7 +40,7 @@ public class wagerData {
 		this.bet = bet;
 	}
 	
-	public String getBetOn(){
+	public Player getBetOn(){
 		return betOn;
 	}
 	
