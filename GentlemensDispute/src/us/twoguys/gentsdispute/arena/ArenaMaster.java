@@ -132,6 +132,7 @@ public class ArenaMaster {
 			if(arenaData.getName().equalsIgnoreCase(arenaName)){
 				deleteArena(arenaData);
 				plugin.log(arenaData.getName()+" has been deleted!");
+				return;
 			}
 		}
 	}

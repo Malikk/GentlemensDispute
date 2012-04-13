@@ -23,7 +23,6 @@ public class CmdCreateArena implements CommandExecutor{
 		plugin = instance;
 		selectionMaster = plugin.selectionMaster;
 		arenaMaster = plugin.arenaMaster;
-		visualizer = plugin.visualizer;
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -43,10 +42,8 @@ public class CmdCreateArena implements CommandExecutor{
 				if(!arenaMaster.nameIsTaken(args[0])){
 				
 				selectionMaster.createArenaWithSelectedPoints((Player)sender, args[0]);		
-				visualizer.revertAll();
+				plugin.visualizer.revertAll();
 				
-				ArenaData arena = arenaMaster.getArenaData(args[0]);
-				plugin.visualizer.visualizeCuboidBasic(arena.getCorner1(), arena.getCorner2());
 				return true;
 				}else{
 					sender.sendMessage(ChatColor.RED+"That name is already taken");

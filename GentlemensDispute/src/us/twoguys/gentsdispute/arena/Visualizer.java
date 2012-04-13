@@ -154,7 +154,9 @@ public class Visualizer {
 		HashMap<Location, Material> tempStorage = getStoredBlocks();
 		tempStorage.remove(tempStorage.get(loc));
 		storedBlocks = tempStorage;
+		plugin.log("Location removed");
 	}
+	
 	public HashMap<Location, Material> getStoredBlocks(){
 		return storedBlocks;
 	}
