@@ -236,4 +236,13 @@ public class ArenaMaster {
 		ArenaData aData = getArenaData(arena);
 		aData.setDefault(true);
 	}
+	
+	public String getDefaultArena(){
+		for(ArenaData arena : getArenaDataList()){
+			if(arena.isDefault() == true){
+				return arena.getName();
+			}
+		}
+		return null;
+	}
 }

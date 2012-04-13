@@ -91,7 +91,7 @@ public class SelectionMaster{
 		    player.sendMessage(ChatColor.GREEN + "Second point selected.");
 		    player.sendMessage(ChatColor.DARK_GREEN+"select the spawn");
 		    
-			plugin.visualizer.visualizeLocation(loc, plugin.visualizer.getDefaultBlockMaterial());
+			plugin.visualizer.visualizeCuboidBasic(loc, selectedLocations.get(player)[0]);
 		   
 		}else{
 			player.sendMessage(ChatColor.RED+"You have already selected this point!");
