@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
  *This data class contains two constructors. One is a set-all style of instantiation, the other only requires
  *the player name. 
  */
+
 public class WagerData {
 
 	

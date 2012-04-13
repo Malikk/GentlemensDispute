@@ -45,7 +45,7 @@ public class CmdDuel implements CommandExecutor {
 		
 			//No Wager or Arena specified
 			if (args.length == 1){
-				//arena = getDefaultArena
+				arena = plugin.arenaMaster.getDefaultArena();
 				
 				
 			//Wager OR Arena specified
@@ -53,7 +53,7 @@ public class CmdDuel implements CommandExecutor {
 				//Attempt to parse arg as double
 				try{
 					wager = Double.parseDouble(args[1]);
-					//arena = getDefaultArena
+					arena = plugin.arenaMaster.getDefaultArena();
 				}catch(Exception e){
 					//If arg cannot be parsed as a double, then it is the arena name
 					arena = args[1].toString();
