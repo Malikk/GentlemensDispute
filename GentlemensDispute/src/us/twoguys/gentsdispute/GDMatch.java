@@ -106,8 +106,19 @@ public class GDMatch {
 		return false;
 	}
 	
+	public Player getOtherPlayer(Player player){
+		for (List<Player> list: matchData.keySet()){
+			for (Player arrayPlayer: list){
+				if (!(arrayPlayer.equals(player))){
+					return arrayPlayer;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public void removeMatchData(Player[] players){
-		matchData.remove(players);
+		matchData.remove(Arrays.asList(players));
 	}
 	
 	//WaitingOnAccept Methods
@@ -132,13 +143,24 @@ public class GDMatch {
 	
 	public Player getChallenger(Player player){
 		for (Player playerKey: waitingOnAccept.keySet()){
-			for (Player challenged: waitingOnAccept.get(playerKey)){
-				if (player == challenged){
+			for (Player challenger: waitingOnAccept.get(playerKey)){
+				if (player == challenger){
 					return playerKey;
 				}
 			}
 		}
-		return player;
+		return null;
+	}
+	
+	public Player getChallenged(Player player){
+		for (Player playerKey: waitingOnAccept.keySet()){
+			for (Player arrayPlayer: waitingOnAccept.get(playerKey)){
+				if (arrayPlayer != getChallenger(player)){
+					return arrayPlayer;
+				}
+			}
+		}
+		return null;
 	}
 	
 	public void removeWaitAccept(Player p1){

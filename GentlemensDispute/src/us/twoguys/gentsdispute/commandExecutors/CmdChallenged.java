@@ -22,8 +22,8 @@ public class CmdChallenged implements CommandExecutor {
 		if (!(plugin.match.waitingOnAcceptContains((Player) sender))){noChallenge(sender); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
 		
-		Player p2 = (Player) sender;
-		Player p1 =  plugin.match.getChallenger(p2);
+		Player p2 = (Player)sender;
+		Player p1 =  plugin.match.getOtherPlayer(p2);
 		Player[] players = {p1, p2};
 		Player[] switchPlayers = {p2, p1};
 		String response = args[0].toString();
@@ -31,17 +31,17 @@ public class CmdChallenged implements CommandExecutor {
 		if (response.equalsIgnoreCase("accept")){
 			acceptMessages(p1, p2);
 			broadcast(players, p1, p2, response);
+			plugin.match.removeWaitAccept(p1);
+			plugin.match.removeWaitAccept(p2);
+			
 			try{
 				plugin.modes.prepareMatchType(players);
-				plugin.match.removeWaitAccept(p1);
 			}catch(Exception e){
 				plugin.modes.prepareMatchType(switchPlayers);
-				plugin.match.removeWaitAccept(p1);
 			}
 			return true;
 		}else if (response.equalsIgnoreCase("decline")){
 			plugin.match.removeWaitAccept(p1);
-			plugin.match.removeMatchData(players);
 			declineMessages(p1, p2);
 			broadcast(players, p1, p2, response);
 			return true;
@@ -51,15 +51,20 @@ public class CmdChallenged implements CommandExecutor {
 				try{
 					double raise = Double.parseDouble(args[1]);
 					
-					plugin.match.removeWaitAccept(p1);
-					raiseMessages(p1,p2, raise);
-					broadcastRaise(players, p1, p2, raise);
-					
-					GDScheduler sche = new GDScheduler(plugin);
-					sche.acceptTimer(p2, p1);
-					
-					return true;
-					
+					//If wager is higher than original wager
+					if (plugin.wager.setCombatWager(p1, raise)){
+						plugin.match.removeWaitAccept(p1);
+						raiseMessages(p1,p2, raise);
+						broadcastRaise(players, p1, p2, raise);
+						
+						GDScheduler sche = new GDScheduler(plugin);
+						sche.acceptTimer(p1, p2);
+						
+						return true;
+					}else{
+						invalidRaise(sender);
+						return true;
+					}
 				}catch(Exception e){
 					failedToParse(sender);
 					return false;
@@ -86,8 +91,8 @@ public class CmdChallenged implements CommandExecutor {
 	
 	@SuppressWarnings("static-access")
 	private void raiseMessages(Player p1, Player p2, double raise){
-		p1.sendMessage(String.format("%s has raised you %s %s!", p2.getName(), raise, plugin.vault.economy.currencyNamePlural()));
-		p2.sendMessage(String.format("You have raised %s %s %s", p1.getName(), raise, plugin.vault.economy.currencyNamePlural()));
+		p1.sendMessage(String.format("%s has raised the wager to %s %s!", p2.getName(), raise, plugin.vault.economy.currencyNamePlural()));
+		p2.sendMessage(String.format("You have raised the wager to %s %s", raise, plugin.vault.economy.currencyNamePlural()));
 	}
 	
 	private void broadcast(Player[] players, Player p1, Player p2, String response){
@@ -99,7 +104,7 @@ public class CmdChallenged implements CommandExecutor {
 	@SuppressWarnings("static-access")
 	private void broadcastRaise(Player[] players, Player p1, Player p2, double raise){
 		if (plugin.config.broadcastEnabled("Responses")){
-			plugin.broadcastExcept(players, String.format("%s has raised %s to %s %s.", p2.getName(), p1.getName(), raise, plugin.vault.economy.currencyNamePlural()));
+			plugin.broadcastExcept(players, String.format("%s has raised the wager to %s %s.", p2.getName(), p1.getName(), raise, plugin.vault.economy.currencyNamePlural()));
 		}
 	}
 	
@@ -113,6 +118,10 @@ public class CmdChallenged implements CommandExecutor {
 	
 	private void noChallenge(CommandSender sender){
 		sender.sendMessage("You have not been challenged.");
+	}
+	
+	private void invalidRaise(CommandSender sender){
+		sender.sendMessage("To raise, your wager must be higher than the previous wager");
 	}
 	
 	private void failedToParse(CommandSender sender){

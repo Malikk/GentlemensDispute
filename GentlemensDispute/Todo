@@ -1,11 +1,13 @@
+HUGE ISSUE
+    * Since i've had to change the ch command to work for either player (so either can raise), I need a way to make sure the same player cant challenge and then accept their own challenge, forcing the second player to the arena
+
+
 Immeadiate Priority
 	* /rematch command
 	* default arenas
 	* health regen
 	* set/save health
-	* onDisable
-		* tp everyone back who has a return location
-		* give players all their inventory items back
+    * add config options for starting health and hunger at the beggining of a match
 
 	
 

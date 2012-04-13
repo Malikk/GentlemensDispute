@@ -45,7 +45,8 @@ public class CmdDuel implements CommandExecutor {
 		
 			//No Wager or Arena specified
 			if (args.length == 1){
-				arena = plugin.arenaMaster.getDefaultArena();
+				//arena = plugin.arenaMaster.getDefaultArena(); 
+				arena = "LavaArena";
 				
 				
 			//Wager OR Arena specified
@@ -54,6 +55,7 @@ public class CmdDuel implements CommandExecutor {
 				try{
 					wager = Double.parseDouble(args[1]);
 					arena = plugin.arenaMaster.getDefaultArena();
+					
 				}catch(Exception e){
 					//If arg cannot be parsed as a double, then it is the arena name
 					arena = args[1].toString();
@@ -87,6 +89,8 @@ public class CmdDuel implements CommandExecutor {
 		Player[] players = {p1, p2};
 		plugin.match.addMatchData("duel", arena, players);
 		
+		plugin.wager.setCombatWager(p1, wager);
+		
 		GDScheduler sche = new GDScheduler(plugin);
 		sche.acceptTimer(p1, p2);
 		return true;
@@ -97,11 +101,11 @@ public class CmdDuel implements CommandExecutor {
 		if (wager == 0){
 			p1.sendMessage(String.format("You have challenged %s to a Friendly Duel at %s!", p2.getName(), arena));
 			p2.sendMessage(String.format("%s has challenged you to a Friendly Duel at %s!", p1.getName(), arena));
-			p2.sendMessage(String.format("You have %s seconds to /challenge <accept or decline>", plugin.config.getTimeToRespond()));
+			p2.sendMessage(String.format("You have %s seconds to /challenge <accept, decline, or raise>", plugin.config.getTimeToRespond()));
 		}else{
 			p1.sendMessage(String.format("You have challenged %s to a Duel at %s for %s %s!", p2.getName(), arena, wager, plugin.vault.economy.currencyNamePlural()));
 			p2.sendMessage(String.format("%s has challenged you to a Duel at %s for %s %s!", p1.getName(), arena, wager, plugin.vault.economy.currencyNamePlural()));
-			p2.sendMessage(String.format("You have %s seconds to /challenge <accept, decline, or raise> [amount]", plugin.config.getTimeToRespond()));
+			p2.sendMessage(String.format("You have %s seconds to /challenge <accept, decline, or raise>", plugin.config.getTimeToRespond()));
 		}
 	}
 	

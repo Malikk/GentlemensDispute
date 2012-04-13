@@ -25,20 +25,17 @@ public class GDScheduler {
 			
 			public void run(){
 				Player[] players = {p1, p2};
+				Player[] players2 = {p2, p1};
 				
 				if (firstCheck){
-					plugin.log("players now waiting");
 					plugin.match.addWaitAccept(p1, players);
 					counter = plugin.config.getTimeToRespond();
 					firstCheck = false;
 				}
 				
-				if (!(plugin.match.waitingOnAcceptContains(p1)) || !(plugin.match.waitingOnAcceptContains(p2))){
-					plugin.log("players not waiting");
+				if (!(plugin.match.waitingOnAcceptContains(p1)) && !(plugin.match.waitingOnAcceptContains(p2))){
 					plugin.getServer().getScheduler().cancelTask(taskId);
 				}
-				
-				plugin.log(counter + "");
 				
 				if (firstCheck == false){
 					if (counter > 0){
@@ -48,6 +45,7 @@ public class GDScheduler {
 						p2.sendMessage("Challenge timed out!");
 						plugin.match.removeWaitAccept(p1);
 						plugin.match.removeMatchData(players);
+						plugin.match.removeMatchData(players2);
 						plugin.getServer().getScheduler().cancelTask(taskId);
 					}
 				}
