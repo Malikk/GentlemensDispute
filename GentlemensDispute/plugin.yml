@@ -5,11 +5,11 @@ main: us.twoguys.gentsdispute.GentlemensDispute
 commands:
     duel:
         description: Challenges another player to a duel
-        usage: /duel <player> [arena]
+        usage: /duel <player> [arena] [wager amount]
     challenge:
         description: Used to accept or decline a challenge
         aliases: ch
-        usage: /challenge <accept or decline>
+        usage: /challenge <accept, decline, or raise> [raise amount]
     ready:
         description: Must be entered by all participants for a match to begin
         usage: /ready

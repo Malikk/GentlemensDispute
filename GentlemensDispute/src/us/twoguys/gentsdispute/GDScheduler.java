@@ -24,27 +24,35 @@ public class GDScheduler {
 			int counter;
 			
 			public void run(){
+				Player[] players = {p1, p2};
+				
 				if (firstCheck){
-					Player[] players = {p1, p2};
+					plugin.log("players now waiting");
 					plugin.match.addWaitAccept(p1, players);
 					counter = plugin.config.getTimeToRespond();
 					firstCheck = false;
-				}else if (firstCheck == false){
+				}
+				
+				if (!(plugin.match.waitingOnAcceptContains(p1)) || !(plugin.match.waitingOnAcceptContains(p2))){
+					plugin.log("players not waiting");
+					plugin.getServer().getScheduler().cancelTask(taskId);
+				}
+				
+				plugin.log(counter + "");
+				
+				if (firstCheck == false){
 					if (counter > 0){
 						counter--;
 					}else if (counter == 0){
 						p1.sendMessage("Challenge timed out!");
 						p2.sendMessage("Challenge timed out!");
 						plugin.match.removeWaitAccept(p1);
+						plugin.match.removeMatchData(players);
 						plugin.getServer().getScheduler().cancelTask(taskId);
 					}
 				}
-				
-				if (!(plugin.match.waitingOnAcceptContains(p1)) || !(plugin.match.waitingOnAcceptContains(p2))){
-					plugin.getServer().getScheduler().cancelTask(taskId);
-				}
 			}
-		}, 0L, 20L);
+		}, 20L, 20L);
 		
 	}
 	

@@ -22,7 +22,7 @@ public class CmdDuel implements CommandExecutor {
 		if (!(sender instanceof Player)){console(); return true;}
 		if (plugin.match.hasMatchData((Player)sender)){existingMatch(sender); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
-		if (args.length > 2){tooManyArgs(sender); return false;}
+		if (args.length > 3){tooManyArgs(sender); return false;}
 		
 		//Get Players
 		Player p1 = (Player) sender;
@@ -39,20 +39,50 @@ public class CmdDuel implements CommandExecutor {
 		if (p2 == p1){samePlayer(sender); return false;}
 		if (plugin.match.hasMatchData(p2)){otherExistingMatch(sender, p2); return true;}
 		
-		//Get Arena
+		//Get Arena and wager
 		String arena = "";
-		if (args.length == 1){
-			//arena = getDefaultArena
-		}else if (args.length == 2){
-			String arenaArg = args[1].toString();
-			if (plugin.arenaMaster.nameIsTaken(arenaArg) == false){invalidArena((Player)sender); return false;}
-			if (plugin.match.arenaIsInUse(arenaArg)){inUse(sender, arenaArg); return true;}
-			arena = arenaArg;
-		}
+		double wager = 0;
+		
+			//No Wager or Arena specified
+			if (args.length == 1){
+				//arena = getDefaultArena
+				
+				
+			//Wager OR Arena specified
+			}else if (args.length == 2){
+				//Attempt to parse arg as double
+				try{
+					wager = Double.parseDouble(args[1]);
+					//arena = getDefaultArena
+				}catch(Exception e){
+					//If arg cannot be parsed as a double, then it is the arena name
+					arena = args[1].toString();
+				}
+				
+				
+			//Wager AND Arena specified
+			}else if (args.length == 3){
+				try{
+					//Attempt to parse the args[1] to a double
+					wager = Double.parseDouble(args[1]);
+					arena = args[2].toString();
+					
+				}catch(Exception e){
+					//If args[1] cannot be parsed as a double, then switch the args checked
+					wager = Double.parseDouble(args[2]);
+					arena = args[1].toString();
+					
+				}
+			}
+			
+			//Check if Wager and Arena are valid
+			if (wager < 0){negativeWager(sender); return false;}
+			if (plugin.arenaMaster.nameIsTaken(arena) == false){invalidArena((Player)sender); return false;}
+			if (plugin.match.arenaIsInUse(arena)){inUse(sender, arena); return true;}
 		
 		//Successful Command
-		success(p1, p2, arena);
-		broadcast(p1, p2, arena);
+		success(p1, p2, arena, wager);
+		broadcast(p1, p2, arena, wager);
 		
 		Player[] players = {p1, p2};
 		plugin.match.addMatchData("duel", arena, players);
@@ -62,17 +92,30 @@ public class CmdDuel implements CommandExecutor {
 		return true;
 	}
 	
-	private void success(Player p1, Player p2, String arena){
-		p1.sendMessage(String.format("You have challenged %s to a Duel at %s!", p2.getName(), arena));
-		p2.sendMessage(String.format("%s has challenged you to a Duel at %s!", p1.getName(), arena));
-		p2.sendMessage(String.format("You have %s seconds to /challenge <accept or decline>", plugin.config.getTimeToRespond()));
+	@SuppressWarnings("static-access")
+	private void success(Player p1, Player p2, String arena, double wager){
+		if (wager == 0){
+			p1.sendMessage(String.format("You have challenged %s to a Friendly Duel at %s!", p2.getName(), arena));
+			p2.sendMessage(String.format("%s has challenged you to a Friendly Duel at %s!", p1.getName(), arena));
+			p2.sendMessage(String.format("You have %s seconds to /challenge <accept or decline>", plugin.config.getTimeToRespond()));
+		}else{
+			p1.sendMessage(String.format("You have challenged %s to a Duel at %s for %s %s!", p2.getName(), arena, wager, plugin.vault.economy.currencyNamePlural()));
+			p2.sendMessage(String.format("%s has challenged you to a Duel at %s for %s %s!", p1.getName(), arena, wager, plugin.vault.economy.currencyNamePlural()));
+			p2.sendMessage(String.format("You have %s seconds to /challenge <accept, decline, or raise> [amount]", plugin.config.getTimeToRespond()));
+		}
 	}
 	
-	private void broadcast(Player p1, Player p2, String arena){
+	@SuppressWarnings("static-access")
+	private void broadcast(Player p1, Player p2, String arena, double wager){
 		if (plugin.config.broadcastEnabled("Challenges") == false){return;}
 		
 		Player[] players = {p1, p2};
-		plugin.broadcastExcept(players, String.format("%s has challenged %s to a duel at %s!", p1.getName(), p2.getName(), arena));
+		
+		if (wager == 0){
+			plugin.broadcastExcept(players, String.format("%s has challenged %s to a Friendly duel at %s!", p1.getName(), p2.getName(), arena));
+		}else{
+			plugin.broadcastExcept(players, String.format("%s has challenged %s to a duel at %s for %s %s!", p1.getName(), p2.getName(), arena, wager, plugin.vault.economy.currencyNamePlural()));
+		}
 	}
 	
 	private void existingMatch(CommandSender sender){
@@ -81,6 +124,10 @@ public class CmdDuel implements CommandExecutor {
 	
 	private void otherExistingMatch(CommandSender sender, Player player){
 		sender.sendMessage(String.format("%s is already in a match", player.getName()));
+	}
+	
+	private void negativeWager(CommandSender sender){
+		sender.sendMessage("Wagers must be positive.");
 	}
 	
 	private void invalidArena(Player player){

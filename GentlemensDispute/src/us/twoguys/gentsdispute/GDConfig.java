@@ -37,13 +37,12 @@ public class GDConfig {
 		plugin.getConfig().addDefault("Challenges.TimeLimits.RingOutTime", 5);
 		plugin.getConfig().addDefault("Challenges.TimeLimits.TimeUntilForcedTp", 120);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.Challenges", true);
-		plugin.getConfig().addDefault("Challenges.BroadcastToServer.AcceptsAndDeclines", true);
+		plugin.getConfig().addDefault("Challenges.BroadcastToServer.Responses", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.PlayerReady", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.MatchBeginAndEnd", true);
 		plugin.getConfig().addDefault("Challenges.BroadcastToServer.MatchOutcomes", true);
 		
 		plugin.getConfig().addDefault("Arenas.General.RingOutTime", 5);
-		plugin.getConfig().addDefault("Arenas.General.PlayersWarpedBack", true);
 		
 		/*
 		for (Object arena: nicksMagicalArenaList){
