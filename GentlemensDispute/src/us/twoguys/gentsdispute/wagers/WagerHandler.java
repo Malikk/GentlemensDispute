@@ -25,6 +25,8 @@ public class WagerHandler {
 	
 	//get match and bets on each player
 	
+	//poot
+	
 	//calculate payouts
 	
 	//calculate combatant payouts
