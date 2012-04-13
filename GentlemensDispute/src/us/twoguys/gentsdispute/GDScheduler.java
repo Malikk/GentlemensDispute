@@ -228,9 +228,11 @@ public class GDScheduler {
 				}else{
 					if (counter == 45){
 						plugin.arrayMessage(players, "45 seconds remaining");
+						counter--;
 						return;
 					}else if (counter == 10){
 						plugin.arrayMessage(players, "10 seconds remaining");
+						counter--;
 						return;
 					}else if (counter > 0){
 						counter--;
