@@ -88,6 +88,7 @@ public class CmdDuel implements CommandExecutor {
 		
 		Player[] players = {p1, p2};
 		plugin.match.addMatchData("duel", arena, players);
+		plugin.match.switchTurn(p1);
 		
 		plugin.wager.setCombatWager(p1, wager);
 		

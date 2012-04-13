@@ -24,6 +24,9 @@ public class GDMatch {
 	//Open for wagers
 	public HashSet<List<Player>> openWager = new HashSet<List<Player>>();
 	
+	//Command Volley
+	public HashSet<Player> playersTurn = new HashSet<Player>();
+	
 	//Damage Negation Handlers
 	public HashSet<Player> damageProtection = new HashSet<Player>();
 	public HashSet<Player> onlyMatchDamage = new HashSet<Player>();
@@ -203,6 +206,19 @@ public class GDMatch {
 	public void closeMatchForWagers(Player[] players){
 		openWager.remove(Arrays.asList(players));
 	}
+	
+	//Command Volley
+	public void switchTurn(Player player){
+		playersTurn.add(plugin.match.getOtherPlayer(player));
+		playersTurn.remove(player);
+	}
+	
+	public boolean isInTurn(Player player){
+		if (playersTurn.contains(player)){
+			return true;
+		}else{
+			return false;}
+		}
 	
 	//DamageProtection Methods
 	public boolean hasDamageProtection(Player player){

@@ -21,6 +21,7 @@ public class CmdChallenged implements CommandExecutor {
 		if (!(sender instanceof Player)){console(); return true;}
 		if (!(plugin.match.waitingOnAcceptContains((Player) sender))){noChallenge(sender); return true;}
 		if (args.length == 0){noArgs(sender); return false;}
+		if (!(plugin.match.isInTurn((Player) sender))){ outOfTurn(sender); return true;}
 		
 		Player p2 = (Player)sender;
 		Player p1 =  plugin.match.getOtherPlayer(p2);
@@ -54,6 +55,8 @@ public class CmdChallenged implements CommandExecutor {
 					//If wager is higher than original wager
 					if (plugin.wager.setCombatWager(p1, raise)){
 						plugin.match.removeWaitAccept(p1);
+						plugin.match.removeWaitAccept(p2);
+						plugin.match.switchTurn(p2);
 						raiseMessages(p1,p2, raise);
 						broadcastRaise(players, p1, p2, raise);
 						
@@ -114,6 +117,10 @@ public class CmdChallenged implements CommandExecutor {
 	
 	private void noArgs(CommandSender sender){
 		sender.sendMessage("You must either accept or decline the challenge.");
+	}
+	
+	private void outOfTurn(CommandSender sender){
+		sender.sendMessage("It is not your turn to respond.");
 	}
 	
 	private void noChallenge(CommandSender sender){
