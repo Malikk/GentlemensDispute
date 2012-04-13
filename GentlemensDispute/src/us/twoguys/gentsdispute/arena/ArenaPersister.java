@@ -84,15 +84,18 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 					for(int i = 0; i < recordCount; i++){
 						ArenaData arena = (ArenaData)oistream.readObject();
 						
+						arenaMaster.addArenaData(arena);
+						/*
 						Location loc1 = arena.getCorner1();
 						Location loc2 = arena.getCorner2();
 						Location spawn = arena.getSpawnLocation();
 						Location spectatorSpawn = arena.getSpectatorSpawn();
 						String arenaName = arena.getName();
+						boolean isDefault = arena.isDefault();
 						
 						arenaMaster.createArena(loc1, loc2, spawn, spectatorSpawn, arenaName);
-						
-						plugin.log(arenaName + " loaded");
+						*/
+						plugin.log(arena.getName() + " loaded");
 								
 					}
 				}catch(FileNotFoundException e){

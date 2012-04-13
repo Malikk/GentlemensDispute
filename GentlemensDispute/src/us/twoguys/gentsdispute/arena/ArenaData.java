@@ -20,7 +20,7 @@ public class ArenaData implements Serializable{
 	private int specx, specy, specz; //spectators
 	
 	private String worldName;
-	
+	private boolean isDefault;
 	private String arenaName;
 	 
 	public ArenaData(Location corner1, Location corner2, Location spawn, Location spectatorSpawn, String arenaName){
@@ -73,6 +73,10 @@ public class ArenaData implements Serializable{
 		return stringToLocation(getWorldName(), specx, specy, specz);
 	}
 	
+	public boolean isDefault(){
+		return isDefault;
+	}
+	
 	public void setSpawn(Location loc){
 		sx= loc.getBlockX();
 		sy= loc.getBlockY();
@@ -83,6 +87,10 @@ public class ArenaData implements Serializable{
 		specx = loc.getBlockX();
 		specy = loc.getBlockY();
 		specz = loc.getBlockZ();
+	}
+	
+	public void setDefault(boolean bool){
+		isDefault = bool;
 	}
 
 	private Location stringToLocation(String worldName, int x, int y, int z){

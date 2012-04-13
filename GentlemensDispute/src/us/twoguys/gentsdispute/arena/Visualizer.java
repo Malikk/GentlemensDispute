@@ -45,6 +45,8 @@ public class Visualizer {
 		illegalTypes.add(Material.WALL_SIGN);
 		illegalTypes.add(Material.WOOD_DOOR);
 		illegalTypes.add(Material.WOODEN_DOOR);
+		illegalTypes.add(Material.VINE);
+		illegalTypes.add(Material.SUGAR_CANE_BLOCK);
 	}
 	
 	public void saveBlock(Block block){
@@ -84,7 +86,6 @@ public class Visualizer {
 		RegionBasic rb = new RegionBasic(loc1, loc2);
 		
 		int x = Math.abs(rb.getLargeX()-rb.getSmallX());
-		//int y = rb.getLargeY()-rb.getSmallY();
 		int z = Math.abs(rb.getLargeZ()-rb.getSmallZ());
 		
 		visualizeBlock(rb.getSmallLoc().getBlock(), getDefaultBlockMaterial());
@@ -96,8 +97,6 @@ public class Visualizer {
 		visualizeBlock(rb.getLargeLoc().add(0,0,-z).getBlock(), getDefaultBlockMaterial());
 		visualizeBlock(rb.getLargeLoc().add(-x,0,0).getBlock(), getDefaultBlockMaterial());
 		visualizeBlock(rb.getLargeLoc().add(0,0,z).getBlock(), getDefaultBlockMaterial());
-		
-		
 	}
 	
 	public void visualizeArena(String arenaName){
