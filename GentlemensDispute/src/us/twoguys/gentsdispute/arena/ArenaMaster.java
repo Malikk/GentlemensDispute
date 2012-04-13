@@ -36,6 +36,16 @@ public class ArenaMaster {
 	}
 	
 	/**
+	 * @param arenaData
+	 * Adds the arenaData to the Set of loaded arenaData
+	 */
+	public void addArenaData(ArenaData arenaData){
+			HashSet<ArenaData> tempDataList = getArenaDataList();
+			arenaDataList.add(arenaData);
+			arenaDataList = tempDataList;
+	}
+	
+	/**
 	 * 
 	 * @param corner1 - the first corner of a cuboid
 	 * @param corner2 - the second corner of a cuboid
@@ -217,5 +227,13 @@ public class ArenaMaster {
 		}
 		plugin.logSevere("getContainingArena returned null!");
 		return null;
+	}
+	
+	public void setDefaultArena(String arena){
+		for(ArenaData arenaData : getArenaDataList()){
+			arenaData.setDefault(false);
+		}
+		ArenaData aData = getArenaData(arena);
+		aData.setDefault(true);
 	}
 }
