@@ -96,6 +96,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public void loadCommandExecutors(){
 		CmdDuel duelPlayer;
 		CmdChallenged response;
+		CmdWager wager;
 		CmdReady ready;
 		CmdTeleport teleport;
 		CmdSelection select;
@@ -109,6 +110,9 @@ public class GentlemensDispute extends JavaPlugin{
 		
 		response = new CmdChallenged(this);
 		this.getCommand("challenge").setExecutor(response);
+		
+		wager = new CmdWager(this);
+		this.getCommand("wager").setExecutor(wager);
 		
 		ready = new CmdReady(this);
 		this.getCommand("ready").setExecutor(ready);

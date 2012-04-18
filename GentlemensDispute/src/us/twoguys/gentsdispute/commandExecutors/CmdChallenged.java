@@ -52,6 +52,8 @@ public class CmdChallenged implements CommandExecutor {
 				try{
 					double raise = Double.parseDouble(args[1]);
 					
+					if (plugin.vault.hasMoney((Player)sender, raise)){notEnoughMoney(sender); return true;}
+					
 					//If wager is higher than original wager
 					if (plugin.wager.setCombatWager(p1, raise)){
 						plugin.match.removeWaitAccept(p1);
@@ -113,6 +115,11 @@ public class CmdChallenged implements CommandExecutor {
 	
 	private void console(){
 		plugin.log("You must be logged in to do that.");
+	}
+	
+	@SuppressWarnings("static-access")
+	private void notEnoughMoney(CommandSender sender){
+		sender.sendMessage("You do not have enough " + plugin.vault.economy.currencyNamePlural());
 	}
 	
 	private void noArgs(CommandSender sender){

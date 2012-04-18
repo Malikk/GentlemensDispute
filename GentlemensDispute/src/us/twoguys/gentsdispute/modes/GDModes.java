@@ -77,6 +77,7 @@ public class GDModes {
 		String mode = plugin.match.getMode(players);
 		
 		plugin.match.openMatchForWagers(players);
+		finalizeCombatWagers(players);
 		
 		if (mode.equalsIgnoreCase("duel")){
 			plugin.duel.prepareDuel(players);
@@ -125,5 +126,17 @@ public class GDModes {
 		player.getInventory().setArmorContents(null);
 		plugin.match.loadInventory(player);
 		plugin.match.removeOldInventory(player);
+	}
+
+	public void finalizeCombatWagers(Player[] players){
+		for (Player keyPlayer: players){
+			if (plugin.wager.combatWager.containsKey(keyPlayer)){
+				double wager = plugin.wager.combatWager.get(keyPlayer);
+				for (Player eachPlayer: players){
+					plugin.wager.placeWager(eachPlayer, eachPlayer, wager, true);
+				}
+				break;
+			}
+		}
 	}
 }

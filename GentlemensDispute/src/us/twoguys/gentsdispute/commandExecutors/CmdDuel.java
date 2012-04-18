@@ -79,6 +79,7 @@ public class CmdDuel implements CommandExecutor {
 			
 			//Check if Wager and Arena are valid
 			if (wager < 0){negativeWager(sender); return false;}
+			if (plugin.vault.hasMoney((Player)sender, wager)){notEnoughMoney(sender); return true;}
 			if (plugin.arenaMaster.nameIsTaken(arena) == false){invalidArena((Player)sender); return false;}
 			if (plugin.match.arenaIsInUse(arena)){inUse(sender, arena); return true;}
 		
@@ -133,6 +134,11 @@ public class CmdDuel implements CommandExecutor {
 	
 	private void negativeWager(CommandSender sender){
 		sender.sendMessage("Wagers must be positive.");
+	}
+	
+	@SuppressWarnings("static-access")
+	private void notEnoughMoney(CommandSender sender){
+		sender.sendMessage("You do not have enough " + plugin.vault.economy.currencyNamePlural());
 	}
 	
 	private void invalidArena(Player player){

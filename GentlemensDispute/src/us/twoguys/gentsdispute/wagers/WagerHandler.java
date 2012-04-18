@@ -17,10 +17,20 @@ public class WagerHandler {
 		plugin = instance;
 	}
 	
-	public void placeWager(Player player, Player betOn, double bet, boolean combat){
-		String arenaName = plugin.match.getArena(plugin.match.getOtherPlayers(betOn));
-		WagerData data = new WagerData(player, betOn, arenaName, bet, combat);
-		wagerData.add(data);
+	@SuppressWarnings("static-access")
+	public void placeWager(Player player, Player betOn, double wager, boolean combat){
+		if (plugin.vault.hasMoney(player, wager)){
+			plugin.vault.removeMoney(player, wager);
+			
+			String arenaName = plugin.match.getArena(plugin.match.getOtherPlayers(betOn));
+			WagerData data = new WagerData(player, betOn, arenaName, wager, combat);
+			wagerData.add(data);
+			
+		}else{
+			player.sendMessage("You do not have enough " + plugin.vault.economy.currencyNamePlural());
+		}
+		
+		
 	}
 	
 	public boolean setCombatWager(Player player, double wager){

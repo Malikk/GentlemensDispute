@@ -1,5 +1,5 @@
 name: GentlemensDispute
-version: 0.4
+version: 0.5
 authors: [Malikk, Arzeyt]
 main: us.twoguys.gentsdispute.GentlemensDispute
 commands:
@@ -10,6 +10,9 @@ commands:
         description: Used to accept or decline a challenge
         aliases: ch
         usage: /challenge <accept, decline, or raise> [raise amount]
+    wager:
+        description: Places wager on a match
+        usage: /wager [Player] [wager amount]
     ready:
         description: Must be entered by all participants for a match to begin
         usage: /ready
