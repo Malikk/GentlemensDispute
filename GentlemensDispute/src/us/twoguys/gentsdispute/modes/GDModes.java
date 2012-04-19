@@ -129,14 +129,19 @@ public class GDModes {
 	}
 
 	public void finalizeCombatWagers(Player[] players){
+		double finalWager = 0;
 		for (Player keyPlayer: players){
 			if (plugin.wager.combatWager.containsKey(keyPlayer)){
 				double wager = plugin.wager.combatWager.get(keyPlayer);
-				for (Player eachPlayer: players){
-					plugin.wager.placeWager(eachPlayer, eachPlayer, wager, true);
+				
+				if (wager > finalWager){
+					finalWager = wager;
 				}
-				break;
 			}
+		}
+		
+		for (Player eachPlayer: players){
+			plugin.wager.placeWager(eachPlayer, eachPlayer, finalWager, true);
 		}
 	}
 }

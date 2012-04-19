@@ -30,6 +30,8 @@ public class CmdChallenged implements CommandExecutor {
 		String response = args[0].toString();
 		
 		if (response.equalsIgnoreCase("accept")){
+			if (!(plugin.vault.hasMoney((Player)sender, plugin.wager.getCombatWager(p1)))){notEnoughMoney(sender); return true;}
+			
 			acceptMessages(p1, p2);
 			broadcast(players, p1, p2, response);
 			plugin.match.removeWaitAccept(p1);
@@ -52,7 +54,7 @@ public class CmdChallenged implements CommandExecutor {
 				try{
 					double raise = Double.parseDouble(args[1]);
 					
-					if (plugin.vault.hasMoney((Player)sender, raise)){notEnoughMoney(sender); return true;}
+					if (!(plugin.vault.hasMoney((Player)sender, raise))){notEnoughMoney(sender); return true;}
 					
 					//If wager is higher than original wager
 					if (plugin.wager.setCombatWager(p1, raise)){

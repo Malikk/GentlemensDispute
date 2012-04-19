@@ -79,7 +79,7 @@ public class CmdDuel implements CommandExecutor {
 			
 			//Check if Wager and Arena are valid
 			if (wager < 0){negativeWager(sender); return false;}
-			if (plugin.vault.hasMoney((Player)sender, wager)){notEnoughMoney(sender); return true;}
+			if (!(plugin.vault.hasMoney((Player)sender, wager))){notEnoughMoney(sender); return true;}
 			if (plugin.arenaMaster.nameIsTaken(arena) == false){invalidArena((Player)sender); return false;}
 			if (plugin.match.arenaIsInUse(arena)){inUse(sender, arena); return true;}
 		

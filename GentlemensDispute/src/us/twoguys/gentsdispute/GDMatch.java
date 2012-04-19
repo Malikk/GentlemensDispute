@@ -122,6 +122,7 @@ public class GDMatch {
 	
 	public void removeMatchData(Player[] players){
 		matchData.remove(Arrays.asList(players));
+		plugin.wager.removeCombatWager(players);
 	}
 	
 	//WaitingOnAccept Methods

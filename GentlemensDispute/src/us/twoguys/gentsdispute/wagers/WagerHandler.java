@@ -38,7 +38,10 @@ public class WagerHandler {
 			combatWager.put(player, wager);
 			return true;
 		}else{
-			if (wager > combatWager.get(player)){
+			double previous = combatWager.get(player);
+			if (wager == previous){
+				return false;
+			}else if (wager > previous){
 				combatWager.remove(player);
 				combatWager.put(player, wager);
 				return true;
@@ -48,6 +51,23 @@ public class WagerHandler {
 		}
 	}
 	
+	public double getCombatWager(Player player){
+		double wager = 0;
+		Player otherPlayer = plugin.match.getOtherPlayer(player);
+		
+		if (combatWager.containsKey(player)){
+			wager = combatWager.get(player);
+		}else if (combatWager.containsKey(otherPlayer)){
+				wager = combatWager.get(otherPlayer);
+		}
+		return wager;
+	}
+	
+	public void removeCombatWager(Player[] players){
+		for (Player player: players){
+			combatWager.remove(player);
+		}
+	}	
 	//get all matches open for bettings and who is in the match
 	
 	//get match and bets on each player
