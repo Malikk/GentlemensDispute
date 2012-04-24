@@ -54,9 +54,15 @@ public class CmdWager implements CommandExecutor{
 		
 		//Successful Command
 		plugin.wager.placeWager((Player)sender, betOn, wager, false);
+		successMessage(sender, betOn, wager);
 		
 		
-		return false;
+		return true;
+	}
+	
+	@SuppressWarnings("static-access")
+	private void successMessage(CommandSender sender, Player betOn, double wager){
+		sender.sendMessage(String.format("You have wagered %s %s on %s", wager, plugin.vault.economy.currencyNamePlural(), betOn.getName()));
 	}
 	
 	private void cannotBetWhileInMatch(CommandSender sender){

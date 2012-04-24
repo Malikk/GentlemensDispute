@@ -13,16 +13,17 @@ public class WagerData {
 	
 	Player player, betOn;
 	String arenaName;
-	double bet;
-	boolean combatant;
+	double amount;
+	boolean winner, combatant;
 	
 	
-	public WagerData(Player player, Player betOn, String arenaName, double bet, boolean combatant){
+	public WagerData(Player player, Player betOn, String arenaName, double amount, boolean combatant){
 		this.player = player;
 		this.betOn = betOn;
 		this.arenaName = arenaName;
-		this.bet = bet;
+		this.amount = amount;
 		this.combatant = combatant;
+		this.winner = false;
 	}
 	
 	public WagerData(Player player){
@@ -37,20 +38,23 @@ public class WagerData {
 		this.arenaName = arenaName;
 	}
 	
-	public void setBet(double bet){
-		this.bet = bet;
+	public void setAmount(double amount){
+		this.amount = amount;
 	}
 	
 	public Player getBetOn(){
 		return betOn;
 	}
 	
-	
 	public String getArenaName(){
 		return arenaName;
 	}
 	
-	public double getBet(){
-		return bet;
+	public double getAmount(){
+		return amount;
+	}
+	
+	public void setWinningWager(){
+		this.winner = true;
 	}
 }
