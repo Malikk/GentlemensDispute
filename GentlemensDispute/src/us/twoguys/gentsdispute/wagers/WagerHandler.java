@@ -1,6 +1,7 @@
 package us.twoguys.gentsdispute.wagers;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -48,7 +49,9 @@ public class WagerHandler {
 		
 		for (WagerData wager: temp){
 			if (wager.arenaName.equalsIgnoreCase(arena)){
-				wagerData.remove(wager);
+				try{
+					wagerData.remove(wager);
+				}catch(ConcurrentModificationException e){}
 			}
 		}
 	}
@@ -116,57 +119,62 @@ public class WagerHandler {
 		Player[] losingWagers = getLosingWagers(arena);
 		
 		//Calculate Payouts for winning wagers
-		for (Player betWin: winningWagers){
-			double winnings = getWinnings(arena, betWin);
-			
-			plugin.vault.addMoney(betWin, winnings);
-			
-			betWin.sendMessage(String.format("You have won %s %s!", winnings, plugin.vault.economy.currencyNamePlural()));
+		if (winningWagers != null){
+			for (Player betWin: winningWagers){
+				double winnings = getWinnings(arena, betWin);
+				
+				plugin.vault.addMoney(betWin, winnings);
+				
+				betWin.sendMessage(String.format("You have won %s %s!", winnings, plugin.vault.economy.currencyNamePlural()));
+			}
 		}
 		
 		//Send Message to losing wagers
-		for (Player betLose: losingWagers){
-			double loses = getLoses(arena, betLose);
-			betLose.sendMessage(String.format("You have lost %s %s.", loses, plugin.vault.economy.currencyNamePlural()));
+		if (losingWagers != null){
+			for (Player betLose: losingWagers){
+				double loses = getLoses(arena, betLose);
+				betLose.sendMessage(String.format("You have lost %s %s.", loses, plugin.vault.economy.currencyNamePlural()));
+			}
 		}
-		
-		//Remove all WagerData for this match
-		removeWagerData(arena);
 	}
 	
 	//Payout get methods
+	@SuppressWarnings("null")
 	public Player[] getWinningWagers(String arena){
 		HashSet<WagerData> temp = wagerData;
-		ArrayList<Player> players = new ArrayList<Player>();
+		Player[] players = null;
+		int counter = 0;
 		
 		for (WagerData wager: temp){
 			if (wager.arenaName.equalsIgnoreCase(arena) && wager.winner == true && wager.combatant == false){
 				Player wagerer = wager.player;
 				
-				if (!(players.contains(wagerer))){
-					players.add(wagerer);
-				}
+				players[counter] = wagerer;
+				
+				counter++;
 			}
 		}
 		
-		return (Player[]) players.toArray();
+		return players;
 	}
 	
+	@SuppressWarnings("null")
 	public Player[] getLosingWagers(String arena){
 		HashSet<WagerData> temp = wagerData;
-		ArrayList<Player> players = new ArrayList<Player>();
+		Player[] players = null;
+		int counter = 0;
 		
 		for (WagerData wager: temp){
 			if (wager.arenaName.equalsIgnoreCase(arena) && wager.winner == false && wager.combatant == false){
 				Player wagerer = wager.player;
 				
-				if (!(players.contains(wagerer))){
-					players.add(wagerer);
-				}
+				players[counter] = wagerer;
+				
+				counter++;
 			}
 		}
 		
-		return (Player[]) players.toArray();
+		return players;
 	}
 	
 	public double getTotalPot(String arena){
