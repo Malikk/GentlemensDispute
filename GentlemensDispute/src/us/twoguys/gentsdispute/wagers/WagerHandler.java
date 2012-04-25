@@ -91,8 +91,17 @@ public class WagerHandler {
 	}
 	
 	//Combatant Payouts
+	@SuppressWarnings("static-access")
 	public void calculateCombatantPayouts(String arena, Player winner){
-		//do stuff
+		double winnings = getCombatantPot(arena);
+		double wager = getPlayersWagerTotal(arena, winner);
+		Player loser = plugin.match.getOtherPlayer(winner);
+		String currency = plugin.vault.economy.currencyNamePlural();
+		
+		plugin.vault.addMoney(winner, winnings);
+		
+		winner.sendMessage(String.format("You have won %s %s!", winnings, currency));
+		loser.sendMessage(String.format("You have lost %s %s.", wager, currency));
 	}
 	
 	//Payouts
@@ -184,6 +193,18 @@ public class WagerHandler {
 		return total;
 	}
 	
+	public double getPlayersWagerTotal(String arena, Player player){
+		HashSet<WagerData> temp = wagerData;
+		double total = 0;
+		
+		for (WagerData wager: temp){
+			if (wager.arenaName.equalsIgnoreCase(arena) && wager.player == player){
+				total = total + wager.amount;
+			}
+		}
+		return total;
+	}
+	
 	public double getPlayersWinningWagerTotal(String arena, Player player){
 		HashSet<WagerData> temp = wagerData;
 		double total = 0;
@@ -216,6 +237,18 @@ public class WagerHandler {
 		
 		for (WagerData wager: temp){
 			if (wager.arenaName.equalsIgnoreCase(arena) && wager.player == player && wager.winner == false && wager.combatant == false){
+				total = total + wager.amount;
+			}
+		}
+		return total;
+	}
+	
+	public double getCombatantPot(String arena){
+		HashSet<WagerData> temp = wagerData;
+		double total = 0;
+		
+		for (WagerData wager: temp){
+			if (wager.arenaName.equalsIgnoreCase(arena) && wager.combatant == true){
 				total = total + wager.amount;
 			}
 		}

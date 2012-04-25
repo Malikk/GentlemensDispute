@@ -26,9 +26,27 @@ public class PlayerListener implements Listener{
 	public void onEntityDamage(EntityDamageEvent event){
 		if (event.isCancelled()){return;}
 		if (!(event.getEntity() instanceof Player)){return;}
-		if (!(plugin.match.hasDamageProtection((Player)event.getEntity())) && !(plugin.match.hasOnlyMatchDamage((Player)event.getEntity()))){return;}
 		
 		Player damaged = (Player) event.getEntity();
+		
+		//For non-Combatants
+		if (event instanceof EntityDamageByEntityEvent){
+			Entity damager = ((EntityDamageByEntityEvent) event).getDamager();
+			
+			if (damager instanceof Player){
+				if (plugin.match.hasDamageProtection((Player) damager)){
+					event.setCancelled(true);
+					return;
+				}else if (plugin.match.hasOnlyMatchDamage((Player)damager) && !(plugin.match.hasOnlyMatchDamage(damaged))){
+					event.setCancelled(true);
+					return;
+				}
+			}
+		}
+		
+		//For Combatants
+		if (!(plugin.match.hasDamageProtection((Player)event.getEntity())) && !(plugin.match.hasOnlyMatchDamage((Player)event.getEntity()))){return;}
+		
 		Player[] players;
 		String mode;
 		

@@ -26,6 +26,10 @@ public class GDModes {
 	
 	public void winnerMatchType(Player[] players, Player winner){
 		String mode = plugin.match.getMode(players);
+		String arena = plugin.match.getArena(players);
+		
+		plugin.wager.calculatePayouts(arena, winner);
+		plugin.wager.calculateCombatantPayouts(arena, winner);
 		
 		if (mode.equalsIgnoreCase("duel")){
 			plugin.duel.endDuel(players);
