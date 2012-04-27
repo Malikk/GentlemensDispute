@@ -42,7 +42,7 @@ public class CmdCreateArena implements CommandExecutor{
 				if(!arenaMaster.nameIsTaken(args[0])){
 				
 				selectionMaster.createArenaWithSelectedPoints((Player)sender, args[0]);		
-				plugin.visualizer.revertAll();
+				plugin.visualizerPlus.revertPlayerBlocks((Player)sender);
 				
 				return true;
 				}else{

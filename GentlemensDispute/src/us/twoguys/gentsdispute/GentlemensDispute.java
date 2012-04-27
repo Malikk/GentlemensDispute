@@ -28,7 +28,7 @@ public class GentlemensDispute extends JavaPlugin{
 	public SelectionMaster selectionMaster = new SelectionMaster(this);
 	public ArenaMaster arenaMaster = new ArenaMaster(this);
 	public ArenaPersister arenaPersister = new ArenaPersister(this);
-	public Visualizer visualizer = new Visualizer(this);
+	public VisualizerPlus visualizerPlus = new VisualizerPlus(this);
 	public GDVault vault = new GDVault(this);
 	public WagerHandler wager = new WagerHandler(this);
 
@@ -55,7 +55,6 @@ public class GentlemensDispute extends JavaPlugin{
 	  
 	public void onDisable(){
 		arenaPersister.Serialize();
-		visualizer.revertAll();
 		match.revertAll();
 		log("Disabled");
 	}

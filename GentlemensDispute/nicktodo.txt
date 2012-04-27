@@ -1,0 +1,7 @@
+
+
+3) Visualization bugs
+	a) Residual block protection after visualization has stopped
+	b) Arena auto-visualizes upon arena creation (rather than upon all the points being selected)
+	c) In order to toggle off the auto-visualization in the section 3.b, you must toggle on and then off
+4) Add a check to arena creation to make sure the arena name doesn't consist entirely of numbers

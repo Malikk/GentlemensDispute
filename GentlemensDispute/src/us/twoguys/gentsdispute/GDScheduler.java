@@ -3,6 +3,8 @@ package us.twoguys.gentsdispute;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class GDScheduler {
@@ -262,6 +264,15 @@ public class GDScheduler {
 			public void run(){
 				player.teleport(plugin.match.getDiedInMatchLocation(player));
 				plugin.match.removeDiedInMatch(player);
+			}
+		}, 5L);
+	}
+	
+	public void delayedVisualize(final Player player, final Block block, final Material material){
+		taskId = plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
+			
+			public void run(){
+				plugin.visualizerPlus.visualizeBlock(player, block, material);
 			}
 		}, 5L);
 	}

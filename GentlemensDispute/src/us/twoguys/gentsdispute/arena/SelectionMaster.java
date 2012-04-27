@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import us.twoguys.gentsdispute.GDScheduler;
 import us.twoguys.gentsdispute.GentlemensDispute;
 /**
  * 
@@ -33,7 +34,7 @@ public class SelectionMaster{
 	
 	public void addSelector(Player player){
 		if(selectors.containsKey(player)){
-			plugin.visualizer.revertAll();
+			plugin.visualizerPlus.revertPlayerBlocks(player);
 		}
 		selectors.put(player, "corner1");
 		//plugin.log("selector added");
@@ -78,7 +79,8 @@ public class SelectionMaster{
 			player.sendMessage(ChatColor.GREEN + "First point selected");
 	        player.sendMessage(ChatColor.DARK_GREEN+"select the second corner");
 			
-			plugin.visualizer.visualizeLocation(loc, plugin.visualizer.getDefaultBlockMaterial());
+			GDScheduler scheduler = new GDScheduler(plugin);
+			scheduler.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
 	        
 	}
 	
@@ -91,7 +93,7 @@ public class SelectionMaster{
 		    player.sendMessage(ChatColor.GREEN + "Second point selected.");
 		    player.sendMessage(ChatColor.DARK_GREEN+"select the spawn");
 		    
-			plugin.visualizer.visualizeCuboidBasic(loc, selectedLocations.get(player)[0]);
+			plugin.visualizerPlus.visualizeCuboidBasic(player, loc, selectedLocations.get(player)[0]);
 		   
 		}else{
 			player.sendMessage(ChatColor.RED+"You have already selected this point!");
@@ -105,7 +107,7 @@ public class SelectionMaster{
 			
 			if(this.plugin.arenaMaster.cuboidContainsLocation(locs[0], locs[1], loc)){
 				selectedLocations.put(player, locs);
-				plugin.visualizer.visualizeSpawn(Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc));
+				plugin.visualizerPlus.visualizeSpawn(player, Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc));
 				player.sendMessage(ChatColor.GREEN+"The spawn was set successfully.");
 				
 				setSelector(player, "spectatorSpawn");
@@ -127,7 +129,7 @@ public class SelectionMaster{
             player.sendMessage(ChatColor.GREEN + "The spectator spawn location has been set");
         	player.sendMessage(ChatColor.GREEN + "Finished selecting arena!");
         	
-			plugin.visualizer.visualizeSpawn(Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc).getRelative(0,1,0));
+			plugin.visualizerPlus.visualizeSpawn(player, Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc).getRelative(0,1,0));
 		}else{
 			player.sendMessage(ChatColor.RED+"You have already selected this point!");
 		}

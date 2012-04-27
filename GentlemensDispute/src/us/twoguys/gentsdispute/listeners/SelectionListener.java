@@ -1,12 +1,9 @@
 package us.twoguys.gentsdispute.listeners;
 
-import java.util.Set;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
@@ -47,15 +44,4 @@ public class SelectionListener implements Listener{
 		}
 	}
 	
-	@EventHandler
-	public void onBlockBreak(BlockBreakEvent event){
-		Set<Location> locations = plugin.visualizer.getStoredBlocks().keySet();
-		
-		if (event.isCancelled()){return;}
-		
-		if (locations.contains(event.getBlock().getLocation())){
-			event.setCancelled(true);
-			return;
-		}
-	}
 }
