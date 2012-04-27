@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import us.twoguys.gentsdispute.GDScheduler;
 import us.twoguys.gentsdispute.GentlemensDispute;
 
 
@@ -45,12 +46,16 @@ public class VisualizerPlus {
 		player.sendBlockChange(block.getLocation(), material, block.getData());
 	}
 	
+	public void delayedVisualize(Player player, Block block, Material material){
+		GDScheduler scheduler = new GDScheduler(plugin);
+		scheduler.delayedVisualize(player, block, material);
+	}
 	public void visualizeLocation(Player player, Location loc, Material material){
 		visualizeBlock(player, Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc), material);
 	}
 	
 	public void visualizeSpawn(Player player, Block block){
-		visualizeBlock(player, block, Material.GLOWSTONE);
+		delayedVisualize(player, block, getDefaultBlockMaterial());
 		visualizeBlock(player, block.getRelative(0,1,0), Material.PUMPKIN);
 	}
 	

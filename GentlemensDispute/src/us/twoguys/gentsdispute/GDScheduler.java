@@ -274,6 +274,6 @@ public class GDScheduler {
 			public void run(){
 				plugin.visualizerPlus.visualizeBlock(player, block, material);
 			}
-		}, 5L);
+		}, 1L);
 	}
 }

@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import us.twoguys.gentsdispute.GDScheduler;
 import us.twoguys.gentsdispute.GentlemensDispute;
 /**
  * 
@@ -79,9 +78,7 @@ public class SelectionMaster{
 			player.sendMessage(ChatColor.GREEN + "First point selected");
 	        player.sendMessage(ChatColor.DARK_GREEN+"select the second corner");
 			
-			GDScheduler scheduler = new GDScheduler(plugin);
-			scheduler.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
-	        
+	        plugin.visualizerPlus.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
 	}
 	
 	public void addCorner2(Player player, Location loc){
@@ -93,8 +90,7 @@ public class SelectionMaster{
 		    player.sendMessage(ChatColor.GREEN + "Second point selected.");
 		    player.sendMessage(ChatColor.DARK_GREEN+"select the spawn");
 		    
-		    GDScheduler scheduler = new GDScheduler(plugin);
-			scheduler.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
+		    plugin.visualizerPlus.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
 			plugin.visualizerPlus.visualizeCuboidBasic(player, loc, selectedLocations.get(player)[0]);
 		   
 		}else{
