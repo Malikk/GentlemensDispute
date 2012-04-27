@@ -93,6 +93,8 @@ public class SelectionMaster{
 		    player.sendMessage(ChatColor.GREEN + "Second point selected.");
 		    player.sendMessage(ChatColor.DARK_GREEN+"select the spawn");
 		    
+		    GDScheduler scheduler = new GDScheduler(plugin);
+			scheduler.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
 			plugin.visualizerPlus.visualizeCuboidBasic(player, loc, selectedLocations.get(player)[0]);
 		   
 		}else{

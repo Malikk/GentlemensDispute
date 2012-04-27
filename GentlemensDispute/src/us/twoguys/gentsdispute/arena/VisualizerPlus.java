@@ -140,7 +140,6 @@ public class VisualizerPlus {
 	public void revertPlayerBlocks(Player player){
 		for(Block block:getBlocks(player)){
 			revertBlock(player, block);
-			player.sendMessage("attempting to revert block");
 		}
 	}
 
