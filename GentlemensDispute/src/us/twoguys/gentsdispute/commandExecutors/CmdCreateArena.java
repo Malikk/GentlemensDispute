@@ -10,14 +10,13 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 import us.twoguys.gentsdispute.arena.ArenaData;
 import us.twoguys.gentsdispute.arena.ArenaMaster;
 import us.twoguys.gentsdispute.arena.SelectionMaster;
-import us.twoguys.gentsdispute.arena.Visualizer;
+import us.twoguys.gentsdispute.arena.VisualizerPlus;
 
 public class CmdCreateArena implements CommandExecutor{
 
 	GentlemensDispute plugin;
 	SelectionMaster selectionMaster;
 	ArenaMaster arenaMaster;
-	Visualizer visualizer;
 	
 	public CmdCreateArena(GentlemensDispute instance){
 		plugin = instance;
