@@ -3,6 +3,7 @@ package us.twoguys.gentsdispute;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -135,4 +136,15 @@ public class GentlemensDispute extends JavaPlugin{
 		this.getCommand("visualize").setExecutor(visualize);
 	}
 	
+	public void sendMessage(Player player, String msg){
+		PluginDescriptionFile pdfile = this.getDescription();
+		String pluginInfo = ChatColor.GOLD+"[Gentlemen's Disupute: "+pdfile.getVersion()+"] ";
+		Bukkit.getServer().getPlayer(player.getName()).sendMessage(pluginInfo +ChatColor.GRAY+msg);
+	}
+	
+	public void sendWarningMessage(Player player, String msg){
+		PluginDescriptionFile pdfile = this.getDescription();
+		String pluginInfo = ChatColor.GOLD+"[Gentlemen's Disupute: "+pdfile.getVersion()+"] ";
+		Bukkit.getServer().getPlayer(player.getName()).sendMessage(pluginInfo +ChatColor.RED+msg);
+	}
 }

@@ -25,7 +25,7 @@ public class CmdSelection implements CommandExecutor{
 			return false;
 		}else if(selectionMaster.isSelecting((Player)sender)){
 			selectionMaster.removeSelector((Player)sender);
-			sender.sendMessage("You are no longer selecting an arena");
+			plugin.sendMessage((Player)sender, "You are no longer selecting an arena");
 			plugin.visualizerPlus.revertPlayerBlocks((Player)sender);
 			return true;
 		}else{

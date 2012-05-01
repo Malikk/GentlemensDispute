@@ -7,10 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
-import us.twoguys.gentsdispute.arena.ArenaData;
 import us.twoguys.gentsdispute.arena.ArenaMaster;
 import us.twoguys.gentsdispute.arena.SelectionMaster;
-import us.twoguys.gentsdispute.arena.VisualizerPlus;
 
 public class CmdCreateArena implements CommandExecutor{
 

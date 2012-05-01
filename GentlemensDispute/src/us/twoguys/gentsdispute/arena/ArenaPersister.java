@@ -8,7 +8,6 @@ package us.twoguys.gentsdispute.arena;
 	import java.io.ObjectInputStream;
 	import java.io.ObjectOutputStream;
 
-import org.bukkit.Location;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 
@@ -85,16 +84,7 @@ import us.twoguys.gentsdispute.GentlemensDispute;
 						ArenaData arena = (ArenaData)oistream.readObject();
 						
 						arenaMaster.addArenaData(arena);
-						/*
-						Location loc1 = arena.getCorner1();
-						Location loc2 = arena.getCorner2();
-						Location spawn = arena.getSpawnLocation();
-						Location spectatorSpawn = arena.getSpectatorSpawn();
-						String arenaName = arena.getName();
-						boolean isDefault = arena.isDefault();
 						
-						arenaMaster.createArena(loc1, loc2, spawn, spectatorSpawn, arenaName);
-						*/
 						plugin.log(arena.getName() + " loaded");
 								
 					}
