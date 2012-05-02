@@ -137,14 +137,12 @@ public class GentlemensDispute extends JavaPlugin{
 	}
 	
 	public void sendMessage(Player player, String msg){
-		PluginDescriptionFile pdfile = this.getDescription();
-		String pluginInfo = ChatColor.GOLD+"[Gentlemen's Disupute: "+pdfile.getVersion()+"] ";
+		String pluginInfo = ChatColor.GOLD+"[Gent's Disupute] ";
 		Bukkit.getServer().getPlayer(player.getName()).sendMessage(pluginInfo +ChatColor.GRAY+msg);
 	}
 	
 	public void sendWarningMessage(Player player, String msg){
-		PluginDescriptionFile pdfile = this.getDescription();
-		String pluginInfo = ChatColor.GOLD+"[Gentlemen's Disupute: "+pdfile.getVersion()+"] ";
+		String pluginInfo = ChatColor.GOLD+"[Gent's Disupute] ";
 		Bukkit.getServer().getPlayer(player.getName()).sendMessage(pluginInfo +ChatColor.RED+msg);
 	}
 }
