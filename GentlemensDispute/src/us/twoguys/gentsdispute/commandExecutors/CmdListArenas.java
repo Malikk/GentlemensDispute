@@ -3,6 +3,7 @@ package us.twoguys.gentsdispute.commandExecutors;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import us.twoguys.gentsdispute.GentlemensDispute;
 import us.twoguys.gentsdispute.arena.ArenaMaster;
@@ -18,7 +19,7 @@ public class CmdListArenas implements CommandExecutor{
 	}
 
 	public boolean onCommand(CommandSender sender, Command label, String arg, String[] args) {
-		sender.sendMessage(arenaMaster.getArenaNamesString());	
+		plugin.sendMessage((Player)sender, arenaMaster.getArenaNamesString());	
 		return true;
 	}
 }

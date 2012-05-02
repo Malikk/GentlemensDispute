@@ -121,35 +121,35 @@ public class CmdChallenged implements CommandExecutor {
 	
 	@SuppressWarnings("static-access")
 	private void notEnoughMoney(CommandSender sender){
-		sender.sendMessage("You do not have enough " + plugin.vault.economy.currencyNamePlural());
+		plugin.sendMessage((Player)sender, "You do not have enough " + plugin.vault.economy.currencyNamePlural());
 	}
 	
 	private void noArgs(CommandSender sender){
-		sender.sendMessage("You must either accept or decline the challenge.");
+		plugin.sendMessage((Player)sender, "You must either accept or decline the challenge.");
 	}
 	
 	private void outOfTurn(CommandSender sender){
-		sender.sendMessage("It is not your turn to respond.");
+		plugin.sendMessage((Player)sender, "It is not your turn to respond.");
 	}
 	
 	private void noChallenge(CommandSender sender){
-		sender.sendMessage("You have not been challenged.");
+		plugin.sendMessage((Player)sender, "You have not been challenged.");
 	}
 	
 	private void invalidRaise(CommandSender sender){
-		sender.sendMessage("To raise, your wager must be higher than the previous wager");
+		plugin.sendMessage((Player)sender, "To raise, your wager must be higher than the previous wager");
 	}
 	
 	private void failedToParse(CommandSender sender){
-		sender.sendMessage("Raise amount must be a number");
+		plugin.sendMessage((Player)sender, "Raise amount must be a number");
 	}
 	
 	private void noAmount(CommandSender sender){
-		sender.sendMessage("If you raise, you must specify an amount");
+		plugin.sendMessage((Player)sender, "If you raise, you must specify an amount");
 	}
 	
 	private void invalidResponse(CommandSender sender, String response){
-		sender.sendMessage(response + " is not a valid response");
+		plugin.sendMessage((Player)sender, response + " is not a valid response");
 	}
 
 }

@@ -125,20 +125,20 @@ public class CmdDuel implements CommandExecutor {
 	}
 	
 	private void existingMatch(CommandSender sender){
-		sender.sendMessage("You are already in a match.");
+		plugin.sendMessage((Player)sender, "You are already in a match.");
 	}
 	
 	private void otherExistingMatch(CommandSender sender, Player player){
-		sender.sendMessage(String.format("%s is already in a match", player.getName()));
+		plugin.sendMessage((Player)sender, String.format("%s is already in a match", player.getName()));
 	}
 	
 	private void negativeWager(CommandSender sender){
-		sender.sendMessage("Wagers must be positive.");
+		plugin.sendMessage((Player)sender, "Wagers must be positive.");
 	}
 	
 	@SuppressWarnings("static-access")
 	private void notEnoughMoney(CommandSender sender){
-		sender.sendMessage("You do not have enough " + plugin.vault.economy.currencyNamePlural());
+		plugin.sendMessage((Player)sender, "You do not have enough " + plugin.vault.economy.currencyNamePlural());
 	}
 	
 	private void invalidArena(Player player){
@@ -146,23 +146,23 @@ public class CmdDuel implements CommandExecutor {
 	}
 	
 	private void inUse(CommandSender sender, String arena){
-		sender.sendMessage(arena + " is already in use!");
+		plugin.sendMessage((Player)sender, arena + " is already in use!");
 	}
 	
 	private void noArgs(CommandSender sender){
-		sender.sendMessage("You must name a player to challenge");
+		plugin.sendMessage((Player)sender, "You must name a player to challenge");
 	}
 	
 	private void tooManyArgs(CommandSender sender){
-		sender.sendMessage("You have entered too many arguments");
+		plugin.sendMessage((Player)sender, "You have entered too many arguments");
 	}
 	
 	private void notFound(CommandSender sender){
-		sender.sendMessage("Player not found.");
+		plugin.sendMessage((Player)sender, "Player not found.");
 	}
 	
 	private void samePlayer(CommandSender sender){
-		sender.sendMessage("You cannot challenge yourself!");
+		plugin.sendMessage((Player)sender, "You cannot challenge yourself!");
 	}
 	
 	private void console(){

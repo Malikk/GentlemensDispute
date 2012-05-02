@@ -58,19 +58,19 @@ public class CmdTeleport implements CommandExecutor {
 	private void leavingArena(CommandSender sender){
 		Player[] player = {(Player)sender};
 		plugin.broadcastExcept(player, String.format("%s has left the arena", sender.getName()));
-		sender.sendMessage("You have left the Arena");
+		plugin.sendMessage((Player)sender, "You have left the Arena");
 	}
 	
 	private void notAllowed(CommandSender sender){
-		sender.sendMessage("You cannot specify a location after a match");
+		plugin.sendMessage((Player)sender, "You cannot specify a location after a match");
 	}
 	
 	private void noDestination(CommandSender sender){
-		sender.sendMessage("You must select a destination.");
+		plugin.sendMessage((Player)sender, "You must select a destination.");
 	}
 	
 	private void invalidName(CommandSender sender){
-		sender.sendMessage("Invalid arena name.");
+		plugin.sendMessage((Player)sender, "Invalid arena name.");
 	}
 	
 	private void console(){

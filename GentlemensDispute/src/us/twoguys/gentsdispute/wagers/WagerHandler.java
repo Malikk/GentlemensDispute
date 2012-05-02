@@ -1,6 +1,5 @@
 package us.twoguys.gentsdispute.wagers;
 
-import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.HashSet;

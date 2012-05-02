@@ -29,7 +29,7 @@ public class CmdReady implements CommandExecutor{
 	}
 
 	private void notWaiting(CommandSender sender){
-		sender.sendMessage("No one is waiting on you.");
+		plugin.sendMessage((Player)sender, "No one is waiting on you.");
 	}
 	
 	private void console(){

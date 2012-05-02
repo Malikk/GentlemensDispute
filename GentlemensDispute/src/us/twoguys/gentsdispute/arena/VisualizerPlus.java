@@ -156,7 +156,6 @@ public class VisualizerPlus {
 			}
 		}
 		this.blocks=tempBlocks;
-		plugin.log("Location removed");
 	}
 	
 	public void revertAll(){

@@ -26,7 +26,7 @@ public class CmdVisualize implements CommandExecutor{
 			return false;
 		}
 		else if(args.length < 1){
-			sender.sendMessage(ChatColor.RED+"Type an arena name next time");
+			plugin.sendMessage((Player)sender, ChatColor.RED+"Type an arena name next time");
 		}
 		else if(toggleVisualize.contains((Player)sender)==false){
 			plugin.visualizerPlus.visualizeArena((Player)sender, args[0]);

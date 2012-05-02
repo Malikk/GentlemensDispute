@@ -59,7 +59,7 @@ public class SelectionMaster{
 		if(isSelecting(player)){
 			return selectors.get(player);
 		}else{
-			player.sendMessage(ChatColor.RED + "You must select points first.");
+			plugin.sendWarningMessage(player, "You must select points first.");
 			return null;
 		}
 	}
@@ -75,8 +75,8 @@ public class SelectionMaster{
 			locs[0] = loc.getBlock().getLocation();
 			selectedLocations.put(player, locs);
 			setSelector(player, "corner2");
-			player.sendMessage(ChatColor.GREEN + "First point selected");
-	        player.sendMessage(ChatColor.DARK_GREEN+"select the second corner");
+			plugin.sendMessage(player, ChatColor.GREEN+"First point selected");
+	        plugin.sendMessage(player, ChatColor.DARK_GREEN+"select the second corner");
 			
 	        plugin.visualizerPlus.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
 	}
@@ -87,14 +87,14 @@ public class SelectionMaster{
 			locs[1] = loc.getBlock().getLocation();
 			selectedLocations.put(player, locs);
 		    setSelector(player, "spawn");
-		    player.sendMessage(ChatColor.GREEN + "Second point selected.");
-		    player.sendMessage(ChatColor.DARK_GREEN+"select the spawn");
+		    plugin.sendMessage(player, ChatColor.GREEN+"Second point selected.");
+		    plugin.sendMessage(player, ChatColor.DARK_GREEN+"select the spawn");
 		    
 		    plugin.visualizerPlus.delayedVisualize(player, loc.getBlock(), plugin.visualizerPlus.getDefaultBlockMaterial());
 			plugin.visualizerPlus.visualizeCuboidBasic(player, loc, selectedLocations.get(player)[0]);
 		   
 		}else{
-			player.sendMessage(ChatColor.RED+"You have already selected this point!");
+			plugin.sendWarningMessage(player, "You have already selected this point!");
 		}
 	}
 	
@@ -106,15 +106,15 @@ public class SelectionMaster{
 			if(this.plugin.arenaMaster.cuboidContainsLocation(locs[0], locs[1], loc)){
 				selectedLocations.put(player, locs);
 				plugin.visualizerPlus.visualizeSpawn(player, Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc));
-				player.sendMessage(ChatColor.GREEN+"The spawn was set successfully.");
+				plugin.sendMessage(player, ChatColor.GREEN+"The spawn was set successfully.");
 				
 				setSelector(player, "spectatorSpawn");
-				player.sendMessage(ChatColor.DARK_GREEN+"select the spectator spawn");
+				plugin.sendMessage(player, ChatColor.DARK_GREEN+"select the spectator spawn");
 			}else{
-				player.sendMessage(ChatColor.RED+"The spawn point must be inside the arena");
+				plugin.sendWarningMessage(player, "The spawn point must be inside the arena");
 			}
 		}else{
-			player.sendMessage(ChatColor.RED+"You have already selected this point!");
+			plugin.sendWarningMessage(player, "You have already selected this point!");
 		}
 	}
 	
@@ -124,12 +124,12 @@ public class SelectionMaster{
 			locs[3] = loc.getBlock().getLocation();
 			setSelector(player, "complete");
 
-            player.sendMessage(ChatColor.GREEN + "The spectator spawn location has been set");
-        	player.sendMessage(ChatColor.GREEN + "Finished selecting arena!");
+            plugin.sendMessage(player, ChatColor.GREEN + "The spectator spawn location has been set");
+        	plugin.sendMessage(player, ChatColor.GREEN + "Finished selecting arena!");
         	
 			plugin.visualizerPlus.visualizeSpawn(player, Bukkit.getWorld(loc.getWorld().getName()).getBlockAt(loc).getRelative(0,1,0));
 		}else{
-			player.sendMessage(ChatColor.RED+"You have already selected this point!");
+			plugin.sendWarningMessage(player, "You have already selected this point!");
 		}
 	}
 	
@@ -161,12 +161,12 @@ public class SelectionMaster{
 		Location spectatorSpawn = getSelectedSpectatorSpawn(player);
 		
 		if(this.plugin.arenaMaster.createArena(corner1, corner2, spawn, spectatorSpawn, arenaName)){
-			player.sendMessage(ChatColor.GREEN +"Arena created successfully");
+			plugin.sendMessage(player, ChatColor.GREEN +"Arena created successfully");
 		}else{
 			if(this.plugin.arenaMaster.collidesWithArena(corner1, corner2)){
-				player.sendMessage(ChatColor.RED+"Arena collides with another arena.");
+				plugin.sendWarningMessage(player, "Arena collides with another arena.");
 			}else if(this.plugin.arenaMaster.nameIsTaken(arenaName)){
-				player.sendMessage(ChatColor.RED+"This arena name is already taken");
+				plugin.sendWarningMessage(player, "This arena name is already taken");
 			}
 		}
 	}

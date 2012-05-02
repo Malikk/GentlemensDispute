@@ -27,13 +27,13 @@ public class CmdCreateArena implements CommandExecutor{
 			plugin.log("You must be logged in to do that!");
 			return false;
 		}else if(!selectionMaster.getSelectorString((Player)sender).equalsIgnoreCase("complete")){
-			sender.sendMessage(ChatColor.RED + "You have not selected enough points to create an arena");
+			plugin.sendMessage((Player)sender, ChatColor.RED + "You have not selected enough points to create an arena");
 			return false;
 		}
 		else if(selectionMaster.getSelectorString((Player)sender).equalsIgnoreCase("complete")){
 			
 			if(args.length==0){
-				sender.sendMessage(ChatColor.RED + "Type an arena name in next time");
+				plugin.sendMessage((Player)sender, ChatColor.RED + "Type an arena name in next time");
 				return false;
 			}else if(args.length==1){
 				if(!arenaMaster.nameIsTaken(args[0])){
@@ -43,11 +43,11 @@ public class CmdCreateArena implements CommandExecutor{
 				
 				return true;
 				}else{
-					sender.sendMessage(ChatColor.RED+"That name is already taken");
+					plugin.sendMessage((Player)sender, ChatColor.RED+"That name is already taken");
 				}
 			}
 		}
-		sender.sendMessage(ChatColor.RED+"Something went terribly wrong...");
+		plugin.sendMessage((Player)sender, ChatColor.RED+"Something went terribly wrong...");
 		return false;
 		
 	}

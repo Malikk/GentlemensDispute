@@ -29,7 +29,7 @@ public class CmdDeleteArena implements CommandExecutor{
 			return false;
 		}else{
 			arenaMaster.deleteArena(args[0]);
-			sender.sendMessage(ChatColor.GREEN+ args[0] +" was deleted.");
+			plugin.sendMessage((Player)sender, ChatColor.GREEN+ args[0] +" was deleted.");
 			return true;
 		}
 		

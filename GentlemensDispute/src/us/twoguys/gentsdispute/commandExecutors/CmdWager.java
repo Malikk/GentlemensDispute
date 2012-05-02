@@ -62,40 +62,40 @@ public class CmdWager implements CommandExecutor{
 	
 	@SuppressWarnings("static-access")
 	private void successMessage(CommandSender sender, Player betOn, double wager){
-		sender.sendMessage(String.format("You have wagered %s %s on %s", wager, plugin.vault.economy.currencyNamePlural(), betOn.getName()));
+		plugin.sendMessage((Player)sender, String.format("You have wagered %s %s on %s", wager, plugin.vault.economy.currencyNamePlural(), betOn.getName()));
 	}
 	
 	private void cannotBetWhileInMatch(CommandSender sender){
-		sender.sendMessage("You cannot make wagers while you are in a match");
+		plugin.sendMessage((Player)sender, "You cannot make wagers while you are in a match");
 	}
 	
 	private void betOnNotInMatch(CommandSender sender, Player player){
-		sender.sendMessage(player.getName() + " is not in a match");
+		plugin.sendMessage((Player)sender, player.getName() + " is not in a match");
 	}
 	
 	private void matchNotOpen(CommandSender sender){
-		sender.sendMessage("That match is not open for wagers");
+		plugin.sendMessage((Player)sender, "That match is not open for wagers");
 	}
 	
 	private void invalidWagerArg(CommandSender sender){
-		sender.sendMessage("Wager amount must be a number");
+		plugin.sendMessage((Player)sender, "Wager amount must be a number");
 	}
 	
 	private void negativeWager(CommandSender sender){
-		sender.sendMessage("Wagers must be positive.");
+		plugin.sendMessage((Player)sender, "Wagers must be positive.");
 	}
 	
 	@SuppressWarnings("static-access")
 	private void notEnoughMoney(CommandSender sender){
-		sender.sendMessage("You do not have enough " + plugin.vault.economy.currencyNamePlural());
+		plugin.sendMessage((Player)sender, "You do not have enough " + plugin.vault.economy.currencyNamePlural());
 	}
 	
 	private void incorrectArgs(CommandSender sender){
-		sender.sendMessage("Invalid number of arguments");
+		plugin.sendMessage((Player)sender, "Invalid number of arguments");
 	}
 	
 	private void notFound(CommandSender sender){
-		sender.sendMessage("Player not found.");
+		plugin.sendMessage((Player)sender, "Player not found.");
 	}
 	
 	private void console(){
