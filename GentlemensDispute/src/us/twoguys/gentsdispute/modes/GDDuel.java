@@ -24,6 +24,7 @@ public class GDDuel extends GDModes{
 	//Primary Methods
 	
 	public void prepareDuel(Player[] players){
+		setGamemodes(players);
 		tpToArena(players, plugin.match.getArena(players));
 		preparePlayers(players);
 		waitForPlayerReady(players);

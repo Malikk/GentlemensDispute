@@ -1,14 +1,19 @@
 package us.twoguys.gentsdispute.listeners;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import us.twoguys.gentsdispute.GDScheduler;
@@ -62,6 +67,29 @@ public class PlayerListener implements Listener{
 			playerDamagedByEntity(damaged, mode, (EntityDamageByEntityEvent) event);
 		}else{
 			playerDamaged(damaged, mode, event);
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
+		Player player = event.getPlayer();
+		String cmd = event.getMessage();
+		
+		if (!(cmd.equalsIgnoreCase("ready")) && !(cmd.equalsIgnoreCase("gdtp"))){
+			
+			if (plugin.match.hasDamageProtection(player) || plugin.match.hasOnlyMatchDamage(player)){
+				plugin.sendWarningMessage(player, "You cannot use that command now.");
+				event.setCancelled(true);
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event){
+		Player player = event.getPlayer();
+		
+		if (plugin.match.hasDamageProtection(player) || plugin.match.hasOnlyMatchDamage(player)){
+			event.setCancelled(true);
 		}
 	}
 	

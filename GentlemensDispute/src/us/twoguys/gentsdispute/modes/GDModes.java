@@ -1,5 +1,6 @@
 package us.twoguys.gentsdispute.modes;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -38,6 +39,12 @@ public class GDModes {
 		plugin.wager.calculatePayouts(arena, winner);
 		plugin.wager.calculateCombatantPayouts(arena, winner);
 		plugin.wager.removeWagerData(arena);
+	}
+	
+	public void setGamemodes(Player[] players){
+		for (Player player: players){
+			player.setGameMode(GameMode.SURVIVAL);
+		}
 	}
 	
 	public void tpToArena(Player[] players, String arena){
