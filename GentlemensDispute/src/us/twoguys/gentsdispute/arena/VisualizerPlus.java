@@ -25,15 +25,7 @@ public class VisualizerPlus {
 	public VisualizerPlus(GentlemensDispute instance){
 		plugin = instance;
 	}
-	
-	/*public void saveBlock(Block block){
-		if(!storedBlocks.containsKey(block.getLocation())){
-			storedBlocks.put(block.getLocation(), block.getType());
-		}else{
-			return;
-		}
-	}*/
-	
+		
 	public void saveBlock(Player player, Block block){
 		BlockData block1 = new BlockData(player, block);
 		blocks.add(block1);
